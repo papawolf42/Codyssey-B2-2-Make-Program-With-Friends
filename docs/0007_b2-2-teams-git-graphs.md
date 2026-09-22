@@ -868,3 +868,130 @@ gitGraph
 3. **충돌 1 (자명)**: 공통 데이터 파일(JSON)이나 목차 표(README)에 동시에 새 항목을 추가하여 `keep both` 해결 (13팀, 21팀 방식)
 4. **충돌 2 (비자명)**: 한 팀원이 파일 리팩토링(`git mv src/util.py src/module.py`)을 진행하고 다른 팀원이 함수 내용을 수정하여 `Rename vs Modify` 해결 (18팀, 21팀 방식)
 5. **해결 절차**: GitHub 웹이 아닌 **반드시 로컬 터미널에서 `git fetch origin` ➔ `git merge origin/main` 후 수동 충돌 해결 및 테스트 통과 확인 후 푸시**
+
+---
+
+## 5. 🌟 우리 팀 실전 토폴로지: `nick19850906-debug/mission_02_02`
+
+> **"순수 마크다운 기반 Git 협업 학습정리노트 (Option C) + 1:1 완벽 대칭 12 PR & 실전 충돌 2회"**
+> - **팀원 (4명)**: 조은익(저장소 호스트), 김상교(팀장), 장양환, 김건우
+> - **저장소**: [`https://github.com/nick19850906-debug/mission_02_02`](https://github.com/nick19850906-debug/mission_02_02)
+> - **채택 패턴**:
+>   - **패턴 A (Feature 사전 동기화 병합형 - Feature-Sync Merge)**: 충돌 1 해결 흐름
+>   - **패턴 B (Rename vs Modify 구조적 충돌형 - Refactoring Conflict)**: 충돌 2 해결 흐름
+>   - **GitHub Flow 표준**: `main` 보호 및 단기 `feature/*` 작업 브랜치
+
+### 5-1. 현재 실시간 진행 상태 (6개 PR 머지 완료 시점)
+- 초반 기본 가이드 및 4대 학습노트 작성 완료 (PR #2, #4, #6, #8, #10)
+- 충돌 1 선행 브랜치인 장양환 님의 `feature/yanghwan-test-rule` (PR #13)까지 `main`에 성공적으로 머지 완료
+
+```mermaid
+gitGraph
+    commit id: "init-repo"
+    branch feat-contributing
+    checkout feat-contributing
+    commit id: "docs-contributing"
+    checkout main
+    merge feat-contributing id: "pr02-merge"
+    branch feat-githubflow
+    checkout feat-githubflow
+    commit id: "notes-02-flow"
+    checkout main
+    merge feat-githubflow id: "pr04-merge"
+    branch feat-conflict-guide
+    checkout feat-conflict-guide
+    commit id: "notes-03-conflict"
+    checkout main
+    merge feat-conflict-guide id: "pr06-merge"
+    branch feat-opensource
+    checkout feat-opensource
+    commit id: "notes-04-opensource"
+    checkout main
+    merge feat-opensource id: "pr08-merge"
+    branch feat-git-basics
+    checkout feat-git-basics
+    commit id: "notes-01-basics"
+    checkout main
+    merge feat-git-basics id: "pr10-merge"
+    branch feat-test-rule
+    checkout feat-test-rule
+    commit id: "docs-test-rule"
+    checkout main
+    merge feat-test-rule id: "pr13-merge"
+```
+
+### 5-2. 전체 1000스텝 완결 마스터 Git Graph (12개 PR + 2대 충돌 + 트러블슈팅 완결형)
+- **충돌 1 (자명한 Hunk 충돌)**: 조은익 님의 `feature/eunik-style-rule`이 `main` 병합 충돌 직면 ➔ 로컬에서 `git merge origin/main`으로 `test`와 `style` 커밋 규칙을 모두 보존(Keep Both) 후 머지
+- **리뷰 피드백 반영 루프**: 김건우 님의 `feature/gunwoo-template`에 김상교 님이 Request Changes ➔ 체크리스트 보강 추가 커밋 후 Re-approve 및 머지
+- **충돌 2 (비자명 Rename vs Modify 충돌)**: 조은익 님의 `feature/eunik-reorganize` (`git mv notes/03... notes/advanced/...`) 머지 ➔ 김건우 님의 `feature/gunwoo-conflict-patch` (구 경로 수정) 충돌 직면 ➔ 3-Way Merge 원리로 로컬에서 통합 해결 후 머지
+- **트러블슈팅 & 최종 제출**: 4인 트러블슈팅 종합(`docs/troubleshooting-log.md`) 및 `SUBMISSION.md`, `docs/git-history.txt` 최종 머지
+
+```mermaid
+gitGraph
+    commit id: "init-repo"
+    branch feat-contributing
+    checkout feat-contributing
+    commit id: "docs-contributing"
+    checkout main
+    merge feat-contributing id: "pr02-merge"
+    branch feat-githubflow
+    checkout feat-githubflow
+    commit id: "notes-02-flow"
+    checkout main
+    merge feat-githubflow id: "pr04-merge"
+    branch feat-conflict-guide
+    checkout feat-conflict-guide
+    commit id: "notes-03-conflict"
+    checkout main
+    merge feat-conflict-guide id: "pr06-merge"
+    branch feat-opensource
+    checkout feat-opensource
+    commit id: "notes-04-opensource"
+    checkout main
+    merge feat-opensource id: "pr08-merge"
+    branch feat-git-basics
+    checkout feat-git-basics
+    commit id: "notes-01-basics"
+    checkout main
+    merge feat-git-basics id: "pr10-merge"
+    branch feat-test-rule
+    checkout feat-test-rule
+    commit id: "docs-test-rule"
+    branch feat-style-rule
+    checkout feat-style-rule
+    commit id: "docs-style-rule"
+    checkout main
+    merge feat-test-rule id: "pr13-merge"
+    checkout feat-style-rule
+    merge main id: "resolve-conflict1"
+    checkout main
+    merge feat-style-rule id: "pr15-merge"
+    branch feat-template
+    checkout feat-template
+    commit id: "feat-template-v1"
+    commit id: "feedback-checklist"
+    checkout main
+    merge feat-template id: "pr17-merge"
+    branch feat-reorganize
+    checkout feat-reorganize
+    commit id: "git-mv-notes03"
+    branch feat-3way-patch
+    checkout feat-3way-patch
+    commit id: "edit-old-notes03"
+    checkout main
+    merge feat-reorganize id: "pr19-merge"
+    checkout feat-3way-patch
+    merge main id: "resolve-conflict2"
+    checkout main
+    merge feat-3way-patch id: "pr21-merge"
+    branch feat-troubleshoot
+    checkout feat-troubleshoot
+    commit id: "docs-troubleshoot-log"
+    checkout main
+    merge feat-troubleshoot id: "pr23-merge"
+    branch feat-final-docs
+    checkout feat-final-docs
+    commit id: "docs-submission-readme"
+    checkout main
+    merge feat-final-docs id: "pr25-merge"
+```
