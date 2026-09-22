@@ -1,9 +1,10 @@
-# B2-2 학습정리노트 1000스텝 마스터 협업 시나리오 (조은익 님 개인 저장소 버전)
+# B2-2 학습정리노트 1000스텝 마스터 협업 시나리오 (mission_02_02 실전 버전)
 
 > **팀원 (4명)**: **조은익(저장소 호스트), 김상교(팀장), 장양환, 김건우**  
+> **저장소 URL**: **[`https://github.com/nick19850906-debug/mission_02_02`](https://github.com/nick19850906-debug/mission_02_02)**  
 > **저장소 형태**: **조은익 님의 개인 Public GitHub Repository + 팀원 3명 Collaborator 초대 방식**  
 > **프로젝트 주제**: **Git & GitHub 개발 협업 학습정리노트 (Markdown 기반)**  
-> **핵심 장점**: Organization 생성 절차 없이 조은익 님의 개인 계정에서 3분 만에 시작 가능하며, 프로그래밍 문법 에러 없이 마크다운 문서 작성만으로 과제 평가 기준(브랜치 보호, Issue-PR 연동, 1인당 PR 2개 이상, 1인당 리뷰 2개 이상, Request Changes 피드백 반영, 자명/비자명 충돌 2회, 4대 트러블슈팅)을 100% 만족합니다.
+> **브랜치 명명 규칙**: 과제 명세서(`instruction.md`)의 `- feature/*: 작업 단위 브랜치` 규격을 100% 준수하여 모든 작업 브랜치를 `feature/` 접두사로 통일.
 
 ---
 
@@ -11,16 +12,16 @@
 
 | 팀원 이름 | 배역/역할 | 주 담당 업무 | 목표 PR |
 |:---:|:---:|:---|:---:|
-| **조은익** | **저장소 호스트 / 트러블슈팅** | 개인 Repo 생성, Collaborator 초대, 충돌노트(`03-conflict-guide.md`), [충돌 1] 라인 충돌 해결, [충돌 2] 폴더 이동(`git mv`), `revert` 실습 | **PR #3, PR #7, PR #9** |
+| **조은익** | **저장소 호스트 / 트러블슈팅** | 개인 Repo 관리, Collaborator 초대, 충돌노트(`03-conflict-guide.md`), [충돌 1] 라인 충돌 해결, [충돌 2] 폴더 이동(`git mv`), `revert` 실습 | **PR #3, PR #7, PR #9** |
 | **김상교** | **팀장 / 가이드 & 인프라** | `CONTRIBUTING.md`, 기초노트(`01-git-basics.md`), `amend` 실습, 최종 `SUBMISSION.md` 작성 | **PR #1, PR #5, PR #12** |
-| **장양환** | **코어 / 협업노트** | 브랜치노트(`02-github-flow.md`), [충돌 1] 라인 충돌 유발자, `reset --soft` 실습, `troubleshooting-log.md` 작성 | **PR #2, PR #6, PR #11** |
-| **김건우** | **심화노트 / 리뷰피드백** | 협업노트(`04-open-source.md`), 리뷰 피드백 수정 반영(Request Changes), [충돌 2] 비자명 충돌 해결자, `stash` 실습 | **PR #4, PR #8, PR #10** |
+| **장양환** | **코어 / 협업노트** | 브랜치노트(`02-github-flow.md`), [충돌 1] 라인 충돌 유발, `reset --soft` 실습, `troubleshooting-log.md` 작성 | **PR #2, PR #6, PR #11** |
+| **김건우** | **심화노트 / 리뷰피드백** | 협업노트(`04-open-source.md`), 리뷰 피드백 수정 반영(Request Changes), [충돌 2] 비자명 충돌 해결, `stash` 실습 | **PR #4, PR #8, PR #10** |
 
 ---
 
 ## 📂 최종 완성될 프로젝트 디렉터리 구조
 ```
-git-study-notes/
+mission_02_02/
 ├── README.md                      # 프로젝트 소개 메인 문서
 ├── SUBMISSION.md                  # 최종 평가 제출 인덱스 표
 ├── docs/
@@ -38,78 +39,73 @@ git-study-notes/
 
 ---
 
-# [제1부] 사전 준비 & 조은익 님 개인 저장소 세팅 (Step 1 ~ 80)
+# [제1부] 사전 준비 & mission_02_02 저장소 세팅 (Step 1 ~ 80)
 
-### 1-1. 조은익: 개인 저장소 생성 및 Collaborator 초대
-- **Step 1**: 조은익 님이 웹 브라우저를 열고 [GitHub](https://github.com)에 로그인합니다.
-- **Step 2**: 우측 상단 `+` 버튼 클릭 ➔ **`New repository`** 선택.
-- **Step 3**: Repository name 입력창에 `git-study-notes` 입력.
-- **Step 4**: 공개 범위를 반드시 **`Public`**으로 선택. (GitHub Free 계정에서 Branch Protection 기능을 사용하기 위해 Public 필수)
-- **Step 5**: `Add a README file` 체크박스는 **반드시 체크 해제** (완전 빈 저장소로 시작).
-- **Step 6**: 녹색 버튼 **`Create repository`** 클릭.
-- **Step 7**: 생성된 저장소 페이지의 상단 메뉴 중 **`Settings`** 탭 클릭.
-- **Step 8**: 좌측 사이드바에서 **`Collaborators`** 클릭. (비밀번호 또는 2FA 확인창이 뜨면 인증)
-- **Step 9**: 녹색 버튼 **`Add people`** 클릭.
-- **Step 10**: 검색창에 **김상교, 장양환, 김건우** 님의 GitHub ID(또는 이메일)를 한 명씩 입력하고 **`Add <ID> to this repository`** 클릭.
-- **Step 11**: 3명 모두에게 `Pending Invite` 상태가 표시되는 것을 확인.
+### 1-1. 조은익: Collaborator 초대 및 기본 브랜치(main) 정립
+- **Step 1**: 조은익 님이 웹 브라우저에서 저장소 [`https://github.com/nick19850906-debug/mission_02_02`](https://github.com/nick19850906-debug/mission_02_02)로 이동합니다.
+- **Step 2**: 상단 메뉴 중 **`Settings`** 탭 클릭.
+- **Step 3**: 좌측 메뉴 **`Collaborators`** 클릭 ➔ 비밀번호/2FA 인증 후 녹색 버튼 **`Add people`** 클릭.
+- **Step 4**: 검색창에 **김상교, 장양환, 김건우** 님의 GitHub ID(또는 이메일)를 입력하고 **`Add to this repository`** 클릭하여 초대 전송.
+- **Step 5**: **[중요] 기본 브랜치를 `main`으로 만들기**:
+  - 만약 저장소에 이미 `docs/contributing-guide` 같은 브랜치가 올라가 있어 기본 브랜치로 잡혀 있다면:
+  - 조은익 님 로컬 터미널에서 `main` 브랜치를 생성하여 원격에 푸시합니다:
+    ```bash
+    mkdir mission_02_02
+    cd mission_02_02
+    git init
+    echo "# Git & GitHub 개발 협업 학습정리노트" > README.md
+    git add README.md
+    git commit -m "init: Initial commit with basic README"
+    git branch -M main
+    git remote add origin https://github.com/nick19850906-debug/mission_02_02.git
+    git push -u origin main
+    ```
+  - GitHub 저장소 웹 페이지 `Settings` ➔ 좌측 `General` (또는 `Branches`)로 이동.
+  - **Default branch** 항목에서 기본 브랜치를 **`main`**으로 변경하고 `Update` 클릭.
+  - 이제 불필요해진 이전 브랜치는 GitHub 웹의 `Branches` 탭에서 휴지통 아이콘을 누르거나, 터미널에서 삭제합니다:
+    ```bash
+    git push origin --delete docs/contributing-guide
+    ```
 
 ### 1-2. 김상교, 장양환, 김건우: Collaborator 초대 수락
-- **Step 12**: 김상교, 장양환, 김건우 님은 본인 이메일함 또는 GitHub 알림창(`https://github.com/<조은익_GitHub_ID>/git-study-notes/invitations`)으로 이동.
-- **Step 13**: 초록색 버튼 **`Accept invitation`**을 클릭하여 저장소 공동 작업자로 합류 완료.
+- **Step 6**: 김상교, 장양환, 김건우 님은 이메일 또는 알림창(`https://github.com/nick19850906-debug/mission_02_02/invitations`)으로 이동.
+- **Step 7**: 초록색 버튼 **`Accept invitation`**을 클릭하여 정식 협업자로 합류 완료.
 
-### 1-3. 조은익: 첫 커밋 푸시 및 Branch Protection 설정
-- **Step 14**: 조은익 님 로컬 터미널(VS Code 또는 Git Bash)을 열고 작업 디렉터리로 이동:
-  ```bash
-  mkdir git-study-notes
-  cd git-study-notes
-  git init
-  ```
-- **Step 15**: 루트 `README.md` 파일을 생성하고 첫 커밋 작성:
-  ```bash
-  echo "# Git & GitHub 개발 협업 학습정리노트" > README.md
-  git add README.md
-  git commit -m "init: Initial commit with basic README"
-  ```
-- **Step 16**: 원격 저장소 연결 후 `main` 브랜치에 최초 푸시:
-  ```bash
-  git branch -M main
-  git remote add origin https://github.com/<조은익_GitHub_ID>/git-study-notes.git
-  git push -u origin main
-  ```
-- **Step 17**: 저장소 웹 페이지(`Settings` ➔ 좌측 사이드바 `Branches`)로 이동.
-- **Step 18**: **`Add branch protection rule`** (또는 `Add rule`) 클릭.
-- **Step 19**: Branch name pattern에 `main` 입력.
-- **Step 20**: **`Require a pull request before merging`** 체크.
-- **Step 21**: **`Require approvals`** 체크 및 숫자 `1` 확인.
-- **Step 22**: 하단 **`Do not allow bypassing the above settings`** 체크 (저장소 소유자도 직접 푸시 불가).
-- **Step 23**: 녹색 버튼 **`Create`** (또는 `Save changes`) 클릭하여 보호 규칙 저장.
-- **Step 24**: 직접 푸시 차단 검증 (조은익 님 터미널):
+### 1-3. 조은익: Branch Protection 설정 (main 직접 푸시 차단)
+- **Step 8**: 저장소 웹 페이지(`Settings` ➔ 좌측 사이드바 `Branches`)로 이동.
+- **Step 9**: **`Add branch protection rule`** (또는 `Add rule`) 클릭.
+- **Step 10**: Branch name pattern에 `main` 입력.
+- **Step 11**: **`Require a pull request before merging`** 체크.
+- **Step 12**: **`Require approvals`** 체크 및 숫자 `1` 확인.
+- **Step 13**: 하단 **`Do not allow bypassing the above settings`** 체크 (소유자 포함 전원 직접 푸시 금지).
+- **Step 14**: 녹색 버튼 **`Create`** (또는 `Save changes`) 클릭하여 보호 규칙 저장.
+- **Step 15**: 직접 푸시 차단 검증 (조은익 님 터미널):
   ```bash
   echo "test direct push" >> README.md
   git commit -am "test: Direct push to main"
   git push origin main
   ```
-- **Step 25**: 터미널에 `remote: error: GH006: Protected branch hook declined` 에러가 뜨며 직접 푸시가 완벽히 차단됨을 확인!
-- **Step 26**: 테스트 변경사항 취소:
+- **Step 16**: 터미널에 `remote: error: GH006: Protected branch hook declined` 에러가 발생하며 차단되는 것을 확인!
+- **Step 17**: 테스트 커밋 취소:
   ```bash
   git reset --hard HEAD~1
   ```
 
-### 1-4. 김상교, 장양환, 김건우: 저장소 로컬 클론
-- **Step 27**: 김상교 님 로컬 터미널:
+### 1-4. 팀원 전원: 저장소 로컬 클론
+- **Step 18**: 김상교 님 로컬 터미널:
   ```bash
-  git clone https://github.com/<조은익_GitHub_ID>/git-study-notes.git
-  cd git-study-notes
+  git clone https://github.com/nick19850906-debug/mission_02_02.git
+  cd mission_02_02
   ```
-- **Step 28**: 장양환 님 로컬 터미널:
+- **Step 19**: 장양환 님 로컬 터미널:
   ```bash
-  git clone https://github.com/<조은익_GitHub_ID>/git-study-notes.git
-  cd git-study-notes
+  git clone https://github.com/nick19850906-debug/mission_02_02.git
+  cd mission_02_02
   ```
-- **Step 29**: 김건우 님 로컬 터미널:
+- **Step 20**: 김건우 님 로컬 터미널:
   ```bash
-  git clone https://github.com/<조은익_GitHub_ID>/git-study-notes.git
-  cd git-study-notes
+  git clone https://github.com/nick19850906-debug/mission_02_02.git
+  cd mission_02_02
   ```
 
 ---
@@ -122,7 +118,7 @@ git-study-notes/
 - **Step 83**: 내용:
   ```markdown
   ## 작업 목적
-  - 팀원 전원이 준수할 브랜치 명명 규칙, 커밋 컨벤션, PR 규칙 명시
+  - 팀원 전원이 준수할 브랜치 명명 규칙(feature/*), 커밋 컨벤션, PR 규칙 명시
   ## 세부 항목
   - docs/CONTRIBUTING.md 생성
   ```
@@ -131,7 +127,7 @@ git-study-notes/
   ```bash
   git checkout main
   git pull origin main
-  git checkout -b docs/contributing-guide
+  git checkout -b feature/sangkyo-contributing
   ```
 - **Step 86**: `docs/` 폴더를 생성하고 `docs/CONTRIBUTING.md` 작성:
   ```markdown
@@ -139,8 +135,7 @@ git-study-notes/
 
   ## 1. 브랜치 전략 (GitHub Flow)
   - `main`: 배포 가능한 안정 상태의 보호 브랜치 (직접 push 금지)
-  - `feature/<이름>-<기능>`: 신규 학습 노트 작성 브랜치 (예: `feature/yanghwan-flow`)
-  - `docs/<이름>-<문서>`: 문서 수정 및 정리 브랜치
+  - `feature/*`: 작업 단위 브랜치 (예: `feature/yanghwan-flow`, `feature/sangkyo-contributing`)
 
   ## 2. 커밋 메시지 컨벤션
   - `feat`: 새로운 학습 노트 추가
@@ -156,7 +151,7 @@ git-study-notes/
   ```bash
   git add docs/CONTRIBUTING.md
   git commit -m "docs: Add CONTRIBUTING.md guide for team collaboration"
-  git push -u origin docs/contributing-guide
+  git push -u origin feature/sangkyo-contributing
   ```
 - **Step 88**: GitHub 저장소 웹 페이지에서 **`Compare & pull request`** 클릭.
 - **Step 89**: 제목: `docs: Add CONTRIBUTING guide (Closes #1)`
@@ -165,7 +160,7 @@ git-study-notes/
 ### 2-2. 장양환: PR #1 코드 리뷰 및 머지
 - **Step 91**: 장양환 님이 PR #1 페이지로 이동하여 **`Files changed`** 탭 확인.
 - **Step 92**: 우측 상단 **`Review changes`** 클릭.
-- **Step 93**: 코멘트에 *"협업 규칙과 커밋 컨벤션이 깔끔하게 정리되었습니다. 확인했습니다!"* 작성.
+- **Step 93**: 코멘트에 *"협업 규칙과 커밋 컨벤션이 명확하게 정리되었습니다. 확인했습니다!"* 작성.
 - **Step 94**: **`Approve`** 선택 후 **`Submit review`** 클릭.
 - **Step 95**: PR 메인 화면으로 돌아와 **`Merge pull request`** ➔ **`Confirm merge`** 클릭.
 - **Step 96**: 이슈 #1이 자동으로 Closed 되었는지 확인!
@@ -305,7 +300,7 @@ git-study-notes/
                                     │
             ┌───────────────────────┴───────────────────────┐
             ▼                                               ▼
-[장양환: docs/yanghwan-test-rule]               [조은익: docs/eunik-style-rule]
+[장양환: feature/yanghwan-test-rule]            [조은익: feature/eunik-style-rule]
 4번째 줄: - test: 단위 테스트 및 실습 검증 추가   4번째 줄: - style: 마크다운 서식 정리 추가
 (PR #6 -> main에 먼저 머지 완료!)               (PR #7 생성 시 CONFLICT 발생!)
 ```
@@ -317,11 +312,11 @@ git-study-notes/
   ```bash
   # 장양환:
   git checkout main && git pull origin main
-  git checkout -b docs/yanghwan-test-rule
+  git checkout -b feature/yanghwan-test-rule
 
   # 조은익:
   git checkout main && git pull origin main
-  git checkout -b docs/eunik-style-rule
+  git checkout -b feature/eunik-style-rule
   ```
 
 ### 4-2. 장양환: 수정 및 main 선반영
@@ -338,12 +333,12 @@ git-study-notes/
   ```bash
   git add docs/CONTRIBUTING.md
   git commit -m "docs: Add test tag rule to commit conventions"
-  git push -u origin docs/yanghwan-test-rule
+  git push -u origin feature/yanghwan-test-rule
   ```
 - **Step 386**: **김상교** 님이 확인 후 `Approve` ➔ **PR #6이 `main`에 먼저 머지 완료!**
 
 ### 4-3. 조은익: 수정 및 충돌 직면
-- **Step 387**: 조은익 님은 장양환 님의 머지 사실을 모른 채, 본인의 `docs/eunik-style-rule` 브랜치에서 **장양환 님이 작성했던 바로 그 위치**에 `- style: 마크다운 서식 및 줄바꿈 정리`를 추가합니다:
+- **Step 387**: 조은익 님은 장양환 님의 머지 사실을 모른 채, 본인의 `feature/eunik-style-rule` 브랜치에서 **장양환 님이 작성했던 바로 그 위치**에 `- style: 마크다운 서식 및 줄바꿈 정리`를 추가합니다:
   ```markdown
   ## 2. 커밋 메시지 컨벤션
   - `feat`: 새로운 학습 노트 추가
@@ -356,7 +351,7 @@ git-study-notes/
   ```bash
   git add docs/CONTRIBUTING.md
   git commit -m "docs: Add style tag rule to commit conventions"
-  git push -u origin docs/eunik-style-rule
+  git push -u origin feature/eunik-style-rule
   ```
 - **Step 389**: 조은익 님이 GitHub에서 PR #7을 생성합니다 (`Closes #7`).
 - **Step 390**: **GitHub PR 화면에 회색 경고창 발생!**
@@ -405,7 +400,7 @@ git-study-notes/
   ```
 - **Step 396**: 원격 브랜치로 푸시:
   ```bash
-  git push origin docs/eunik-style-rule
+  git push origin feature/eunik-style-rule
   ```
 - **Step 397**: GitHub PR #7 화면을 새로고침하여 녹색 `This branch has no conflicts`로 바뀐 것을 확인!
 - **Step 398**: **장양환** 님이 `Approve` ➔ PR #7 머지 완료!
@@ -631,7 +626,7 @@ git mv notes/03-... notes/advanced/03-...       기존 notes/03-conflict-guide.m
 
 ### 7-5. 장양환: 트러블슈팅 종합 기록부 작성 및 머지 (PR #11)
 - **Step 764**: 장양환 님 이슈 발행: `[docs] 4인의 Git 트러블슈팅 실습 로그 작성` ➔ **이슈 #11**.
-- **Step 765**: 브랜치 분기: `git checkout -b docs/troubleshooting-log`
+- **Step 765**: 브랜치 분기: `git checkout -b feature/yanghwan-troubleshooting-log`
 - **Step 766**: `docs/troubleshooting-log.md`를 생성하고 4명의 실습 결과를 표와 원본 터미널 로그로 작성합니다:
   ```markdown
   # Git Troubleshooting Practice Log
@@ -652,15 +647,15 @@ git mv notes/03-... notes/advanced/03-...       기존 notes/03-conflict-guide.m
 
 ### 8-1. 김상교: SUBMISSION.md 작성 및 최종 머지 (PR #12)
 - **Step 881**: 김상교 님 이슈 발행: `[docs] 최종 제출 문서 SUBMISSION.md 작성` ➔ **이슈 #12**.
-- **Step 882**: 브랜치 분기: `git checkout -b docs/submission-index`
+- **Step 882**: 브랜치 분기: `git checkout -b feature/sangkyo-submission-index`
 - **Step 883**: 루트 경로에 `SUBMISSION.md`를 작성하여 4명의 기여 내역을 표로 일목요연하게 정리합니다:
   ```markdown
   # Submission Index
 
   ## 1. 프로젝트 및 저장소 정보
   - **프로젝트명**: Git & GitHub 개발 협업 학습정리노트
-  - **저장소 형태**: 개인 저장소 (소유자: 조은익) + Collaborator (김상교, 장양환, 김건우)
-  - **저장소 URL**: https://github.com/<조은익_GitHub_ID>/git-study-notes
+  - **저장소 형태**: 개인 저장소 (소유자: 조은익 / nick19850906-debug) + Collaborator (김상교, 장양환, 김건우)
+  - **저장소 URL**: https://github.com/nick19850906-debug/mission_02_02
   - **기본 브랜치**: `main` (Branch Protection 적용)
 
   ## 2. 팀원별 기여 내역표 (전원 요건 충족)
@@ -688,7 +683,7 @@ git mv notes/03-... notes/advanced/03-...       기존 notes/03-conflict-guide.m
 ## 🎓 피어 리뷰 구두 질의응답 5대 기출 스크립트 (외우기만 하면 PASS!)
 
 - **Q1. Organization 대신 조은익 님의 개인 저장소(Collaborator 방식)를 선택한 이유는 무엇인가요?**
-  - 👉 *"과제 명세서의 저장소 구성 옵션 중 개인 Public 저장소 + Collaborator 방식을 채택했습니다. 조은익 님의 저장소에 팀원들을 Collaborator(Write 권한)로 등록하여 동등한 협업 권한을 부여하고, `main` 브랜치에 Branch Protection Rule을 설정하여 실무와 동일한 PR 기반 협업 및 직접 푸시 방지 환경을 구축했습니다."*
+  - 👉 *"과제 명세서의 저장소 구성 옵션 중 개인 Public 저장소 + Collaborator 방식을 채택했습니다. 조은익 님의 저장소(`nick19850906-debug/mission_02_02`)에 팀원들을 Collaborator(Write 권한)로 등록하여 동등한 협업 권한을 부여하고, `main` 브랜치에 Branch Protection Rule을 설정하여 실무와 동일한 PR 기반 협업 및 직접 푸시 방지 환경을 구축했습니다."*
 - **Q2. 비자명한 충돌(Rename vs Modify)은 어떻게 발생했고 어떻게 해결했나요?**
   - 👉 *"조은익 팀원이 `notes/03-conflict-guide.md`를 `notes/advanced/` 폴더 안으로 이동(`git mv`)하여 머지했고, 같은 시점에 김건우 팀원이 구 경로의 파일에 3-Way Merge 내용을 추가하여 `CONFLICT (rename/modify)`가 발생했습니다. 해결 시 이동된 새 경로를 채택하고 추가된 내용을 해당 파일에 합친 뒤 구 파일을 `git rm` 처리하여 해결했습니다."*
 - **Q3. 코드 리뷰에서 Request Changes를 어떻게 활용했나요?**
