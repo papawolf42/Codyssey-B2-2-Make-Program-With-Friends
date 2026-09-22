@@ -153,9 +153,15 @@ mission_02_02/
   - `refactor`: 디렉터리 구조 개편 및 파일 정리
 
   ## 3. Pull Request 및 코드 리뷰 규칙
-  - 모든 PR 본문에는 `Closes #이슈번호`를 반드시 명시합니다.
+  - 모든 PR 본문에는 `Closes #이슈번호` 및 What(변경사항), Why(변경이유), How(검증방법)를 반드시 명시합니다.
   - 최소 1명 이상의 동료 리뷰 승인(Approve)을 받아야 머지할 수 있습니다.
-  - 단순 "LGTM" 승인을 지양하고, 구체적인 라인 피드백이나 질문을 남깁니다.
+  - 단순 "LGTM" 승인을 지양하고, 구체적인 라인 피드백이나 질문을 남기며 최소 1회 이상 상호작용(답글)을 나눕니다.
+
+  ## 4. 충돌 발생 시 기본 대응 흐름
+  - **발생 감지**: GitHub PR 화면에 충돌 경고가 발생하거나 로컬 머지 시 `CONFLICT` 알림을 확인합니다.
+  - **대응 주체**: 충돌을 유발한 PR 작업자가 즉시 팀원들에게 상황을 공유하고 로컬 터미널에서 직접 해결합니다.
+  - **해결 절차**: `git fetch origin && git merge origin/main` 후 VS Code에서 충돌 마커를 정리하고 머지 커밋을 올립니다.
+  - **기록 의무**: 충돌 원인, 충돌 마커 원문, 해결 전략, 배운 점을 `docs/conflict-resolution.md`에 필수로 기록합니다.
   ```
 - **Step 87**: 커밋 및 원격 푸시:
   ```bash
@@ -441,7 +447,10 @@ mission_02_02/
     - README.md의 1장 목차와 연계 확인
     ```
   - 우측 사이드바 **`Reviewers`**에 **장양환** 님 지정 ➔ 녹색 **`Create pull request`** 클릭.
-- **Step 204**: **장양환** 님이 라인 코멘트 작성 후 **`Approve`** ➔ 김상교 님이 `Merge pull request` 클릭하여 머지 완료.
+- **Step 204**: **장양환** 님이 `Files changed`에서 라인 코멘트 작성 및 상호작용 후 **`Approve`**:
+  - 코멘트: *"Git 3대 영역의 개념 설명이 아주 직관적입니다. Staging Area(Index)를 거치는 이유가 버전 히스토리의 원자성을 보장하기 위함이라는 점이 잘 드러나 있네요."*
+  - 김상교 님 답글: *"좋은 피드백 감사합니다! 추후 트러블슈팅의 reset --soft 실습과 연결하여 Staging의 장점을 더 부각하겠습니다."*
+  - 장양환 님 **`Approve`** 제출 ➔ 김상교 님이 `Merge pull request` 클릭하여 머지 완료.
 
 ---
 
@@ -523,7 +532,10 @@ mission_02_02/
     - CONTRIBUTING.md 문서 내 서식 및 줄바꿈 정상 여부 확인
     ```
   - 우측 사이드바 **`Reviewers`**에 **김상교** 님 지정 ➔ 녹색 **`Create pull request`** 클릭.
-- **Step 386**: **김상교** 님이 확인 후 `Approve` ➔ **PR #6이 `main`에 먼저 머지 완료!**
+- **Step 386**: **김상교** 님이 `Files changed`에서 확인 및 상호작용 후 `Approve`:
+  - 코멘트: *"커밋 컨벤션에 `test` 태그를 추가하는 것은 검증 커밋 구분에 매우 유용해 보입니다. 위치도 기존 컨벤션 목록 하단에 깔끔하게 잘 배치되었습니다."*
+  - 장양환 님 답글: *"확인 감사합니다! 이제 테스트 코드나 실습 검증 시 일관되게 `test:` 태그를 활용하겠습니다."*
+  - 김상교 님 **`Approve`** 제출 ➔ **PR #6이 `main`에 먼저 머지 완료!**
 
 ### 4-3. 조은익: 수정 및 충돌 직면
 - **Step 387**: 조은익 님은 장양환 님의 머지 사실을 모른 채, 본인의 `feature/eunik-style-rule` 브랜치에서 **장양환 님이 작성했던 바로 그 위치**에 `- style: 마크다운 서식 및 줄바꿈 정리`를 추가합니다:
@@ -625,7 +637,10 @@ mission_02_02/
   git push origin feature/eunik-style-rule
   ```
 - **Step 398**: GitHub PR #7 화면을 새로고침하여 녹색 `This branch has no conflicts`로 바뀐 것을 확인!
-- **Step 399**: **장양환** 님이 `Files changed`에서 라인 코멘트 작성 후 **`Approve`** ➔ PR #7 머지 완료!
+- **Step 399**: **장양환** 님이 `Files changed`에서 확인 및 상호작용 후 **`Approve`**:
+  - 코멘트: *"로컬에서 `origin/main`을 병합하여 충돌 마커를 직접 정리하고, `conflict-resolution.md`에 발생 원인과 해결 전략, 배운 점까지 완벽히 기록해주셨네요! 승인합니다."*
+  - 조은익 님 답글: *"충돌을 해결하면서 두 커밋 규칙(`test`와 `style`)을 순서대로 모두 보존했습니다. 꼼꼼히 확인해 주셔서 감사합니다!"*
+  - 장양환 님 **`Approve`** 제출 ➔ PR #7 머지 완료!
 
 ---
 
@@ -780,7 +795,10 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
     - 파일 내 충돌 예방 수칙 마크다운 렌더링 검증
     ```
   - 우측 사이드바 **`Reviewers`**에 **김건우** 님 지정 ➔ 녹색 **`Create pull request`** 클릭.
-- **Step 606**: **김건우 님**이 `Files changed` 확인 후 라인 코멘트와 함께 `Approve` ➔ **PR #9가 `main`에 먼저 머지 완료!**
+- **Step 606**: **김건우 님**이 `Files changed` 확인 및 상호작용 후 `Approve`:
+  - 코멘트: *"문서 구조를 `notes/advanced/`로 분리하여 심화 내용을 체계화한 점이 인상적입니다. 충돌 예방 수칙 2가지도 실무에서 바로 적용하기 좋은 팁이네요."*
+  - 조은익 님 답글: *"감사합니다! 심화 주제들을 별도 디렉터리로 관리하면 독자들이 학습 수준에 맞춰 읽기 훨씬 수월할 것 같아 분리했습니다."*
+  - 김건우 님 **`Approve`** 제출 ➔ **PR #9가 `main`에 먼저 머지 완료!**
 
 ### 6-3. 김건우: 기존 파일 수정(Modify)
 - **Step 607**: 김건우 님은 조은익 님이 파일을 이동한 사실을 모른 채, 구 경로 `notes/03-conflict-guide.md` 파일 하단에 내용을 추가합니다:
@@ -874,7 +892,10 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
   ```bash
   git push origin feature/gunwoo-conflict-patch
   ```
-- **Step 617**: GitHub PR #10 화면에서 충돌이 해소되었음을 확인하고, **조은익 님 승인** 후 `main`에 머지합니다.
+- **Step 617**: GitHub PR #10 화면에서 충돌이 해소되었음을 확인하고, **조은익 님이 라인 코멘트 작성 및 상호작용 후 `Approve`**:
+  - 코멘트: *"파일 이동(Rename)과 동시 수정(Modify)으로 인한 비자명 충돌을 새 경로(`notes/advanced/`)에서 성공적으로 병합하셨군요! 3-Way Merge 개념 설명도 매우 명확합니다."*
+  - 김건우 님 답글: *"Git이 이전 경로와 새 경로를 동시에 표시하는 충돌 마커를 직접 보면서 3-Way 병합 원리를 확실히 체득했습니다. 승인 감사합니다!"*
+  - 조은익 님 **`Approve`** 제출 ➔ 김건우 님이 `Merge pull request` 클릭하여 `main`에 머지 완료.
 
 ---
 
@@ -983,6 +1004,38 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
   - **`git stash`**:
     - **Why**: 작업 중 커밋하기 애매한 미완성 코드가 있을 때, 작업 트리를 깨끗하게 비워야만 다른 브랜치로의 체크아웃이 가능하기 때문입니다.
     - **주의점**: stash 스택에 너무 많은 작업을 오래 방치하면 나중에 pop 시 충돌이 발생할 수 있으므로, 용무를 마친 후 즉시 pop하여 적용해야 합니다.
+
+  ## 3. 팀원별 상세 재현 절차 (Reproducible Steps)
+  ### 3-1. 김상교: 직전 커밋 메시지 수정 (`git commit --amend`)
+  - **상황**: 커밋 메시지에 오타 발생 (`docs: Ad git basic summar note`)
+  - **수행 명령**: `git commit --amend -m "docs: Add git basics summary note"`
+  - **결과**: `git log -1` 확인 시 새로운 커밋 해시로 갱신되고 오타가 정정됨
+
+  ### 3-2. 장양환: 실수 커밋 무손실 취소 (`git reset --soft`)
+  - **상황**: 임시 디버깅 파일(`temp_draft.txt`)을 실수로 포함하여 커밋
+  - **수행 명령**:
+    ```bash
+    git reset --soft HEAD~1
+    git restore --staged temp_draft.txt
+    rm temp_draft.txt
+    git commit -m "docs: Add study note excluding temp files"
+    ```
+  - **결과**: 작성한 노트는 Staging 상태로 보존되고 `temp_draft.txt`만 안전하게 제외됨
+
+  ### 3-3. 조은익: 공유된 머지 커밋 안전 취소 (`git revert`)
+  - **상황**: 원격 `main`에 머지된 커밋 중 수정이 필요한 커밋 발생
+  - **수행 명령**: `git revert <commit-hash> --no-edit`
+  - **결과**: 히스토리를 삭제하지 않고 반대 변경을 적용하는 역커밋(`Revert "..."`)이 안전하게 머지됨
+
+  ### 3-4. 김건우: 미완성 작업 임시 격리 및 복원 (`git stash` & `pop`)
+  - **상황**: 미완성 작업 중 긴급하게 브랜치를 전환해야 하는 Dirty 상태 발생
+  - **수행 명령**:
+    ```bash
+    git stash push -m "work-in-progress"
+    # 브랜치 전환 및 용무 완료 후 복귀
+    git stash pop
+    ```
+  - **결과**: 작업 트리가 깨끗해져 브랜치 이동이 가능했고, 복귀 후 미완성 작업물이 완벽 복구됨
   ```
 - **Step 767**: 커밋 후 원격 푸시 및 **PR #11** 생성:
   - **제목(Title)**: `docs: Add troubleshooting-log.md documenting 4 recovery scenarios`
@@ -1002,8 +1055,10 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
     - 4명 전원의 실습 내용과 캡처 매핑 검증 완료
     - 과제 명세서(`instruction.md`)의 4대 트러블슈팅 필수 요건 충족 여부 확인
     ```
-  - 우측 사이드바 **`Reviewers`**에 **조은익** 님 지정 ➔ 녹색 **`Create pull request`** 클릭.
-- **Step 768**: **조은익 님**이 리뷰 후 `Approve` ➔ PR #11 머지 완료!
+- **Step 768**: **조은익 님이 `Files changed` 확인 및 상호작용 후 `Approve`**:
+  - 코멘트: *"팀원 4인이 각자 실습한 4대 복구 명령어(amend, reset, revert, stash)의 상황, 절차, 주의점, Why가 일목요연하게 정리되었습니다. 특히 revert와 reset의 실무적 차이점이 명쾌합니다."*
+  - 장양환 님 답글: *"리뷰 감사합니다. 실무 협업에서 실수 상황 발생 시 팀원들이 바로 찾아보고 복구할 수 있는 실전 가이드가 되도록 정리했습니다."*
+  - 조은익 님 **`Approve`** 제출 ➔ 장양환 님이 `Merge pull request` 클릭하여 PR #11 머지 완료!
 
 ---
 
@@ -1057,18 +1112,18 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
   - **기본 브랜치**: `main` (Branch Protection 적용)
 
   ## 2. 팀원별 기여 내역표 (1:1 완벽 대칭 달성)
-  | 팀원 | 역할 | 생성한 이슈 | 병합된 PR 링크 (클릭 가능) | 동료 코드 리뷰 참여 내역 |
+  | 팀원 | 역할 | 생성한 이슈 링크 (클릭 가능) | 병합된 PR 링크 (클릭 가능) | 동료 코드 리뷰 참여 내역 |
   |:---:|:---:|:---|:---|:---|
-  | **조은익** | 호스트 / 트러블슈팅 | #3, #7, #9 | [PR #3](https://github.com/nick19850906-debug/mission_02_02/pull/3), [PR #7](https://github.com/nick19850906-debug/mission_02_02/pull/7), [PR #9](https://github.com/nick19850906-debug/mission_02_02/pull/9) | PR #2, PR #10, PR #11 |
-  | **김상교** | 팀장 / 가이드 & 인프라 | #1, #5, #12 | [PR #1](https://github.com/nick19850906-debug/mission_02_02/pull/1), [PR #5](https://github.com/nick19850906-debug/mission_02_02/pull/5), [PR #12](https://github.com/nick19850906-debug/mission_02_02/pull/12) | PR #4, PR #6, PR #8 (Request changes) |
-  | **장양환** | 코어 / 협업노트 | #2, #6, #11 | [PR #2](https://github.com/nick19850906-debug/mission_02_02/pull/2), [PR #6](https://github.com/nick19850906-debug/mission_02_02/pull/6), [PR #11](https://github.com/nick19850906-debug/mission_02_02/pull/11) | PR #1, PR #5, PR #7 |
-  | **김건우** | 심화노트 / 검증 | #4, #8, #10 | [PR #4](https://github.com/nick19850906-debug/mission_02_02/pull/4), [PR #8](https://github.com/nick19850906-debug/mission_02_02/pull/8), [PR #10](https://github.com/nick19850906-debug/mission_02_02/pull/10) | PR #3, PR #9, PR #12 |
+  | **조은익** | 호스트 / 트러블슈팅 | [#3](https://github.com/nick19850906-debug/mission_02_02/issues/3), [#7](https://github.com/nick19850906-debug/mission_02_02/issues/7), [#9](https://github.com/nick19850906-debug/mission_02_02/issues/9) | [PR #3](https://github.com/nick19850906-debug/mission_02_02/pull/3), [PR #7](https://github.com/nick19850906-debug/mission_02_02/pull/7), [PR #9](https://github.com/nick19850906-debug/mission_02_02/pull/9) | PR #2, PR #10, PR #11 |
+  | **김상교** | 팀장 / 가이드 & 인프라 | [#1](https://github.com/nick19850906-debug/mission_02_02/issues/1), [#5](https://github.com/nick19850906-debug/mission_02_02/issues/5), [#12](https://github.com/nick19850906-debug/mission_02_02/issues/12) | [PR #1](https://github.com/nick19850906-debug/mission_02_02/pull/1), [PR #5](https://github.com/nick19850906-debug/mission_02_02/pull/5), [PR #12](https://github.com/nick19850906-debug/mission_02_02/pull/12) | PR #4, PR #6, PR #8 (Request changes) |
+  | **장양환** | 코어 / 협업노트 | [#2](https://github.com/nick19850906-debug/mission_02_02/issues/2), [#6](https://github.com/nick19850906-debug/mission_02_02/issues/6), [#11](https://github.com/nick19850906-debug/mission_02_02/issues/11) | [PR #2](https://github.com/nick19850906-debug/mission_02_02/pull/2), [PR #6](https://github.com/nick19850906-debug/mission_02_02/pull/6), [PR #11](https://github.com/nick19850906-debug/mission_02_02/pull/11) | PR #1, PR #5, PR #7 |
+  | **김건우** | 심화노트 / 검증 | [#4](https://github.com/nick19850906-debug/mission_02_02/issues/4), [#8](https://github.com/nick19850906-debug/mission_02_02/issues/8), [#10](https://github.com/nick19850906-debug/mission_02_02/issues/10) | [PR #4](https://github.com/nick19850906-debug/mission_02_02/pull/4), [PR #8](https://github.com/nick19850906-debug/mission_02_02/pull/8), [PR #10](https://github.com/nick19850906-debug/mission_02_02/pull/10) | PR #3, PR #9, PR #12 |
 
-  ## 3. 핵심 산출물 바로가기
-  - [협업 가이드라인 (CONTRIBUTING.md)](docs/CONTRIBUTING.md)
-  - [충돌 해결 기록부 (conflict-resolution.md)](docs/conflict-resolution.md)
-  - [트러블슈팅 실습 기록부 (troubleshooting-log.md)](docs/troubleshooting-log.md)
-  - [전체 Git 히스토리 증빙 (docs/git-history.txt)](docs/git-history.txt)
+  ## 3. 핵심 산출물 및 증빙 바로가기
+  - [협업 가이드라인 (docs/CONTRIBUTING.md)](docs/CONTRIBUTING.md)
+  - [충돌 해결 기록부 (docs/conflict-resolution.md)](docs/conflict-resolution.md)
+  - [트러블슈팅 실습 기록부 (docs/troubleshooting-log.md)](docs/troubleshooting-log.md)
+  - [전체 Git 커밋 네트워크 로그 증빙 (docs/git-history.txt)](docs/git-history.txt)
   ```
 - **Step 885**: 터미널에서 전체 Git 히스토리 로그를 UTF-8로 추출하여 저장합니다:
   ```bash
@@ -1094,8 +1149,10 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
     - README.md 목차 링크 및 마크다운 렌더링 정상 검증
     - 4인 1:1 대칭 기여 요건(PR 3개 / 리뷰 3개) 전수 검증 완료
     ```
-  - 우측 사이드바 **`Reviewers`**에 **김건우** 님 지정 ➔ 녹색 **`Create pull request`** 클릭.
-- **Step 887**: **김건우 님**이 리뷰 후 `Approve` ➔ PR #12 최종 머지 완료!  
+- **Step 887**: **김건우 님이 `Files changed` 확인 및 상호작용 후 `Approve`**:
+  - 코멘트: *"SUBMISSION.md의 12개 PR 링크와 README.md 목차가 완벽히 연결되어 있습니다. 4인 1:1 대칭 기여와 전원 코드리뷰 요건이 한눈에 증명되네요. 대단히 수고하셨습니다!"*
+  - 김상교 님 답글: *"모든 팀원분들의 적극적인 협업 덕분에 과제 명세서 전 요건을 무결점으로 완수했습니다. 4인 전원 고생 많으셨습니다!"*
+  - 김건우 님 **`Approve`** 제출 ➔ 김상교 님이 `Merge pull request` 클릭하여 PR #12 최종 머지 완료!  
   > 📸 **[보너스 캡처 2] PR 12개 All-Merged 목록 화면**: GitHub 저장소 `Pull requests` 탭에서 `is:pr is:closed` 검색 시 PR #1부터 PR #12까지 12개 전체가 보라색 Merged 상태로 정렬된 화면을 캡처하여 `docs/images/12-all-prs-merged.png`로 저장하세요. ([`0012 캡처 체크리스트`](file:///C:/Users/alsgu/Dev/Codyssey/B2-2/docs/0012_b2-2-screenshot-checklist.md#4-보너스-2종-최종-발표-및-완결-증빙) 참고)
 
 ---
