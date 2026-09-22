@@ -517,10 +517,17 @@ mission_02_02/
   - `test`: 단위 테스트 및 실습 검증 추가
   ```
 - **Step 385**: 커밋 후 원격 푸시 및 **PR #6** 생성:
-  - **제목(Title)**: `docs: Add test tag rule to commit conventions`
-  - **본문(Description)**:
-    ```markdown
-    Closes #6
+  - **터미널 커밋 및 푸시 명령**:
+    ```bash
+    git add docs/CONTRIBUTING.md
+    git commit -m "docs: Add test tag rule to commit conventions"
+    git push -u origin feature/yanghwan-test-rule
+    ```
+  - **GitHub에서 PR 생성**:
+    - **제목(Title)**: `docs: Add test tag rule to commit conventions`
+    - **본문(Description)**:
+      ```markdown
+      Closes #6
 
     ## 1. 변경 이유 (Why)
     - 단위 테스트 및 실습 검증 커밋을 명확히 분류하기 위해 커밋 컨벤션에 `test` 태그를 추가하고자 합니다.
@@ -664,10 +671,17 @@ mission_02_02/
   - PR 본문에는 작업한 내용을 텍스트로 자세하게 적습니다.
   ```
 - **Step 504**: 커밋 및 원격 푸시 후 **PR #8** 생성:
-  - **제목(Title)**: `feat: Add PR template guidelines and structure to notes/04`
-  - **본문(Description)**:
-    ```markdown
-    Closes #8
+  - **터미널 커밋 및 푸시 명령**:
+    ```bash
+    git add notes/04-open-source.md
+    git commit -m "feat: Add PR template guidelines and structure to notes/04"
+    git push -u origin feature/gunwoo-template-guide
+    ```
+  - **GitHub에서 PR 생성**:
+    - **제목(Title)**: `feat: Add PR template guidelines and structure to notes/04`
+    - **본문(Description)**:
+      ```markdown
+      Closes #8
 
     ## 1. 변경 이유 (Why)
     - 효과적인 PR 작성을 돕기 위해 PR 템플릿의 기본 구조와 작성 요령을 학습 노트에 보강하고자 합니다.
@@ -778,10 +792,17 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
   - 기능 단위로 브랜치를 잘게 쪼개어 작업 기간을 단축합니다.
   ```
 - **Step 605**: 커밋 및 푸시 후 **PR #9** 생성:
-  - **제목(Title)**: `refactor: Relocate conflict guide to advanced dir and add prevention tips`
-  - **본문(Description)**:
-    ```markdown
-    Closes #9
+  - **터미널 커밋 및 푸시 명령**:
+    ```bash
+    git add notes/advanced/03-conflict-guide.md
+    git commit -m "refactor: Relocate conflict guide to advanced dir and add prevention tips"
+    git push -u origin feature/eunik-reorganize
+    ```
+  - **GitHub에서 PR 생성**:
+    - **제목(Title)**: `refactor: Relocate conflict guide to advanced dir and add prevention tips`
+    - **본문(Description)**:
+      ```markdown
+      Closes #9
 
     ## 1. 변경 이유 (Why)
     - 문서 디렉터리 구조를 체계화하고 심화 학습 내용을 분리하기 위해 충돌 가이드를 `notes/advanced/`로 이동하고 충돌 예방 수칙을 추가합니다.
@@ -807,10 +828,17 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
   - Git은 공통 조상 커밋(Base), 내 브랜치 커밋(Ours), 병합할 브랜치 커밋(Theirs) 3가지를 비교하여 자동으로 합칩니다.
   ```
 - **Step 608**: 커밋 및 푸시 후 **PR #10** 생성:
-  - **제목(Title)**: `docs: Add 3-Way Merge principles and resolve rename/modify conflict (Closes #10)`
-  - **본문(Description)**:
-    ```markdown
-    Closes #10
+  - **터미널 커밋 및 푸시 명령**:
+    ```bash
+    git add notes/03-conflict-guide.md
+    git commit -m "docs: Add 3-Way Merge principles to notes/03"
+    git push -u origin feature/gunwoo-conflict-patch
+    ```
+  - **GitHub에서 PR 생성**:
+    - **제목(Title)**: `docs: Add 3-Way Merge principles and resolve rename/modify conflict (Closes #10)`
+    - **본문(Description)**:
+      ```markdown
+      Closes #10
 
     ## 1. 변경 이유 (Why)
     - 충돌 가이드에 3-Way Merge 개념을 보강하고, PR #9의 파일 이동(Rename)과 동시 수정(Modify)으로 인한 비자명 충돌을 해결하기 위함입니다.
@@ -1038,10 +1066,17 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
   - **결과**: 작업 트리가 깨끗해져 브랜치 이동이 가능했고, 복귀 후 미완성 작업물이 완벽 복구됨
   ```
 - **Step 767**: 커밋 후 원격 푸시 및 **PR #11** 생성:
-  - **제목(Title)**: `docs: Add troubleshooting-log.md documenting 4 recovery scenarios`
-  - **본문(Description)**:
-    ```markdown
-    Closes #11
+  - **터미널 커밋 및 푸시 명령**:
+    ```bash
+    git add docs/troubleshooting-log.md
+    git commit -m "docs: Add troubleshooting-log.md documenting 4 recovery scenarios"
+    git push -u origin feature/yanghwan-troubleshooting-doc
+    ```
+  - **GitHub에서 PR 생성**:
+    - **제목(Title)**: `docs: Add troubleshooting-log.md documenting 4 recovery scenarios`
+    - **본문(Description)**:
+      ```markdown
+      Closes #11
 
     ## 1. 변경 이유 (Why)
     - 팀원 4인이 각자 실습한 Git 핵심 복구 명령어(amend, reset, revert, stash)의 과정과 Why, 협업 주의사항을 영구 기록하기 위해 작성했습니다.
@@ -1131,10 +1166,17 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
   ```
   > 📸 **[보너스 캡처 1] Git 네트워크 커밋 그래프 트리 터미널 화면**: `git log --oneline --graph --all` 실행 시 출력되는 알록달록한 브랜치 그래프 화면을 캡처하여 `docs/images/11-git-network-graph.png`로 저장하세요.
 - **Step 886**: 커밋 후 원격 푸시 및 **PR #12** 생성:
-  - **제목(Title)**: `docs: Add SUBMISSION.md index and update README table of contents`
-  - **본문(Description)**:
-    ```markdown
-    Closes #12
+  - **터미널 커밋 및 푸시 명령**:
+    ```bash
+    git add README.md SUBMISSION.md docs/git-history.txt
+    git commit -m "docs: Add SUBMISSION.md index and update README table of contents"
+    git push -u origin feature/sangkyo-final-docs
+    ```
+  - **GitHub에서 PR 생성**:
+    - **제목(Title)**: `docs: Add SUBMISSION.md index and update README table of contents`
+    - **본문(Description)**:
+      ```markdown
+      Closes #12
 
     ## 1. 변경 이유 (Why)
     - 최종 프로젝트 과제 제출을 위한 인덱스 문서(`SUBMISSION.md`)를 작성하고, `README.md`에 전체 학습노트 목차를 완성하기 위함입니다.
