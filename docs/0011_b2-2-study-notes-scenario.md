@@ -220,7 +220,25 @@ mission_02_02/
   git commit -m "feat: Add notes/02-github-flow.md detailing branch lifecycle"
   git push -u origin feature/yanghwan-flow
   ```
-- **Step 185**: GitHub에서 PR #2 생성 (`Closes #2`), Reviewer로 **조은익** 님 지정.
+- **Step 185**: GitHub에서 **PR #2** 생성:
+  - **제목(Title)**: `feat: Add notes/02-github-flow.md detailing branch lifecycle`
+  - **본문(Description)**: (※ What, Why, How, Closes 필수 포함)
+    ```markdown
+    Closes #2
+
+    ## 1. 변경 이유 (Why)
+    - 팀 협업의 근간이 되는 GitHub Flow 브랜치 전략의 핵심 원칙과 작업 생명주기를 팀원들과 공유하기 위해 작성했습니다.
+
+    ## 2. 변경 사항 (What)
+    - `notes/02-github-flow.md` 학습 노트 신규 추가
+      - `main` 브랜치 배포 안정성 원칙 서술
+      - `feature/*` 브랜치 분기, 커밋, PR, 코드 리뷰, 머지 생명주기 정리
+
+    ## 3. 검증 방법 (How)
+    - 마크다운 문법 렌더링 및 프리뷰 정상 표시 확인
+    - `docs/CONTRIBUTING.md`의 협업 규칙과의 정합성 자체 검증 완료
+    ```
+  - 우측 사이드바 **`Reviewers`**에 **조은익** 님 지정 ➔ 녹색 **`Create pull request`** 클릭.
 - **Step 186**: **조은익** 님이 `Files changed`에서 라인 코멘트 작성:
   - 코멘트: *"main 브랜치의 배포 안정성을 유지하기 위해 만약 실수로 깨진 코드가 머지되었을 때의 롤백 대책도 나중에 언급되면 좋겠습니다."*
   - 장양환 님 답글: *"동의합니다! 제7부 트러블슈팅 실습의 git revert 내용과 연계하겠습니다."*
