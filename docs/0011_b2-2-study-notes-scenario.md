@@ -182,7 +182,19 @@ mission_02_02/
 # [제3부] 4인 4색 기초 학습노트 분담 작성 (Step 181 ~ 380)
 
 ### 3-1. 장양환: GitHub Flow 학습노트 작성 (PR #2)
-- **Step 181**: 장양환 님 이슈 발행: `[feat] GitHub Flow 브랜치 전략 학습노트 작성` ➔ **이슈 #2**.
+- **Step 181**: 장양환 님 이슈 발행:
+  - **제목(Title)**: `[feat] GitHub Flow 브랜치 전략 학습노트 작성`
+  - **내용(Description)**:
+    ```markdown
+    ## 작업 목적
+    - 팀원들이 실무 브랜치 전략인 GitHub Flow의 핵심 원칙과 생명주기를 이해하고 협업에 적용할 수 있도록 학습 노트를 작성합니다.
+
+    ## 세부 작업 내용
+    - [ ] notes/02-github-flow.md 작성
+    - [ ] main 브랜치의 배포 안정성 원칙 정리
+    - [ ] feature/* 브랜치 분기 및 PR/코드리뷰 생명주기 가이드 수록
+    ```
+  - **`Submit new issue`** 클릭 ➔ **이슈 #2** 생성 확인.
 - **Step 182**: 로컬 터미널에서 브랜치 분기:
   ```bash
   git checkout main
