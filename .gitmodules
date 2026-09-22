@@ -1,0 +1,57 @@
+[submodule "repos/team_01_codyssey-b2-2-team-mission__git-flow-utility-lab"]
+	path = repos/team_01_codyssey-b2-2-team-mission__git-flow-utility-lab
+	url = https://github.com/codyssey-b2-2-team-mission/git-flow-utility-lab.git
+[submodule "repos/team_02_Im-Jongseok__Git_Collaboration"]
+	path = repos/team_02_Im-Jongseok__Git_Collaboration
+	url = https://github.com/Im-Jongseok/Git_Collaboration.git
+[submodule "repos/team_03_codyssey-2-mission__git-flow-demo"]
+	path = repos/team_03_codyssey-2-mission__git-flow-demo
+	url = https://github.com/codyssey-2-mission/git-flow-demo.git
+[submodule "repos/team_04_codyssey-git__B2-2"]
+	path = repos/team_04_codyssey-git__B2-2
+	url = https://github.com/codyssey-git/B2-2.git
+[submodule "repos/team_05_CodysseyBMB__02.02-Git_Collaboration"]
+	path = repos/team_05_CodysseyBMB__02.02-Git_Collaboration
+	url = https://github.com/CodysseyBMB/02.02-Git_Collaboration.git
+[submodule "repos/team_06_GitTeamWorkflow__Codyssey_2-2"]
+	path = repos/team_06_GitTeamWorkflow__Codyssey_2-2
+	url = https://github.com/GitTeamWorkflow/Codyssey_2-2.git
+[submodule "repos/team_07_mackerel07__B2-2"]
+	path = repos/team_07_mackerel07__B2-2
+	url = https://github.com/mackerel07/B2-2.git
+[submodule "repos/team_09_hkk-cody__b2-2"]
+	path = repos/team_09_hkk-cody__b2-2
+	url = https://github.com/hkk-cody/b2-2.git
+[submodule "repos/team_10_codyssey-git-workflow__codyssey_git_workflow"]
+	path = repos/team_10_codyssey-git-workflow__codyssey_git_workflow
+	url = https://github.com/codyssey-git-workflow/codyssey_git_workflow.git
+[submodule "repos/team_11_codyssey-git-collaboration__mission"]
+	path = repos/team_11_codyssey-git-collaboration__mission
+	url = https://github.com/codyssey-git-collaboration/mission.git
+[submodule "repos/team_13_Daeung-03__Codyssey-b2-2"]
+	path = repos/team_13_Daeung-03__Codyssey-b2-2
+	url = https://github.com/Daeung-03/Codyssey-b2-2.git
+[submodule "repos/team_14_codyssey-b2-2-02__codyssey-b2-2-02"]
+	path = repos/team_14_codyssey-b2-2-02__codyssey-b2-2-02
+	url = https://github.com/codyssey-b2-2-02/codyssey-b2-2-02.git
+[submodule "repos/team_15_codyssey-git-team__git-team"]
+	path = repos/team_15_codyssey-git-team__git-team
+	url = https://github.com/codyssey-git-team/git-team.git
+[submodule "repos/team_16_gitflow-practice-team__github-workflow-practice"]
+	path = repos/team_16_gitflow-practice-team__github-workflow-practice
+	url = https://github.com/gitflow-practice-team/github-workflow-practice.git
+[submodule "repos/team_17_c-b2-2__make-program-with-friends"]
+	path = repos/team_17_c-b2-2__make-program-with-friends
+	url = https://github.com/c-b2-2/make-program-with-friends.git
+[submodule "repos/team_18_B2-2-Cody__git-collab-mission"]
+	path = repos/team_18_B2-2-Cody__git-collab-mission
+	url = https://github.com/B2-2-Cody/git-collab-mission.git
+[submodule "repos/team_19_codyssey-b2-2-nlk__git-exercise"]
+	path = repos/team_19_codyssey-b2-2-nlk__git-exercise
+	url = https://github.com/codyssey-b2-2-nlk/git-exercise.git
+[submodule "repos/team_20_Codyssey2-2__cody2-2Assign"]
+	path = repos/team_20_Codyssey2-2__cody2-2Assign
+	url = https://github.com/Codyssey2-2/cody2-2Assign.git
+[submodule "repos/team_21_jha21vvv__codyssey-b2-02"]
+	path = repos/team_21_jha21vvv__codyssey-b2-02
+	url = https://github.com/jha21vvv/codyssey-b2-02.git
