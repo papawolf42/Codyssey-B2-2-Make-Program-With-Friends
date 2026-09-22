@@ -691,6 +691,9 @@ mission_02_02/
     - 공통 설정 문서를 수정할 때는 작업 착수 전 팀원들에게 사전 공유하여 수정 위치가 겹치지 않도록 조율해야 합니다.
     - 충돌 마커 발생 시 HEAD는 내 로컬 변경점, origin/main은 당겨온 원격 변경점임을 명확히 이해했습니다.
   ```
+  > [!NOTE] 실전 진행 팁 (PR #14가 이미 웹에서 머지된 경우)
+  > 만약 GitHub 웹 화면에서 충돌을 먼저 해결하여 `docs/conflict-resolution.md` 없이 PR #14가 이미 머지 완료되었다면 전혀 걱정하지 않으셔도 됩니다!
+  > 충돌 1의 해결 기록은 **PR #20 (김건우 님의 비자명 충돌 해결 PR)**에서 충돌 1과 충돌 2를 한꺼번에 묶은 **완전체 통합 문서**로 생성하여 머지하면 평가 기준을 100% 충족합니다. (번외 PR을 만들지 마시고 곧바로 **Step 501**로 진행하세요!)
 - **Step 396**: 스테이징 후 머지 커밋 생성:
   ```bash
   git add docs/CONTRIBUTING.md docs/conflict-resolution.md
@@ -955,8 +958,21 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
   - 수시로 main의 최신 변경사항을 pull하여 동기화합니다.
   - 기능 단위로 브랜치를 잘게 쪼개어 작업 기간을 단축합니다.
   ```
-- **Step 614**: `docs/conflict-resolution.md`에 [충돌 2 - 비자명 충돌] 내용을 추가 기록합니다:
+- **Step 614**: `docs/conflict-resolution.md`를 신규 생성(또는 갱신)하여 **[충돌 1]과 [충돌 2]를 하나의 완성된 통합 문서**로 작성합니다:
   ```markdown
+  # Merge Conflict Resolution Log
+
+  ## 1. 충돌 1: 자명한 충돌 (Hunk 충돌)
+  - **참여자**: 장양환, 조은익
+  - **대상 파일**: `docs/CONTRIBUTING.md`
+  - **발생 원인**: 동일 위치에 커밋 규칙 항목(`test` vs `style`)을 동시 추가하여 라인 충돌 발생
+  - **충돌 마커**: `<<<<<<< HEAD` (style) vs `>>>>>>> origin/main` (test)
+  - **해결 전략**: 두 규칙을 모두 보존(Union Merge)하여 순서대로 배치
+  - **해결 커밋**: PR #14 머지 커밋 (`15ae97d`)
+  - **배운 점(Learnings)**:
+    - 공통 설정 문서를 수정할 때는 작업 착수 전 팀원들에게 사전 공유하여 수정 위치가 겹치지 않도록 조율해야 합니다.
+    - 충돌 마커 발생 시 HEAD는 내 로컬 변경점, origin/main은 당겨온 원격 변경점임을 명확히 이해했습니다.
+
   ## 2. 충돌 2: 비자명한 충돌 (Rename vs Modify)
   - **참여자**: 조은익, 김건우
   - **대상 파일**: `notes/03-conflict-guide.md` ➔ `notes/advanced/03-conflict-guide.md`
