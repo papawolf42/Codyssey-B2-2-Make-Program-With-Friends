@@ -500,7 +500,14 @@ mission_02_02/
 
 ## 💡 코드 리뷰 피드백 반영 및 상호작용 지침
 
-과제 명세서(`instruction.md`) 기준, 단순 "LGTM" 승인이 아닌 **구체적인 라인 피드백 → 작성자의 파일 수정 및 추가 커밋 → 답글 상호작용 → 재확인 및 최종 승인(Approve)** 흐름이 필수로 입증되어야 합니다.
+평가 기준은 전원의 본인 PR 리뷰 반영 경험이며, 명세서는 커밋·수정·답글을 증빙으로 허용합니다. `Request changes`나 추가 커밋 자체가 필수는 아닙니다. 이 시나리오에서는 명확한 증빙을 위해 **구체적인 피드백 → 수정 커밋 → 커밋 URL을 포함한 답글 → 재확인·승인**을 수행합니다. 이미 병합된 PR의 기록을 소급 작성하지 않고 남은 본인 PR에서 수행합니다.
+
+- 조은익: Step 606의 PR #19에서 김건우가 충돌 예방 수칙의 실제 공유 방법을 검토합니다. 조은익은 공유 채널·담당자를 노트에 보완하고 커밋·push한 뒤 답글로 연결합니다.
+- 김건우: PR #16의 기존 체크리스트 수정·재승인 절차를 수행합니다.
+- 장양환: Step 768의 PR #22에서 조은익이 재현 기록을 검토합니다. 장양환은 실제 실행 환경·대상 커밋·증빙 링크를 보완하고 커밋·push한 뒤 답글로 연결합니다.
+- 김상교: Step 887의 PR #24에서 김건우가 전원 리뷰 반영 증빙을 검토합니다. 김상교는 `SUBMISSION.md`에 네 사람의 본인 PR·리뷰 코멘트·반영 커밋 링크를 보완하고 커밋·push한 뒤 답글로 연결합니다.
+
+각 해당 Step의 승인·병합은 위 수정과 재확인이 끝난 후 진행합니다. 개선점은 실제 문서를 보고 정하며, 증빙용 오류를 일부러 넣지 않습니다. 아래 표의 PR #14는 기존 리뷰 기록을 확인하는 대상이며 새 반영 작업은 PR #19에서 수행합니다.
 
 | 순서 | 대상 PR | 작성자 | 리뷰어 | 리뷰 및 개선 반영 핵심 내용 | 반영 파일 |
 |:---:|:---:|:---:|:---:|:---|:---|
@@ -1130,6 +1137,8 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
 
 # [제7부] Git 4대 트러블슈팅 4인 전원 분담 실습 (Step 751 ~ 880)
 
+시작 전 `git status --short`로 기존 작업이 없는지 확인합니다. 아래 명령 블록은 Windows PowerShell 기준입니다. 각 참여자는 실행 전후 출력·실제 커밋 해시·역할을 기록하여 장양환에게 전달하고, Step 766의 초안을 실제 결과로 채웁니다. 캡처는 `docs/images/`에 모아 PR #22에 포함합니다. 연습 브랜치 정리는 증빙을 확보한 뒤 수행합니다.
+
 ### 7-1. 김상교: `git commit --amend` (커밋 메시지 오타 정정)
 - **Step 751**: **김상교 님이 연습 브랜치를 생성하고 오타가 포함된 커밋을 작성합니다**:
   ```bash
@@ -1160,22 +1169,24 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
   git checkout main
   git pull origin main
   git checkout -b practice/yanghwan-reset
+  echo "Reset practice: preserve this study note." > notes/reset-practice.md
   echo "debug temp cache note" > temp_draft.txt
-  git add temp_draft.txt
+  git add notes/reset-practice.md temp_draft.txt
   git commit -m "docs: Add study note with accidental temp_draft.txt"
   ```
 - **Step 755**: **`--soft` 옵션으로 작업 내용은 Staging Area에 그대로 보존하고 커밋만 안전하게 취소합니다**:
   ```bash
   git reset --soft HEAD~1
+  git diff --cached --name-only
   ```
 - **Step 756**: **인덱스(Staging Area)에서 임시 파일을 제외하고 삭제한 뒤 정상 커밋합니다**:
   ```bash
   git restore --staged temp_draft.txt
-  # Windows PowerShell:
   Remove-Item temp_draft.txt -ErrorAction SilentlyContinue
-  # Git Bash / Mac / Linux:
-  rm -f temp_draft.txt 2>/dev/null
+  git diff --cached --name-only
+  # notes/reset-practice.md만 남은 화면을 여기서 캡처
   git commit -m "docs: Add study note excluding temp files"
+  git show --stat --oneline HEAD
   git status
   # 터미널 화면 캡처 후 메인으로 복귀 및 연습 브랜치 삭제
   git checkout main
@@ -1192,18 +1203,22 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
   echo "<!-- 잘못된 Git 명령어 설명 항목 -->" >> README.md
   git add README.md
   git commit -m "docs: Add incorrect git command notes"
+  git push -u origin practice/eunik-revert
+  # push 성공을 확인한 후에만 Step 758 진행
   ```
 - **Step 758**: **히스토리를 삭제하지 않고 안전하게 반대 변경을 적용하는 역(Revert) 커밋을 생성합니다**:
   ```bash
   git revert HEAD --no-edit
+  git push origin practice/eunik-revert
   ```
 - **Step 759**: **`git log -2 --oneline`으로 원본 커밋 위에 안전하게 Revert 역커밋이 쌓인 화면을 캡처합니다**:
   ```bash
   git log -2 --oneline
-  # 터미널 화면 캡처 후 메인으로 복귀 및 연습 브랜치 삭제
+  git ls-remote origin refs/heads/practice/eunik-revert
+  # 원격 브랜치와 원본·역커밋 URL을 기록한 후 main으로 복귀
   git checkout main
-  git branch -D practice/eunik-revert
   ```
+  원격 연습 브랜치는 제출 검증까지 보존합니다. 이 실습은 원격에 push한 일반 커밋을 같은 브랜치에서 revert하는 과정이며, `main` 병합 실습이 아닙니다. 실습 기록은 PR #22에 포함하고 해당 PR의 연결 이슈에 실습 작업을 함께 기록합니다. 추가 Issue·PR을 생성할 경우 이후 번호는 실제 발급 번호로 갱신합니다.
   > 📸 **[추천 캡처 - 조은익] `git revert` 실습 화면**: 히스토리 맨 위에 안전하게 Revert 역커밋이 추가된 `git log -2` 화면을 캡처하여 `docs/images/09-troubleshoot-revert.png`로 저장하세요.
 
 ### 7-4. 김건우: `git stash` & `stash pop` (작업 중 긴급 브랜치 이동)
@@ -1221,7 +1236,12 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
   ```
 - **Step 762**: **작업 트리가 깨끗해진 것을 확인한 뒤, 다시 보관했던 작업 내용을 꺼내옵니다**:
   ```bash
+  git checkout -b practice/gunwoo-stash-check
+  git status
+  git checkout main
   git stash pop
+  git diff -- notes/04-open-source.md
+  git branch -d practice/gunwoo-stash-check
   ```
 - **Step 763**: **작업 내용이 원상 복구됨을 확인하고 터미널을 캡처한 뒤 작업 트리를 정리합니다**:
   ```bash
@@ -1266,7 +1286,7 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
     |:---:|:---|:---|:---|
     | **김상교** | `git commit --amend` | 커밋 메시지 오타 발생 | 최신 커밋 해시 재생성 및 메시지 수정 확인 |
     | **장양환** | `git reset --soft` | 불필요한 임시 파일 포함 커밋 | unstage 후 커밋 취소, 임시 파일 안전 제외 |
-    | **조은익** | `git revert` | 머지된 잘못된 노트 커밋 롤백 | 히스토리 훼손 없이 역(Revert) 커밋 안전 머지 |
+    | **조은익** | `git revert` | 원격 연습 브랜치에 push한 잘못된 노트 커밋 | 원본을 보존하고 역커밋을 같은 원격 브랜치에 push |
     | **김건우** | `git stash` & `pop` | 작업 중 긴급 브랜치 전환 | 미완성 변경사항 임시 격리 보관 후 무손실 복구 |
 
     ## 2. 명령어별 선택 이유(Why) 및 협업 시 주의점
@@ -1277,10 +1297,10 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
       - **Why**: 실수로 들어간 파일을 커밋에서 제외하되, 정성껏 작성한 다른 코드 작업물은 유실 없이 Staging 상태로 보존하기 위함입니다.
       - **주의점**: `--hard`를 쓰면 작업 트리의 모든 변경사항이 영구 삭제되므로 반드시 `--soft`를 사용해야 하며, reset 후 `git restore --staged`로 제외할 파일을 명시적으로 unstage해야 합니다.
     - **`git revert`**:
-      - **Why**: 이미 원격 `main` 브랜치에 머지되어 동료들에게 공유된 커밋은 reset 후 강제 푸시하면 동료들의 로컬 저장소와 충돌하므로, 히스토리를 보존하면서 안전하게 역커밋을 올리기 위함입니다.
+      - **Why**: 원격에 공유된 커밋의 히스토리를 재작성하지 않고 역커밋으로 변경을 취소하기 위함입니다. 이번 실습은 `practice/eunik-revert`에서 수행했으며 `main`에는 병합하지 않았습니다.
       - **주의점**: 머지 커밋을 revert할 때는 `-m 1` 옵션을 지정하여 부모 브랜치를 지정해야 합니다.
     - **`git stash`**:
-      - **Why**: 작업 중 커밋하기 애매한 미완성 코드가 있을 때, 작업 트리를 깨끗하게 비워야만 다른 브랜치로의 체크아웃이 가능하기 때문입니다.
+      - **Why**: 미완성 변경사항을 다른 브랜치 작업에 섞지 않고 보관하기 위함입니다. 변경이 있어도 전환 가능한 경우는 있지만, 전환 대상과 충돌하면 Git이 전환을 거부할 수 있습니다.
       - **주의점**: stash 스택에 너무 많은 작업을 오래 방치하면 나중에 pop 시 충돌이 발생할 수 있으므로, 용무를 마친 후 즉시 pop하여 적용해야 합니다.
 
     ## 3. 팀원별 상세 재현 절차 (Reproducible Steps)
@@ -1290,28 +1310,33 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
     - **결과**: `git log -1` 확인 시 새로운 커밋 해시로 갱신되고 오타가 정정됨
 
     ### 3-2. 장양환: 실수 커밋 무손실 취소 (`git reset --soft`)
-    - **상황**: 임시 디버깅 파일(`temp_draft.txt`)을 실수로 포함하여 커밋
+    - **상황**: 보존할 `notes/reset-practice.md`와 불필요한 `temp_draft.txt`를 함께 커밋
     - **수행 명령**:
       ```bash
       git reset --soft HEAD~1
       git restore --staged temp_draft.txt
       Remove-Item temp_draft.txt
+      git diff --cached --name-only
       git commit -m "docs: Add study note excluding temp files"
       ```
-    - **결과**: 작성한 노트는 Staging 상태로 보존되고 `temp_draft.txt`만 안전하게 제외됨
+    - **결과**: reset 직후 두 파일이 Staging에 보존됨을 확인하고, 임시 파일만 제외하여 노트만 다시 커밋함. 실제 전후 출력과 커밋 해시를 첨부한다.
 
-    ### 3-3. 조은익: 공유된 머지 커밋 안전 취소 (`git revert`)
-    - **상황**: 원격 `main`에 머지된 커밋 중 수정이 필요한 커밋 발생
-    - **수행 명령**: `git revert HEAD --no-edit`
-    - **결과**: 히스토리를 삭제하지 않고 반대 변경을 적용하는 역커밋(`Revert "..."`)이 안전하게 머지됨
+    ### 3-3. 조은익: 원격에 push한 일반 커밋 안전 취소 (`git revert`)
+    - **상황**: `practice/eunik-revert`에 잘못된 주석을 커밋하고 원격에 push함
+    - **수행 명령**: 원본 push 성공 확인 → `git revert HEAD --no-edit` → `git push origin practice/eunik-revert` → `git log -2 --oneline`
+    - **결과**: 원본과 역커밋이 원격 연습 브랜치에 함께 보존됨. `main`에는 병합하지 않음. 실제 원본·역커밋 URL과 push 결과를 첨부한다.
 
     ### 3-4. 김건우: 미완성 작업 임시 격리 및 복원 (`git stash` & `pop`)
     - **상황**: 미완성 작업 중 긴급하게 브랜치를 전환해야 하는 Dirty 상태 발생
     - **수행 명령**:
       ```bash
       git stash push -m "work-in-progress"
-      # 브랜치 전환 및 용무 완료 후 복귀
+      git checkout -b practice/gunwoo-stash-check
+      git status
+      git checkout main
       git stash pop
+      git diff -- notes/04-open-source.md
+      git branch -d practice/gunwoo-stash-check
       ```
     - **결과**: 작업 트리가 깨끗해져 브랜치 이동이 가능했고, 복귀 후 미완성 작업물이 완벽 복구됨
     ```
@@ -1319,7 +1344,7 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
 - **Step 767**: **장양환 님 커밋 및 푸시 후 PR #22 생성**:
   - **터미널 커밋 및 푸시 명령**:
     ```bash
-    git add docs/troubleshooting-log.md
+    git add docs/troubleshooting-log.md docs/images/
     git commit -m "docs: Add troubleshooting-log.md documenting 4 recovery scenarios"
     git push -u origin feature/yanghwan-troubleshooting-log
     ```
@@ -1499,7 +1524,7 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
 - **Q5. 충돌 마커에서 `HEAD`와 `origin/main`의 의미는 무엇인가요?**
   - 👉 *"`<<<<<<< HEAD`는 현재 내가 머지를 수행 중인 로컬 체크아웃 브랜치의 내용이고, `>>>>>>> origin/main`은 당겨오려는 원격 `main` 브랜치의 최신 내용입니다."*
 - **Q6. 팀원이 실수로 의미 없는 커밋을 여러 개 작성했다면 push 전/후에 각각 어떻게 해결하나요?**
-  - 👉 *"push 전이라면 `git rebase -i`를 통해 `reword`로 메시지를 수정하거나 `squash`로 합쳐서 클린하게 올립니다. 이미 원격에 push된 공유 브랜치라면 동료들의 동기화 꼬임을 막기 위해 `git revert`로 취소하거나, 개인 feature 브랜치에 한해 사전 협의 후 `--force-with-lease`를 사용하여 안전하게 덮어씁니다."*
+  - 👉 *"push 전에는 amend나 rebase의 reword로 메시지를 정리합니다. 이미 공유된 커밋은 메시지만을 위해 히스토리를 재작성하지 않고, PR·Issue에 커밋 해시별 변경 목적을 보충합니다. 미병합 개인 브랜치는 동료가 기반으로 사용하는지 확인하고 팀 합의 후 reword와 --force-with-lease를 고려할 수 있습니다. revert는 변경 내용 자체가 잘못됐을 때 사용하며 커밋 메시지 수정 수단은 아닙니다."*
 - **Q7. GitHub Flow와 Git Flow의 차이점과 GitHub Flow를 선택한 이유는?**
   - 👉 *"Git Flow는 develop, release 등 5개 브랜치를 엄격히 관리하는 주기적 배포 모델이고, GitHub Flow는 main과 feature 브랜치만으로 수시 배포하는 민첩한 모델입니다. 저희는 빠른 피드백과 지속적 문서 통합을 위해 오버헤드가 적은 GitHub Flow를 선택했습니다."*
 - **Q8. 특정 영역에서 팀원 간 충돌이 반복적으로 일어난다면 어떻게 해결해야 하나요?**
