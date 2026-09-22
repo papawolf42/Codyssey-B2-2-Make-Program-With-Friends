@@ -967,11 +967,10 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
   - **대상 파일**: `docs/CONTRIBUTING.md`
   - **발생 원인**: 동일 위치에 커밋 규칙 항목(`test` vs `style`)을 동시 추가하여 라인 충돌 발생
   - **충돌 마커**: `<<<<<<< HEAD` (style) vs `>>>>>>> origin/main` (test)
-  - **해결 전략**: 두 규칙을 모두 보존(Union Merge)하여 순서대로 배치
-  - **해결 커밋**: PR #14 머지 커밋 (`15ae97d`)
+  - **해결 전략 및 절차**: GitHub 웹의 `Resolve conflicts` 편집기에서 충돌 마커를 확인하고 두 규칙(`test`, `style`)을 순서대로 모두 유지(Union Merge)하여 병합 커밋(`04d6a73`) 생성 후 최종 머지(`15ae97d`)
   - **배운 점(Learnings)**:
-    - 공통 설정 문서를 수정할 때는 작업 착수 전 팀원들에게 사전 공유하여 수정 위치가 겹치지 않도록 조율해야 합니다.
-    - 충돌 마커 발생 시 HEAD는 내 로컬 변경점, origin/main은 당겨온 원격 변경점임을 명확히 이해했습니다.
+    - 단순 라인 충돌(Hunk conflict)은 GitHub 웹 인터페이스에서도 신속하게 해결할 수 있음을 확인했습니다.
+    - 다만 웹 편집기에서는 해결과 동시에 추가 문서(`conflict-resolution.md`)를 함께 스테이징할 수 없으므로, 기록 문서 생성이 수반되거나 복잡한 충돌(비자명 충돌 등)은 로컬 터미널(CLI) 병합이 훨씬 유연하고 안전하다는 점을 체득했습니다.
 
   ## 2. 충돌 2: 비자명한 충돌 (Rename vs Modify)
   - **참여자**: 조은익, 김건우
