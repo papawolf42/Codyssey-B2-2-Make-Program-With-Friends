@@ -163,9 +163,26 @@ mission_02_02/
   git commit -m "docs: Add CONTRIBUTING.md guide for team collaboration"
   git push -u origin feature/sangkyo-contributing
   ```
-- **Step 88**: GitHub 저장소 웹 페이지에서 **`Compare & pull request`** 클릭.
-- **Step 89**: 제목: `docs: Add CONTRIBUTING guide (Closes #1)`
-- **Step 90**: 본문에 `Closes #1` 작성, Reviewers에 **장양환** 님 지정 ➔ **`Create pull request`** 클릭 (PR #1).
+- **Step 88**: GitHub 저장소 웹 페이지에서 **`Compare & pull request`** 클릭 (PR #1).
+- **Step 89**: 제목(Title): `docs: Add CONTRIBUTING guide for team collaboration (Closes #1)`
+- **Step 90**: 본문(Description) 작성:
+  ```markdown
+  Closes #1
+
+  ## 1. 변경 이유 (Why)
+  - 팀원 전원이 일관된 브랜치 전략(GitHub Flow)과 커밋 컨벤션, PR 규칙을 준수하여 협업 품질을 높이기 위해 작성했습니다.
+
+  ## 2. 변경 사항 (What)
+  - `docs/CONTRIBUTING.md` 가이드라인 문서 생성
+    - GitHub Flow 브랜치 전략 및 채택 이유 3줄 명시
+    - 팀 커밋 메시지 규칙(`feat`, `fix`, `docs`, `refactor`) 정의
+    - PR 생성 시 필수 항목(What/Why/How) 및 코드 리뷰 규칙 규정
+
+  ## 3. 검증 방법 (How)
+  - 마크다운 서식 렌더링 정상 확인
+  - 과제 명세서(`instruction.md`)의 협업 가이드 필수 요건 포함 여부 자체 검증 완료
+  ```
+  우측 사이드바 **`Reviewers`**에 **장양환** 님 지정 ➔ 녹색 **`Create pull request`** 클릭.
 
 ### 2-2. 장양환: PR #1 실질 코드 리뷰 및 머지
 - **Step 91**: 장양환 님이 PR #1 페이지로 이동하여 **`Files changed`** 탭 확인.
@@ -282,7 +299,25 @@ mission_02_02/
   git commit -m "feat: Add notes/03-conflict-guide.md explaining conflict causes"
   git push -u origin feature/eunik-conflict
   ```
-- **Step 191**: GitHub에서 PR #3 생성 (`Closes #3`), Reviewer로 **김건우** 님 지정.
+- **Step 191**: GitHub에서 **PR #3** 생성:
+  - **제목(Title)**: `feat: Add notes/03-conflict-guide.md explaining conflict causes and markers`
+  - **본문(Description)**:
+    ```markdown
+    Closes #3
+
+    ## 1. 변경 이유 (Why)
+    - 팀 협업 중 발생하는 Git 충돌(Conflict)의 발생 원인과 충돌 마커 구조를 이해하기 위한 학습 노트를 작성했습니다.
+
+    ## 2. 변경 사항 (What)
+    - `notes/03-conflict-guide.md` 신규 생성
+      - Git 충돌 발생 정의 및 원리 서술
+      - 충돌 마커(`<<<<<<< HEAD`, `=======`, `>>>>>>>`)의 의미와 판독법 설명
+
+    ## 3. 검증 방법 (How)
+    - 마크다운 문법 렌더링 정상 확인
+    - 충돌 마커 설명의 가독성 및 정확성 자체 검토 완료
+    ```
+  - 우측 사이드바 **`Reviewers`**에 **김건우** 님 지정 ➔ 녹색 **`Create pull request`** 클릭.
 - **Step 192**: **김건우** 님이 `Files changed`에서 라인 코멘트 작성:
   - 코멘트: *"충돌 마커 설명이 직관적입니다. 추후 3-Way Merge 개념도 보강하면 좋겠습니다."*
   - 조은익 님 답글: *"좋습니다! 다음 리팩터링 단계에서 3-Way 병합 원리를 추가하겠습니다."*
@@ -325,7 +360,25 @@ mission_02_02/
   git commit -m "feat: Add notes/04-open-source.md on open source PR practices"
   git push -u origin feature/gunwoo-opensource
   ```
-- **Step 197**: GitHub에서 PR #4 생성 (`Closes #4`), Reviewer로 **김상교** 님 지정.
+- **Step 197**: GitHub에서 **PR #4** 생성:
+  - **제목(Title)**: `feat: Add notes/04-open-source.md on open source PR practices`
+  - **본문(Description)**:
+    ```markdown
+    Closes #4
+
+    ## 1. 변경 이유 (Why)
+    - 건강한 오픈소스 협업 문화와 코드 리뷰 에티켓, PR 작성 수칙을 공유하여 팀 협업 효율을 극대화하기 위해 작성했습니다.
+
+    ## 2. 변경 사항 (What)
+    - `notes/04-open-source.md` 신규 생성
+      - 작은 단위 커밋 및 작은 PR의 중요성 설명
+      - 리뷰어 피드백 수용 자세와 건설적인 소통 에티켓 명시
+
+    ## 3. 검증 방법 (How)
+    - 마크다운 프리뷰 검토 완료
+    - 오픈소스 표준 협업 가이드라인과의 부합 여부 확인
+    ```
+  - 우측 사이드바 **`Reviewers`**에 **김상교** 님 지정 ➔ 녹색 **`Create pull request`** 클릭.
 - **Step 198**: **김상교** 님이 라인 코멘트 작성:
   - 코멘트: *"작은 단위 커밋의 중요성이 잘 서술되었습니다. PR 템플릿 항목도 기대됩니다."*
   - 김건우 님 답글: *"감사합니다. 다음 PR에서 체크리스트를 포함한 PR 템플릿을 다루겠습니다."*
@@ -369,7 +422,25 @@ mission_02_02/
   git commit -m "feat: Add notes/01-git-basics.md explaining git three areas"
   git push -u origin feature/sangkyo-git-basics
   ```
-- **Step 203**: GitHub에서 PR #5 생성 (`Closes #5`), Reviewer로 **장양환** 님 지정.
+- **Step 203**: GitHub에서 **PR #5** 생성:
+  - **제목(Title)**: `feat: Add notes/01-git-basics.md explaining git three areas`
+  - **본문(Description)**:
+    ```markdown
+    Closes #5
+
+    ## 1. 변경 이유 (Why)
+    - Git의 동작 원리인 3대 작업 영역과 기본 라이프사이클을 정리하여 팀원들의 Git 기반 지식을 공고히 하기 위해 작성했습니다.
+
+    ## 2. 변경 사항 (What)
+    - `notes/01-git-basics.md` 신규 생성
+      - Working Directory, Staging Area(Index), Repository 3대 영역 정의
+      - add -> commit -> push 기본 작업 흐름 설명
+
+    ## 3. 검증 방법 (How)
+    - 마크다운 렌더링 및 개념 설명의 정확성 자체 검토 완료
+    - README.md의 1장 목차와 연계 확인
+    ```
+  - 우측 사이드바 **`Reviewers`**에 **장양환** 님 지정 ➔ 녹색 **`Create pull request`** 클릭.
 - **Step 204**: **장양환** 님이 라인 코멘트 작성 후 **`Approve`** ➔ 김상교 님이 `Merge pull request` 클릭하여 머지 완료.
 
 ---
@@ -436,12 +507,22 @@ mission_02_02/
   - `refactor`: 디렉터리 구조 개편 및 파일 정리
   - `test`: 단위 테스트 및 실습 검증 추가
   ```
-- **Step 385**: 커밋 후 원격 푸시 및 PR #6 생성 (`Closes #6`):
-  ```bash
-  git add docs/CONTRIBUTING.md
-  git commit -m "docs: Add test tag rule to commit conventions"
-  git push -u origin feature/yanghwan-test-rule
-  ```
+- **Step 385**: 커밋 후 원격 푸시 및 **PR #6** 생성:
+  - **제목(Title)**: `docs: Add test tag rule to commit conventions`
+  - **본문(Description)**:
+    ```markdown
+    Closes #6
+
+    ## 1. 변경 이유 (Why)
+    - 단위 테스트 및 실습 검증 커밋을 명확히 분류하기 위해 커밋 컨벤션에 `test` 태그를 추가하고자 합니다.
+
+    ## 2. 변경 사항 (What)
+    - `docs/CONTRIBUTING.md`의 커밋 메시지 컨벤션 항목에 `- test: 단위 테스트 및 실습 검증 추가` 규칙 반영
+
+    ## 3. 검증 방법 (How)
+    - CONTRIBUTING.md 문서 내 서식 및 줄바꿈 정상 여부 확인
+    ```
+  - 우측 사이드바 **`Reviewers`**에 **김상교** 님 지정 ➔ 녹색 **`Create pull request`** 클릭.
 - **Step 386**: **김상교** 님이 확인 후 `Approve` ➔ **PR #6이 `main`에 먼저 머지 완료!**
 
 ### 4-3. 조은익: 수정 및 충돌 직면
@@ -460,7 +541,24 @@ mission_02_02/
   git commit -m "docs: Add style tag rule to commit conventions"
   git push -u origin feature/eunik-style-rule
   ```
-- **Step 389**: 조은익 님이 GitHub에서 PR #7을 생성합니다 (`Closes #7`).
+- **Step 389**: 조은익 님이 GitHub에서 **PR #7** 생성:
+  - **제목(Title)**: `docs: Add style tag rule and resolve merge conflict (Closes #7)`
+  - **본문(Description)**:
+    ```markdown
+    Closes #7
+
+    ## 1. 변경 이유 (Why)
+    - 마크다운 서식 및 줄바꿈 정리를 위한 `style` 커밋 태그를 추가하고, PR #6 머지로 발생한 라인 충돌을 로컬에서 해결하기 위함입니다.
+
+    ## 2. 변경 사항 (What)
+    - `docs/CONTRIBUTING.md`: 충돌 마커를 해소하고 `test`와 `style` 커밋 규칙을 순서대로 모두 보존(Union Merge)
+    - `docs/conflict-resolution.md`: [충돌 1 - 자명한 충돌] 발생 원인, 충돌 마커, 해결 전략, 배운 점 기록부 신규 생성
+
+    ## 3. 검증 방법 (How)
+    - 로컬에서 `git merge origin/main` 후 충돌 해결 및 마크다운 렌더링 정상 확인
+    - `git status`로 충돌 해소 및 작업 트리 Clean 상태 검증
+    ```
+  - 우측 사이드바 **`Reviewers`**에 **장양환** 님 지정 ➔ 녹색 **`Create pull request`** 클릭.
 - **Step 390**: **GitHub PR 화면에 회색 경고창 발생!**
   > **`This branch has conflicts that must be resolved`**  
   > `Conflicting files: docs/CONTRIBUTING.md`  
@@ -550,12 +648,22 @@ mission_02_02/
   ## 3. PR 템플릿 작성 요령
   - PR 본문에는 작업한 내용을 텍스트로 자세하게 적습니다.
   ```
-- **Step 504**: 커밋 및 푸시 후 PR #8 생성 (`Closes #8`):
-  ```bash
-  git add notes/04-open-source.md
-  git commit -m "feat: Add PR template guidelines and structure to notes/04"
-  git push -u origin feature/gunwoo-template-guide
-  ```
+- **Step 504**: 커밋 및 원격 푸시 후 **PR #8** 생성:
+  - **제목(Title)**: `feat: Add PR template guidelines and structure to notes/04`
+  - **본문(Description)**:
+    ```markdown
+    Closes #8
+
+    ## 1. 변경 이유 (Why)
+    - 효과적인 PR 작성을 돕기 위해 PR 템플릿의 기본 구조와 작성 요령을 학습 노트에 보강하고자 합니다.
+
+    ## 2. 변경 사항 (What)
+    - `notes/04-open-source.md`에 PR 템플릿 작성 요령 섹션 추가
+
+    ## 3. 검증 방법 (How)
+    - 마크다운 렌더링 및 문맥 흐름 검토
+    ```
+  - 우측 사이드바 **`Reviewers`**에 **김상교** 님 지정 ➔ 녹색 **`Create pull request`** 클릭.
 - **Step 505**: **김상교 님이 코드 리뷰를 수행합니다**:
   1. PR #8의 **`Files changed`** 탭 클릭.
   2. `notes/04-open-source.md`의 추가된 라인에 마우스를 올리고 파란색 **`+`** 버튼 클릭.
@@ -654,12 +762,24 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
   - 수시로 main의 최신 변경사항을 pull하여 동기화합니다.
   - 기능 단위로 브랜치를 잘게 쪼개어 작업 기간을 단축합니다.
   ```
-- **Step 605**: 커밋 및 푸시 후 PR #9 생성 (`Closes #9`):
-  ```bash
-  git add notes/advanced/03-conflict-guide.md
-  git commit -m "refactor: Relocate conflict guide and add prevention tips"
-  git push -u origin feature/eunik-reorganize
-  ```
+- **Step 605**: 커밋 및 푸시 후 **PR #9** 생성:
+  - **제목(Title)**: `refactor: Relocate conflict guide to advanced dir and add prevention tips`
+  - **본문(Description)**:
+    ```markdown
+    Closes #9
+
+    ## 1. 변경 이유 (Why)
+    - 문서 디렉터리 구조를 체계화하고 심화 학습 내용을 분리하기 위해 충돌 가이드를 `notes/advanced/`로 이동하고 충돌 예방 수칙을 추가합니다.
+
+    ## 2. 변경 사항 (What)
+    - `git mv notes/03-conflict-guide.md notes/advanced/03-conflict-guide.md` 경로 이동
+    - 이동된 파일 하단에 `## 3. 충돌 예방 수칙` 항목 작성
+
+    ## 3. 검증 방법 (How)
+    - 파일 경로 변경 정상 반영 여부 (`git status`에서 renamed 확인)
+    - 파일 내 충돌 예방 수칙 마크다운 렌더링 검증
+    ```
+  - 우측 사이드바 **`Reviewers`**에 **김건우** 님 지정 ➔ 녹색 **`Create pull request`** 클릭.
 - **Step 606**: **김건우 님**이 `Files changed` 확인 후 라인 코멘트와 함께 `Approve` ➔ **PR #9가 `main`에 먼저 머지 완료!**
 
 ### 6-3. 김건우: 기존 파일 수정(Modify)
@@ -668,12 +788,24 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
   ## 3. 3-Way Merge 원리
   - Git은 공통 조상 커밋(Base), 내 브랜치 커밋(Ours), 병합할 브랜치 커밋(Theirs) 3가지를 비교하여 자동으로 합칩니다.
   ```
-- **Step 608**: 커밋 및 푸시 후 PR #10 생성 (`Closes #10`):
-  ```bash
-  git add notes/03-conflict-guide.md
-  git commit -m "docs: Add 3-Way Merge principles to conflict guide"
-  git push -u origin feature/gunwoo-conflict-patch
-  ```
+- **Step 608**: 커밋 및 푸시 후 **PR #10** 생성:
+  - **제목(Title)**: `docs: Add 3-Way Merge principles and resolve rename/modify conflict (Closes #10)`
+  - **본문(Description)**:
+    ```markdown
+    Closes #10
+
+    ## 1. 변경 이유 (Why)
+    - 충돌 가이드에 3-Way Merge 개념을 보강하고, PR #9의 파일 이동(Rename)과 동시 수정(Modify)으로 인한 비자명 충돌을 해결하기 위함입니다.
+
+    ## 2. 변경 사항 (What)
+    - `notes/advanced/03-conflict-guide.md`: 이동된 최신 경로에 `3-Way Merge 원리`와 `충돌 예방 수칙`을 모두 통합 보존
+    - `docs/conflict-resolution.md`: [충돌 2 - 비자명한 충돌 (Rename vs Modify)] 기록 추가
+
+    ## 3. 검증 방법 (How)
+    - 로컬 터미널에서 `git merge origin/main`으로 비자명 충돌 유발 및 수동 해결 검증
+    - 이동된 경로(`notes/advanced/...`)에 두 내용이 누락 없이 병합되었는지 확인
+    ```
+  - 우측 사이드바 **`Reviewers`**에 **조은익** 님 지정 ➔ 녹색 **`Create pull request`** 클릭.
 
 ### 6-4. 김건우: 비자명 충돌 직면 및 해결 절차
 - **Step 609**: GitHub PR #10 화면에 충돌 경고 발생!
@@ -852,12 +984,25 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
     - **Why**: 작업 중 커밋하기 애매한 미완성 코드가 있을 때, 작업 트리를 깨끗하게 비워야만 다른 브랜치로의 체크아웃이 가능하기 때문입니다.
     - **주의점**: stash 스택에 너무 많은 작업을 오래 방치하면 나중에 pop 시 충돌이 발생할 수 있으므로, 용무를 마친 후 즉시 pop하여 적용해야 합니다.
   ```
-- **Step 767**: 커밋 후 원격 푸시 및 PR #11 생성 (`Closes #11`):
-  ```bash
-  git add docs/troubleshooting-log.md
-  git commit -m "docs: Add troubleshooting-log.md documenting 4 recovery scenarios"
-  git push -u origin feature/yanghwan-troubleshooting-log
-  ```
+- **Step 767**: 커밋 후 원격 푸시 및 **PR #11** 생성:
+  - **제목(Title)**: `docs: Add troubleshooting-log.md documenting 4 recovery scenarios`
+  - **본문(Description)**:
+    ```markdown
+    Closes #11
+
+    ## 1. 변경 이유 (Why)
+    - 팀원 4인이 각자 실습한 Git 핵심 복구 명령어(amend, reset, revert, stash)의 과정과 Why, 협업 주의사항을 영구 기록하기 위해 작성했습니다.
+
+    ## 2. 변경 사항 (What)
+    - `docs/troubleshooting-log.md` 신규 생성
+      - 4인 분담 트러블슈팅 종합 요약표 수록
+      - 명령어별 선택 이유(Why) 및 실무 협업 시 주의점(Caution) 상세 문서화
+
+    ## 3. 검증 방법 (How)
+    - 4명 전원의 실습 내용과 캡처 매핑 검증 완료
+    - 과제 명세서(`instruction.md`)의 4대 트러블슈팅 필수 요건 충족 여부 확인
+    ```
+  - 우측 사이드바 **`Reviewers`**에 **조은익** 님 지정 ➔ 녹색 **`Create pull request`** 클릭.
 - **Step 768**: **조은익 님**이 리뷰 후 `Approve` ➔ PR #11 머지 완료!
 
 ---
@@ -930,12 +1075,26 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
   git log --oneline --graph --all > docs/git-history.txt
   ```
   > 📸 **[보너스 캡처 1] Git 네트워크 커밋 그래프 트리 터미널 화면**: `git log --oneline --graph --all` 실행 시 출력되는 알록달록한 브랜치 그래프 화면을 캡처하여 `docs/images/11-git-network-graph.png`로 저장하세요.
-- **Step 886**: 커밋 후 원격 푸시 및 PR #12 생성 (`Closes #12`):
-  ```bash
-  git add README.md SUBMISSION.md docs/git-history.txt
-  git commit -m "docs: Add SUBMISSION.md index and update README table of contents"
-  git push -u origin feature/sangkyo-submission-index
-  ```
+- **Step 886**: 커밋 후 원격 푸시 및 **PR #12** 생성:
+  - **제목(Title)**: `docs: Add SUBMISSION.md index and update README table of contents`
+  - **본문(Description)**:
+    ```markdown
+    Closes #12
+
+    ## 1. 변경 이유 (Why)
+    - 최종 프로젝트 과제 제출을 위한 인덱스 문서(`SUBMISSION.md`)를 작성하고, `README.md`에 전체 학습노트 목차를 완성하기 위함입니다.
+
+    ## 2. 변경 사항 (What)
+    - `README.md`: 1장부터 4장까지의 전체 학습노트 목차(TOC) 및 주요 문서 바로가기 링크 추가
+    - `SUBMISSION.md`: 팀원별 기여 내역표(클릭 가능한 Full PR 링크 12개) 및 핵심 산출물 인덱스 작성
+    - `docs/git-history.txt`: 전체 git 커밋 네트워크 로그 증빙 파일 추가
+
+    ## 3. 검증 방법 (How)
+    - SUBMISSION.md 내 모든 PR 링크의 클릭 동작 확인
+    - README.md 목차 링크 및 마크다운 렌더링 정상 검증
+    - 4인 1:1 대칭 기여 요건(PR 3개 / 리뷰 3개) 전수 검증 완료
+    ```
+  - 우측 사이드바 **`Reviewers`**에 **김건우** 님 지정 ➔ 녹색 **`Create pull request`** 클릭.
 - **Step 887**: **김건우 님**이 리뷰 후 `Approve` ➔ PR #12 최종 머지 완료!  
   > 📸 **[보너스 캡처 2] PR 12개 All-Merged 목록 화면**: GitHub 저장소 `Pull requests` 탭에서 `is:pr is:closed` 검색 시 PR #1부터 PR #12까지 12개 전체가 보라색 Merged 상태로 정렬된 화면을 캡처하여 `docs/images/12-all-prs-merged.png`로 저장하세요. ([`0012 캡처 체크리스트`](file:///C:/Users/alsgu/Dev/Codyssey/B2-2/docs/0012_b2-2-screenshot-checklist.md#4-보너스-2종-최종-발표-및-완결-증빙) 참고)
 
