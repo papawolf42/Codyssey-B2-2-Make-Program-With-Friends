@@ -369,6 +369,26 @@ flowchart TD
   ```
 - **Step 258**: 커밋, 푸시, PR 생성 (`Closes #6`), **팀원 C 승인**, 머지 완료.
 
+### 3-3. 팀원 A: CLI 기본 라우터 골격 생성 (main.py 뼈대 - PR #7)
+- **Step 259**: 팀원 A 이슈 발행: `[feat] CLI 메인 라우터 골격 생성` ➔ **이슈 #7**.
+- **Step 260**: 로컬 브랜치 생성: `feature/a-main-skeleton`
+- **Step 261**: `src/main.py` 기본 뼈대 작성:
+  ```python
+  import argparse
+
+  def main():
+      parser = argparse.ArgumentParser(description="TaskTracker CLI")
+      subparsers = parser.add_subparsers(dest="command", help="Available commands")
+
+      # [서브커맨드 등록 지점 - 각 기능별 커맨드가 등록될 공통 라우터 영역]
+
+      args = parser.parse_args()
+
+  if __name__ == "__main__":
+      main()
+  ```
+- **Step 262**: 커밋, 푸시, PR 생성 (`Closes #7`), **팀원 D 승인**, 머지 완료.
+
 ---
 
 ## [제4부] ★ [실전 충돌 1] 자명한 충돌 (CLI 라우터 충돌) (Step 381 ~ 520)
@@ -377,7 +397,7 @@ flowchart TD
 
 ```
                     ┌─────────────────────────┐
-                    │       main.py: 15줄      │
+                    │       src/main.py: 8줄   │
                     │   subparsers 등록 지점  │
                     └───────────┬─────────────┘
                                 │
@@ -385,12 +405,12 @@ flowchart TD
         ▼                                               ▼
 [팀원 B: feature/b-add]                        [팀원 C: feature/c-list]
 subparsers.add_parser('add')                   subparsers.add_parser('list')
-(PR #7 -> main에 먼저 머지됨!)                 (PR #8 머지 시도 -> CONFLICT 발생!)
+(PR #8 -> main에 먼저 머지됨!)                 (PR #9 머지 시도 -> CONFLICT 발생!)
 ```
 
 ### 4-1. 두 팀원의 동시 분기 (사전 상태 조성)
-- **Step 381**: 팀원 B가 이슈 발행: `[feat] add 명령어 구현` ➔ **이슈 #7**.
-- **Step 382**: 팀원 C가 이슈 발행: `[feat] list 명령어 구현` ➔ **이슈 #8**.
+- **Step 381**: 팀원 B가 이슈 발행: `[feat] add 명령어 구현` ➔ **이슈 #8**.
+- **Step 382**: 팀원 C가 이슈 발행: `[feat] list 명령어 구현` ➔ **이슈 #9**.
 - **Step 383**: **팀원 B와 C는 정확히 동일한 최신 `main` 커밋에서 각자의 브랜치를 생성합니다.**
   ```bash
   # 팀원 B 로컬:
@@ -418,7 +438,7 @@ subparsers.add_parser('add')                   subparsers.add_parser('list')
       storage.save_tasks(tasks)
       return new_task
   ```
-- **Step 385**: 팀원 B는 `src/main.py`를 생성하고 `add` 서브커맨드를 등록합니다:
+- **Step 385**: 팀원 B는 기존 `src/main.py`의 8번째 줄 아래에 `add` 서브커맨드를 추가합니다:
   ```python
   import argparse
   from src.storage import Storage
@@ -426,9 +446,9 @@ subparsers.add_parser('add')                   subparsers.add_parser('list')
 
   def main():
       parser = argparse.ArgumentParser(description="TaskTracker CLI")
-      subparsers = parser.add_subparsers(dest="command")
+      subparsers = parser.add_subparsers(dest="command", help="Available commands")
 
-      # [명령어 등록 라인]
+      # [서브커맨드 등록 지점]
       add_p = subparsers.add_parser("add", help="Add new task")
       add_p.add_argument("--title", required=True)
       add_p.add_argument("--category", default="General")
@@ -448,7 +468,7 @@ subparsers.add_parser('add')                   subparsers.add_parser('list')
   git commit -m "feat: Add task functionality and register add command to main"
   git push -u origin feature/b-add
   ```
-- **Step 387**: 팀원 B가 PR #7 생성 (`Closes #7`), **팀원 A가 코드 리뷰 후 `Approve`**, **PR #7이 `main`에 성공적으로 머지됩니다!**
+- **Step 387**: 팀원 B가 PR #8 생성 (`Closes #8`), **팀원 A가 코드 리뷰 후 `Approve`**, **PR #8이 `main`에 성공적으로 머지됩니다!**
 
 ### 4-3. 팀원 C의 구현 및 충돌 마주하기
 - **Step 388**: 팀원 C는 팀원 B가 머지한 사실을 모른 채, 기존 상태의 `feature/c-list`에서 작업합니다.
@@ -459,7 +479,7 @@ subparsers.add_parser('add')                   subparsers.add_parser('list')
   def list_tasks(storage: Storage):
       return storage.load_tasks()
   ```
-- **Step 390**: 팀원 C는 `src/main.py`를 만들고 **B가 작성했던 위치와 똑같은 줄**에 `list` 서브커맨드를 작성합니다:
+- **Step 390**: 팀원 C는 기존 `src/main.py`의 동일한 8번째 줄 아래에 `list` 서브커맨드를 추가합니다:
   ```python
   import argparse
   from src.storage import Storage
@@ -467,9 +487,9 @@ subparsers.add_parser('add')                   subparsers.add_parser('list')
 
   def main():
       parser = argparse.ArgumentParser(description="TaskTracker CLI")
-      subparsers = parser.add_subparsers(dest="command")
+      subparsers = parser.add_subparsers(dest="command", help="Available commands")
 
-      # [명령어 등록 라인]
+      # [서브커맨드 등록 지점]
       list_p = subparsers.add_parser("list", help="List all tasks")
 
       args = parser.parse_args()
@@ -487,7 +507,7 @@ subparsers.add_parser('add')                   subparsers.add_parser('list')
   git commit -m "feat: List tasks functionality and register list command to main"
   git push -u origin feature/c-list
   ```
-- **Step 392**: 팀원 C가 GitHub에서 PR #8을 생성합니다 (`Closes #8`).
+- **Step 392**: 팀원 C가 GitHub에서 PR #9를 생성합니다 (`Closes #9`).
 - **Step 393**: **GitHub 화면에 회색 경고 발생!**
   > **`This branch has conflicts that must be resolved`**  
   > `Conflicting files: src/main.py, src/tasks.py`
@@ -512,10 +532,10 @@ subparsers.add_parser('add')                   subparsers.add_parser('list')
   ```
 - **Step 398**: `git status`로 충돌 상태를 확인합니다.
   ```text
-  both added:      src/tasks.py
   both modified:   src/main.py
+  both added:      src/tasks.py
   ```
-- **Step 399**: 에디터(VS Code 등)로 `src/tasks.py`를 열어 충돌 마커를 확인합니다:
+- **Step 399**: 에디터(VS Code)로 `src/tasks.py`를 열어 충돌 마커를 확인합니다:
   ```python
   <<<<<<< HEAD
   from src.storage import Storage
@@ -535,9 +555,55 @@ subparsers.add_parser('add')                   subparsers.add_parser('list')
       return new_task
   >>>>>>> origin/main
   ```
-- **Step 400**: 충돌 마커(`<<<<<<<`, `=======`, `>>>>>>>`)를 모두 지우고 두 함수(`add_task`, `list_tasks`)가 모두 공존하도록 통합합니다.
-- **Step 401**: 에디터로 `src/main.py`를 열어 `add`와 `list` 파서가 순서대로 모두 등록되도록 통합합니다.
+- **Step 400**: 충돌 마커를 지우고 두 함수가 모두 들어가도록 `src/tasks.py`를 통합 저장합니다:
+  ```python
+  from src.models import Task
+  from src.storage import Storage
+
+  def add_task(title: str, category: str, storage: Storage) -> Task:
+      tasks = storage.load_tasks()
+      next_id = max([t.id for t in tasks], default=0) + 1
+      new_task = Task(id=next_id, title=title, category=category)
+      tasks.append(new_task)
+      storage.save_tasks(tasks)
+      return new_task
+
+  def list_tasks(storage: Storage):
+      return storage.load_tasks()
+  ```
+- **Step 401**: 에디터로 `src/main.py`를 열고, 충돌 마커를 지운 뒤 `add`와 `list`가 순서대로 모두 등록된 완성 코드로 저장합니다:
+  ```python
+  import argparse
+  from src.storage import Storage
+  from src.tasks import add_task, list_tasks
+
+  def main():
+      parser = argparse.ArgumentParser(description="TaskTracker CLI")
+      subparsers = parser.add_subparsers(dest="command", help="Available commands")
+
+      # 1. add 명령어 등록 (팀원 B 기여)
+      add_p = subparsers.add_parser("add", help="Add new task")
+      add_p.add_argument("--title", required=True)
+      add_p.add_argument("--category", default="General")
+
+      # 2. list 명령어 등록 (팀원 C 기여)
+      list_p = subparsers.add_parser("list", help="List all tasks")
+
+      args = parser.parse_args()
+      storage = Storage()
+      if args.command == "add":
+          t = add_task(args.title, args.category, storage)
+          print(f"Task #{t.id} added successfully!")
+      elif args.command == "list":
+          for t in list_tasks(storage):
+              status = "V" if t.completed else " "
+              print(f"[{status}] #{t.id} {t.title} ({t.category})")
+
+  if __name__ == "__main__":
+      main()
+  ```
 - **Step 402**: 로컬에서 정상 실행되는지 직접 명령어로 검증합니다.
+
   ```bash
   python -m src.main add --title "첫 번째 할 일"
   python -m src.main list
@@ -638,32 +704,67 @@ git mv storage.py json_storage.py              open(..., encoding='utf-8') 수�
   ```bash
   git mv src/storage.py src/json_storage.py
   ```
-- **Step 635**: `src/json_storage.py` 파일 내부의 클래스명을 `Storage`에서 `JSONStorage`로 변경하고, 상단에 Docstring을 보강합니다:
+- **Step 635**: `src/json_storage.py` 파일 내부의 클래스명을 `Storage`에서 `JSONStorage`로 변경하고, **생성자(`__init__`)에 `auto_save: bool = True` 옵션을 추가**합니다:
   ```python
-  """JSON 파일 기반 영구 저장소 구현체입니다."""
+  """JSON 파일 기반 영구 저장소 구현체입니다. (v2 Refactored)"""
   import json
   import os
   from typing import List
   from src.models import Task
 
   class JSONStorage:
-      def __init__(self, filepath: str = "tasks.json"):
+      def __init__(self, filepath: str = "tasks.json", auto_save: bool = True):
           self.filepath = filepath
+          self.auto_save = auto_save
+
+      def load_tasks(self) -> List[Task]:
+          if not os.path.exists(self.filepath):
+              return []
+          try:
+              with open(self.filepath, "r") as f:
+                  data = json.load(f)
+                  return [Task.from_dict(item) for item in data]
+          except Exception:
+              return []
+
+      def save_tasks(self, tasks: List[Task]) -> None:
+          with open(self.filepath, "w") as f:
+              json.dump([t.to_dict() for t in tasks], f, indent=2)
   ```
 - **Step 636**: 팀원 D 커밋:
   ```bash
   git add src/json_storage.py
-  git commit -m "refactor: Rename storage.py to json_storage.py and rename class to JSONStorage"
+  git commit -m "refactor: Rename storage.py to json_storage.py and add auto_save option"
   git push -u origin feature/d-refactor
   ```
 
 ### 6-3. 팀원 B의 내용 수정(Modify) 및 main 선반영
-- **Step 637**: 팀원 B는 기존 `src/storage.py`의 `open()` 구문에 `encoding="utf-8"` 옵션을 추가합니다:
+- **Step 637**: 팀원 B는 기존 `src/storage.py`에서 **D가 수정한 것과 동일한 생성자(`__init__`) 라인**에 `encoding: str = "utf-8"` 옵션을 추가합니다:
   ```python
-  with open(self.filepath, "r", encoding="utf-8") as f:
-      ...
-  with open(self.filepath, "w", encoding="utf-8") as f:
-      ...
+  """JSON 영구 저장소 (v1.1 UTF-8 Patch)"""
+  import json
+  import os
+  from typing import List
+  from src.models import Task
+
+  class Storage:
+      def __init__(self, filepath: str = "tasks.json", encoding: str = "utf-8"):
+          self.filepath = filepath
+          self.encoding = encoding
+
+      def load_tasks(self) -> List[Task]:
+          if not os.path.exists(self.filepath):
+              return []
+          try:
+              with open(self.filepath, "r", encoding=self.encoding) as f:
+                  data = json.load(f)
+                  return [Task.from_dict(item) for item in data]
+          except Exception:
+              return []
+
+      def save_tasks(self, tasks: List[Task]) -> None:
+          with open(self.filepath, "w", encoding=self.encoding) as f:
+              json.dump([t.to_dict() for t in tasks], f, indent=2)
   ```
 - **Step 638**: 팀원 B 커밋, 푸시 후 PR #12 생성 (`Closes #12`):
   ```bash
@@ -682,38 +783,73 @@ git mv storage.py json_storage.py              open(..., encoding='utf-8') 수�
   ```
 - **Step 642**: **터미널에 실제 출력되는 충돌 경고 확인**:
   ```text
-  CONFLICT (rename/modify): src/storage.py renamed to src/json_storage.py in HEAD. Version origin/main of src/storage.py left in tree.
+  Auto-merging src/json_storage.py
+  CONFLICT (content): Merge conflict in src/json_storage.py
   Automatic merge failed; fix conflicts and then commit the result.
   ```
-- **Step 643**: `git status`를 입력하여 특이한 상태를 관찰합니다:
-  ```text
-  Unmerged paths:
-    (use "git add/rm <file>..." as appropriate to mark resolution)
-      both modified:   src/storage.py
-      added by us:     src/json_storage.py
+  *(참고: Git 구버전 또는 파일 이름 감지 임계값에 따라 `CONFLICT (rename/modify): src/storage.py renamed to src/json_storage.py in HEAD. Version origin/main of src/storage.py left in tree.`로 표시될 수도 있습니다.)*
+- **Step 643**: `git status`를 입력하여 상태를 확인하고, 에디터로 `src/json_storage.py`를 엽니다:
+  ```python
+  <<<<<<< HEAD
+      def __init__(self, filepath: str = "tasks.json", auto_save: bool = True):
+          self.filepath = filepath
+          self.auto_save = auto_save
+  =======
+      def __init__(self, filepath: str = "tasks.json", encoding: str = "utf-8"):
+          self.filepath = filepath
+          self.encoding = encoding
+  >>>>>>> origin/main
   ```
-  *(상대방이 수정한 내용이 담긴 `storage.py`와 내가 이름을 바꾼 `json_storage.py`가 동시에 존재하는 비자명 충돌 특유의 현상)*
-- **Step 644**: 해결 전략 실행:
-  1. 상대방이 `storage.py`에 적용한 `encoding="utf-8"` 코드를 확인합니다.
-  2. 내가 이름을 변경한 새 파일 `src/json_storage.py` 내부의 `open()` 구문에 `encoding="utf-8"`을 똑같이 적용합니다.
-  3. 다른 모듈(`tasks.py`, `main.py`)에서 `from src.storage import Storage`를 `from src.json_storage import JSONStorage`로 import 구문을 일괄 수정합니다.
-  4. 구 파일 `src/storage.py`는 더 이상 필요 없으므로 Git에서 안전하게 삭제합니다:
-     ```bash
-     git rm src/storage.py
-     ```
+  *(만약 `src/storage.py`가 디렉토리에 여전히 남아있다면, Git의 classic rename/modify 모드이므로 `git rm src/storage.py`로 구 파일을 정리합니다.)*
+- **Step 644**: 해결 전략 실행 (3-Way Merge & Relocation):
+  1. 상대방이 작성한 `encoding="utf-8"` 인자 및 `open(..., encoding=self.encoding)` 로직을 새 클래스 `JSONStorage`에 그대로 흡수합니다.
+  2. 내가 추가한 `auto_save` 속성과 상대방의 `encoding` 속성을 모두 유지하도록 `src/json_storage.py`를 완성합니다:
+  ```python
+  """JSON 파일 기반 영구 저장소 구현체입니다. (v2 Final Merged)"""
+  import json
+  import os
+  from typing import List
+  from src.models import Task
+
+  class JSONStorage:
+      def __init__(self, filepath: str = "tasks.json", encoding: str = "utf-8", auto_save: bool = True):
+          self.filepath = filepath
+          self.encoding = encoding
+          self.auto_save = auto_save
+
+      def load_tasks(self) -> List[Task]:
+          if not os.path.exists(self.filepath):
+              return []
+          try:
+              with open(self.filepath, "r", encoding=self.encoding) as f:
+                  data = json.load(f)
+                  return [Task.from_dict(item) for item in data]
+          except Exception:
+              return []
+
+      def save_tasks(self, tasks: List[Task]) -> None:
+          with open(self.filepath, "w", encoding=self.encoding) as f:
+              json.dump([t.to_dict() for t in tasks], f, indent=2)
+  ```
+  3. `src/tasks.py`와 `src/main.py`의 import 구문을 `from src.storage import Storage`에서 `from src.json_storage import JSONStorage`로 수정하고 인스턴스 생성도 `storage = JSONStorage()`로 맞춥니다.
 - **Step 645**: 수정된 파일들을 스테이징하고 해결 머지 커밋을 생성합니다.
   ```bash
   git add src/json_storage.py src/tasks.py src/main.py
-  git commit -m "fix: Resolve rename/modify conflict by applying utf-8 encoding into renamed json_storage.py"
+  git commit -m "fix: Resolve rename/modify conflict by unifying JSONStorage with utf-8 encoding"
   ```
-- **Step 646**: 원격 브랜치로 푸시합니다.
+- **Step 646**: 기능이 로컬에서 정상 동작하는지 테스트합니다:
+  ```bash
+  python -m src.main add --title "충돌2 해결 검증 태스크" --category "QA"
+  python -m src.main list
+  ```
+  정상 작동을 확인한 뒤 원격 브랜치로 푸시합니다:
   ```bash
   git push origin feature/d-refactor
   ```
-- **Step 647**: GitHub PR #13 화면에서 충돌이 풀렸음을 확인하고, **팀원 B 승인** 후 `main`에 머지합니다.
+- **Step 647**: GitHub PR #13 화면에서 충돌이 자동으로 해소되었음을 확인하고, **팀원 B 승인** 후 `main`에 머지합니다.
 
 ### 6-5. 충돌 2 문서 기록 (팀원 D 진행)
-- **Step 648**: `docs/conflict-resolution.md`에 [충돌 기록 2 - 비자명 충돌] 상세 내용을 기록하고 커밋합니다. (참여자, `CONFLICT (rename/modify)` 경고 문구 원문, `3-Way Merge & Content Relocation` 해결 전략, 커밋 링크 명시)
+- **Step 648**: `docs/conflict-resolution.md`에 [충돌 기록 2 - 비자명 충돌] 상세 내용을 기록하고 커밋합니다. (참여자 D & B, 발생 원인, 터미널 에러 문구 원문, `3-Way Merge & Content Relocation` 해결 전략, 커밋 해시 명시)
 
 ---
 
@@ -767,14 +903,46 @@ git mv storage.py json_storage.py              open(..., encoding='utf-8') 수�
   ```
 - **Step 794**: 충돌 없이 작업 내용이 정확히 복원됨을 확인하고 로그를 기록합니다.
 
+### 7-5. 트러블슈팅 종합 기록부 작성 및 PR 머지 (Step 795 ~ 800)
+- **Step 795**: 팀원 A가 이슈를 생성하고 브랜치를 분기합니다:
+  - 이슈: `[docs] Git 4대 트러블슈팅 전원 실습 기록부 작성` ➔ **이슈 #13**.
+  ```bash
+  git checkout main && git pull origin main
+  git checkout -b docs/troubleshooting-log
+  ```
+- **Step 796**: 4명의 팀원이 터미널에서 캡처한 실제 명령어와 실행 로그를 취합하여 `docs/troubleshooting-log.md`를 작성합니다:
+  ```markdown
+  # Git Troubleshooting Practice Log
+
+  | 팀원 | 명령어 | 의도적 유발 상황 | 해결 및 복구 결과 |
+  |:---:|:---|:---|:---|
+  | **팀원 A (김철수)** | `git commit --amend` | 커밋 메시지 오타 발생 | 최신 커밋 해시 재생성 및 메시지 수정 확인 |
+  | **팀원 B (이영희)** | `git reset --soft` | 불필요한 디버그 임시 파일 포함 커밋 | 작업 트리 보존 상태로 커밋 취소 후 파일 제외 커밋 |
+  | **팀원 C (박민수)** | `git revert` | main에 반영된 버그 커밋 긴급 롤백 | 히스토리 훼손 없이 역(Revert) 커밋 안전 머지 |
+  | **팀원 D (최수진)** | `git stash` & `pop` | 작업 중 긴급 브랜치 전환 요청 | 미완성 변경사항 임시 격리 보관 후 무손실 복구 |
+  ```
+- **Step 797**: 커밋 및 푸시:
+  ```bash
+  git add docs/troubleshooting-log.md
+  git commit -m "docs: Add Git troubleshooting practice log for 4 members"
+  git push -u origin docs/troubleshooting-log
+  ```
+- **Step 798**: GitHub PR #14 생성 (`Closes #13`), **팀원 D**가 리뷰 후 `Approve` ➔ `main` 머지 완료!
+
 ---
 
 ## [제8부] 최종 인덱스 & 시연 리허설 (Step 911 ~ 1000)
 
 > **목표**: 모든 산출물을 하이퍼링크로 연결한 `SUBMISSION.md`를 작성하고, 피어 리뷰 시연을 준비합니다.
 
-### 8-1. 팀원 A: SUBMISSION.md 종합 인덱스 작성 (Step 911 ~ 940)
-- **Step 911**: 루트 경로에 `SUBMISSION.md`를 생성하고 모든 팀원의 기여 내역을 표로 정리합니다:
+### 8-1. 팀원 A: SUBMISSION.md 종합 인덱스 작성 및 최종 머지 (Step 911 ~ 940)
+- **Step 911**: 팀원 A가 이슈 발행: `[docs] 최종 제출 문서 SUBMISSION.md 및 히스토리 로그 생성` ➔ **이슈 #14**.
+- **Step 912**: 팀원 A가 최신 `main`에서 브랜치를 분기합니다:
+  ```bash
+  git checkout main && git pull origin main
+  git checkout -b feature/a-submission-index
+  ```
+- **Step 913**: 루트 경로에 `SUBMISSION.md`를 생성하고 모든 팀원의 기여 내역을 표로 완벽히 정리합니다:
   ```markdown
   # Submission Index
 
@@ -786,21 +954,27 @@ git mv storage.py json_storage.py              open(..., encoding='utf-8') 수�
   ## 2. 팀원별 기여 내역 (Issues / PRs / Reviews)
   | 팀원 | 역할 | 이슈 링크 | 병합된 PR 링크 | 동료 코드 리뷰 링크 |
   |:---:|:---:|:---|:---|:---|
-  | **김철수** | 팀장/인프라 | #1, #5 | PR #1, PR #5 | PR #7 리뷰, PR #10 리뷰 |
-  | **이영희** | 코어 개발 | #2, #6, #7, #12 | PR #2, PR #6, PR #7, PR #12 | PR #1 리뷰, PR #13 리뷰 |
-  | **박민수** | 기능 개발 | #3, #8 | PR #3, PR #8 (충돌 1 해결) | PR #2 리뷰, PR #12 리뷰 |
-  | **최수진** | 리팩터링 | #4, #9, #11 | PR #4, PR #10 (리뷰 반영), PR #13 (충돌 2 해결) | PR #3 리뷰, PR #8 리뷰 |
+  | **김철수 (팀원 A)** | 팀장/인프라 | #1, #5, #13, #14 | PR #1, PR #5, PR #14, PR #15 | PR #7 리뷰, PR #10 리뷰 |
+  | **이영희 (팀원 B)** | 코어 개발 | #2, #6, #7, #12 | PR #2, PR #6, PR #7, PR #12 | PR #1 리뷰, PR #9 리뷰, PR #13 리뷰 |
+  | **박민수 (팀원 C)** | 기능 개발 | #3, #8 | PR #3, PR #8, PR #9 (충돌 1 해결) | PR #2 리뷰, PR #6 리뷰, PR #12 리뷰 |
+  | **최수진 (팀원 D)** | 리팩터링 | #4, #9, #10, #11 | PR #4, PR #10 (리뷰 반영), PR #13 (충돌 2 해결) | PR #3 리뷰, PR #8 리뷰, PR #14 리뷰 |
 
   ## 3. 핵심 문서 바로가기
   - [협업 규칙 가이드 (CONTRIBUTING.md)](docs/CONTRIBUTING.md)
   - [충돌 해결 기록부 (conflict-resolution.md)](docs/conflict-resolution.md)
   - [트러블슈팅 실습 기록부 (troubleshooting-log.md)](docs/troubleshooting-log.md)
   ```
-- **Step 912**: 터미널에서 Git 히스토리 텍스트를 추출하여 `docs/git-history.txt`로 저장합니다.
+- **Step 914**: 터미널에서 전체 Git 히스토리 텍스트를 추출하여 `docs/git-history.txt`로 저장합니다:
   ```bash
   git log --oneline --graph --all > docs/git-history.txt
   ```
-- **Step 913**: 마지막 PR을 통해 `SUBMISSION.md`와 `git-history.txt`를 `main`에 머지합니다.
+- **Step 915**: 커밋 후 푸시하고 최종 PR #15를 생성합니다 (`Closes #14`):
+  ```bash
+  git add SUBMISSION.md docs/git-history.txt
+  git commit -m "docs: Add final SUBMISSION.md index and git history log"
+  git push -u origin feature/a-submission-index
+  ```
+- **Step 916**: **팀원 B와 C**가 최종 점검 리뷰를 수행하고 `Approve`를 누른 뒤 `main`에 최종 머지 완료!
 
 ### 8-2. 최종 자가 점검 (Step 941 ~ 970)
 - [x] Branch Protection이 활성화되어 있어 `main` 직접 푸시가 차단되는가?
