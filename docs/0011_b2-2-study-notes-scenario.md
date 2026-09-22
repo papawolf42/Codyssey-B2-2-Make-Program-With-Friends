@@ -4,7 +4,8 @@
 > **저장소 URL**: **[`https://github.com/nick19850906-debug/mission_02_02`](https://github.com/nick19850906-debug/mission_02_02)**  
 > **저장소 형태**: **조은익 님의 개인 Public GitHub Repository + 팀원 3명 Collaborator 초대 방식**  
 > **프로젝트 주제**: **Git & GitHub 개발 협업 학습정리노트 (Markdown 기반)**  
-> **규격 준수**: 과제 명세서(`instruction.md`) 전 항목 전수 점검 통과 (1인당 PR 3개 / 리뷰 3개 대칭 구조, Request Changes 피드백 반영, Git ORT 100% 충돌 보장, 4대 트러블슈팅, Windows PowerShell 5.1 완벽 호환).
+> **규격 준수**: 과제 명세서(`instruction.md`) 전 항목 전수 점검 통과 (1인당 PR 3개 / 리뷰 3개 대칭 구조, Request Changes 피드백 반영, Git ORT 100% 충돌 보장, 4대 트러블슈팅, Windows PowerShell 5.1 완벽 호환).  
+> **증빙 캡처 가이드**: [`docs/0012_b2-2-screenshot-checklist.md`](file:///C:/Users/alsgu/Dev/Codyssey/B2-2/docs/0012_b2-2-screenshot-checklist.md) (필수 4장, 추천 4장, 보너스 2장 실시간 타이밍 체크리스트)
 
 ---
 
@@ -87,7 +88,8 @@ mission_02_02/
   git commit -am "test: Direct push to main"
   git push origin main
   ```
-- **Step 16**: 터미널에 `remote: error: GH006: Protected branch hook declined` 에러가 발생하며 차단되는 것을 확인!
+- **Step 16**: 터미널에 `remote: error: GH006: Protected branch hook declined` 에러가 발생하며 차단되는 것을 확인!  
+  > 📸 **[필수 캡처 1] `main` 브랜치 직접 푸시 차단 화면**: 터미널에 `GH006: Protected branch hook declined` 에러가 찍힌 전체 터미널 화면을 캡처하여 `docs/images/01-branch-protection-blocked.png`로 저장하세요. ([`0012 캡처 체크리스트`](file:///C:/Users/alsgu/Dev/Codyssey/B2-2/docs/0012_b2-2-screenshot-checklist.md#필수-1-main-브랜치-직접-푸시-차단-화면-step-16) 참고)
 - **Step 17**: 테스트 커밋 취소:
   ```bash
   git reset --hard HEAD~1
@@ -375,7 +377,8 @@ mission_02_02/
 - **Step 389**: 조은익 님이 GitHub에서 PR #7을 생성합니다 (`Closes #7`).
 - **Step 390**: **GitHub PR 화면에 회색 경고창 발생!**
   > **`This branch has conflicts that must be resolved`**  
-  > `Conflicting files: docs/CONTRIBUTING.md`
+  > `Conflicting files: docs/CONTRIBUTING.md`  
+  > 📸 **[필수 캡처 2-A] GitHub PR 충돌 경고창**: PR #7 상단에 회색 경고창(`This branch has conflicts...`)이 뜬 웹 브라우저 화면을 캡처하여 `docs/images/02-conflict1-web-alert.png`로 저장하세요.
 
 ### 4-4. 조은익: 로컬 충돌 해결 및 기록부 작성
 - **Step 391**: 조은익 님은 웹 편집기를 쓰지 않고, 원칙대로 **로컬 터미널**에서 `origin/main`을 병합합니다:
@@ -402,6 +405,7 @@ mission_02_02/
   - `test`: 단위 테스트 및 실습 검증 추가
   >>>>>>> origin/main
   ```
+  > 📸 **[필수 캡처 2-B] VS Code 충돌 마커 화면**: 충돌 마커(`<<<<<<< HEAD`, `=======`, `>>>>>>> origin/main`)가 선명하게 보이는 에디터 화면을 캡처하여 `docs/images/03-conflict1-markers.png`로 저장하세요. ([`0012 캡처 체크리스트`](file:///C:/Users/alsgu/Dev/Codyssey/B2-2/docs/0012_b2-2-screenshot-checklist.md#필수-2-충돌-1-자명한-충돌-발생-및-충돌-마커-화면-step-390-393) 참고)
 - **Step 394**: 충돌 마커(`<<<<<<< HEAD`, `=======`, `>>>>>>> origin/main`)를 지우고 두 항목이 순서대로 모두 보존되도록 합칩니다:
   ```markdown
   ## 2. 커밋 메시지 컨벤션
@@ -462,7 +466,8 @@ mission_02_02/
   3. 코멘트 입력:  
      *"단순 텍스트 설명 외에도 실무에서 사용하는 [ ] 체크리스트 양식 예시를 추가해 주시면 훨씬 완성도 높은 학습 노트가 될 것 같습니다!"*
   4. 우측 상단 **`Finish your review`** 클릭.
-  5. 라디오 버튼 중 **`Request changes`** 선택 후 **`Submit review`** 클릭! (빨간색 마크 표시)
+  5. 라디오 버튼 중 **`Request changes`** 선택 후 **`Submit review`** 클릭! (빨간색 마크 표시)  
+  > 📸 **[필수 캡처 3-A] Request Changes 화면**: PR #8에 빨간색 `Changes requested` 상태와 김상교 님의 개선 요청 라인 코멘트가 함께 보이도록 웹 브라우저를 캡처하여 `docs/images/04-review-request-changes.png`로 저장하세요.
 - **Step 506**: 김건우 님은 피드백 알림을 확인하고 로컬에서 `notes/04-open-source.md`를 수정합니다:
   ```markdown
   ## 3. PR 템플릿 작성 요령
@@ -478,7 +483,8 @@ mission_02_02/
   git commit -m "docs: Add self-review checklist to PR template as requested in review"
   git push origin feature/gunwoo-template-guide
   ```
-- **Step 508**: **김상교** 님이 PR #8 화면에서 추가된 수정 커밋을 확인하고, 코멘트에 *"피드백이 완벽하게 반영되었습니다! 수고하셨습니다."* 답글을 남긴 뒤 **`Approve`**를 제출합니다.
+- **Step 508**: **김상교** 님이 PR #8 화면에서 추가된 수정 커밋을 확인하고, 코멘트에 *"피드백이 완벽하게 반영되었습니다! 수고하셨습니다."* 답글을 남긴 뒤 **`Approve`**를 제출합니다.  
+  > 📸 **[필수 캡처 3-B] 재승인(Approved) 화면**: 김건우 님의 수정 커밋이 반영된 후 김상교 님이 녹색 `Approved`로 상태를 변경하고 칭찬 답글을 남긴 화면을 캡처하여 `docs/images/05-review-approved.png`로 저장하세요. ([`0012 캡처 체크리스트`](file:///C:/Users/alsgu/Dev/Codyssey/B2-2/docs/0012_b2-2-screenshot-checklist.md#필수-3-리뷰-피드백-반영-request-changes--재승인-화면-step-505-508) 참고)
 - **Step 509**: PR #8이 `main`에 성공적으로 머지됩니다. (리뷰 피드백 반영 증빙 완료!)
 
 ---
@@ -586,6 +592,7 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
   - 기능 단위로 브랜치를 잘게 쪼개어 작업 기간을 단축합니다.
   >>>>>>> origin/main:notes/advanced/03-conflict-guide.md
   ```
+  > 📸 **[필수 캡처 4] 비자명 충돌(Rename vs Modify) 마커 및 터미널 화면**: 이전 경로와 새 경로(`HEAD:notes/03-conflict-guide.md` vs `origin/main:notes/advanced/03-conflict-guide.md`)가 모두 찍힌 충돌 마커 화면을 캡처하여 `docs/images/06-conflict2-rename-modify.png`로 저장하세요. ([`0012 캡처 체크리스트`](file:///C:/Users/alsgu/Dev/Codyssey/B2-2/docs/0012_b2-2-screenshot-checklist.md#필수-4-충돌-2-비자명-충돌rename-vs-modify-화면-step-609-612) 참고)
 - **Step 613**: **해결 전략 실행**:
   - 충돌 마커를 지우고 `3-Way Merge 원리`를 3번, `충돌 예방 수칙`을 4번으로 통합합니다:
   ```markdown
@@ -633,7 +640,8 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
   ```bash
   git commit --amend -m "docs: Add git basics summary note"
   ```
-- **Step 753**: `git log -1`로 커밋 해시가 갱신되고 메시지가 깔끔하게 수정된 터미널 로그를 캡처합니다.
+- **Step 753**: `git log -1`로 커밋 해시가 갱신되고 메시지가 깔끔하게 수정된 터미널 로그를 캡처합니다.  
+  > 📸 **[추천 캡처 - 김상교] `git commit --amend` 실습 화면**: 직전 오타 커밋 메시지가 정정된 터미널 로그를 캡처하여 `docs/images/07-troubleshoot-amend.png`로 저장하세요. ([`0012 캡처 체크리스트`](file:///C:/Users/alsgu/Dev/Codyssey/B2-2/docs/0012_b2-2-screenshot-checklist.md#3-강력-추천-4대-증빙-git-4대-트러블슈팅-실습-4인-전원-1장씩) 참고)
 
 ### 7-2. 장양환: `git reset --soft` (실수 커밋 무손실 취소)
 - **Step 754**: 불필요한 임시 디버깅 파일(`temp_draft.txt`)을 실수로 포함하여 커밋:
@@ -652,7 +660,8 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
   rm temp_draft.txt
   git commit -m "docs: Add study note excluding temp files"
   ```
-  `git status` 및 `git ls-files`로 `temp_draft.txt`가 완전히 제외되었음을 확인합니다.
+  `git status` 및 `git ls-files`로 `temp_draft.txt`가 완전히 제외되었음을 확인합니다.  
+  > 📸 **[추천 캡처 - 장양환] `git reset --soft` 실습 화면**: 작업 파일은 Staging에 안전하게 보존되고 임시 파일만 제외된 터미널 화면을 캡처하여 `docs/images/08-troubleshoot-reset-soft.png`로 저장하세요.
 
 ### 7-3. 조은익: `git revert` (원격에 공유된 잘못된 커밋 안전 취소)
 - **Step 757**: 이미 원격 `main`에 머지된 커밋에 잘못된 Git 명령어 설명이 포함된 상황을 가정합니다.
@@ -662,7 +671,8 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
   # 취소할 작성자 커밋 해시 확인 (예: a1b2c3d)
   git revert a1b2c3d --no-edit
   ```
-- **Step 759**: `Revert "..."` 역커밋이 히스토리에 안전하게 추가된 과정을 캡처합니다.
+- **Step 759**: `Revert "..."` 역커밋이 히스토리에 안전하게 추가된 과정을 캡처합니다.  
+  > 📸 **[추천 캡처 - 조은익] `git revert` 실습 화면**: 히스토리 맨 위에 안전하게 Revert 역커밋이 추가된 `git log -2` 화면을 캡처하여 `docs/images/09-troubleshoot-revert.png`로 저장하세요.
 
 ### 7-4. 김건우: `git stash` & `stash pop` (작업 중 긴급 브랜치 이동)
 - **Step 760**: `notes/04-open-source.md`에 미완성 내용을 추가하여 작업 트리를 Dirty 상태로 만듭니다:
@@ -677,7 +687,8 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
   ```bash
   git stash pop
   ```
-- **Step 763**: 작업 내용이 한 줄도 유실되지 않고 원상 복구됨을 확인하고 로그를 캡처합니다.
+- **Step 763**: 작업 내용이 한 줄도 유실되지 않고 원상 복구됨을 확인하고 로그를 캡처합니다.  
+  > 📸 **[추천 캡처 - 김건우] `git stash` & `pop` 실습 화면**: stash pop 후 미완성 작업 내용이 완벽 복원된 터미널 화면을 캡처하여 `docs/images/10-troubleshoot-stash.png`로 저장하세요.
 
 ### 7-5. 장양환: 트러블슈팅 종합 기록부 작성 및 머지 (PR #11)
 - **Step 764**: 장양환 님 이슈 발행: `[docs] 4인의 Git 트러블슈팅 실습 로그 작성` ➔ **이슈 #11**.
@@ -778,13 +789,15 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
   ```bash
   git log --oneline --graph --all > docs/git-history.txt
   ```
+  > 📸 **[보너스 캡처 1] Git 네트워크 커밋 그래프 트리 터미널 화면**: `git log --oneline --graph --all` 실행 시 출력되는 알록달록한 브랜치 그래프 화면을 캡처하여 `docs/images/11-git-network-graph.png`로 저장하세요.
 - **Step 886**: 커밋 후 원격 푸시 및 PR #12 생성 (`Closes #12`):
   ```bash
   git add README.md SUBMISSION.md docs/git-history.txt
   git commit -m "docs: Add SUBMISSION.md index and update README table of contents"
   git push -u origin feature/sangkyo-submission-index
   ```
-- **Step 887**: **김건우 님**이 리뷰 후 `Approve` ➔ PR #12 최종 머지 완료!
+- **Step 887**: **김건우 님**이 리뷰 후 `Approve` ➔ PR #12 최종 머지 완료!  
+  > 📸 **[보너스 캡처 2] PR 12개 All-Merged 목록 화면**: GitHub 저장소 `Pull requests` 탭에서 `is:pr is:closed` 검색 시 PR #1부터 PR #12까지 12개 전체가 보라색 Merged 상태로 정렬된 화면을 캡처하여 `docs/images/12-all-prs-merged.png`로 저장하세요. ([`0012 캡처 체크리스트`](file:///C:/Users/alsgu/Dev/Codyssey/B2-2/docs/0012_b2-2-screenshot-checklist.md#4-보너스-2종-최종-발표-및-완결-증빙) 참고)
 
 ---
 
