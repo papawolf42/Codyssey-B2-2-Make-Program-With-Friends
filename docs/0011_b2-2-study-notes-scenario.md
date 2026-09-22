@@ -13,7 +13,7 @@
 
 | 팀원 이름 | 배역/역할 | 생성한 Issue (실제 번호) | 생성한 PR (실제 번호) | 코드 리뷰 참여 (리뷰어) | 4대 트러블슈팅 |
 |:---:|:---:|:---|:---|:---|:---:|
-| **조은익** | **호스트 / 트러블슈팅** | **#5** (충돌노트), **#12** (충돌 1 해결), **#17** (advanced 이동) | **PR #6**, **PR #14**, **PR #19** | PR #4, PR #16, PR #22 | `git revert` |
+| **조은익** | **호스트 / 트러블슈팅** | **#5** (충돌노트), **#12** (충돌 1 해결), **#17** (advanced 이동) | **PR #6**, **PR #14**, **PR #19** | PR #4, PR #20, PR #22 | `git revert` |
 | **김상교** | **팀장 / 가이드 & 인프라** | **#1** (가이드), **#9** (기초노트), **#23** (최종 제출 인덱스) | **PR #2**, **PR #10**, **PR #24** | PR #8, PR #13, PR #16 (Request changes) | `git commit --amend` |
 | **장양환** | **코어 / 협업노트** | **#3** (Flow노트), **#11** (test규칙), **#21** (트러블슈팅 종합) | **PR #4**, **PR #13**, **PR #22** | PR #2, PR #10, PR #14 | `git reset --soft` |
 | **김건우** | **심화노트 / 리뷰피드백** | **#7** (협업노트), **#15** (리뷰반영), **#18** (충돌 2 해결) | **PR #8**, **PR #16**, **PR #20** | PR #6, PR #19, PR #24 | `git stash` & `pop` |
@@ -22,20 +22,38 @@
 
 ---
 
-## 🚨 [실시간 동기화 완료] GitHub Issue 번호와 PR 번호 실측 매핑표
+## 🚨 [실시간 동기화 완료] GitHub #1 ~ #24 전수 일련번호 및 생성 순서 완벽 정리표
 
 > [!NOTE]
-> **실시간 저장소 확인 결과 (2026-09-22 19:10 기준)**:  
-> - **완료된 작업 (100% Closed & Merged)**:  
->   - 김상교: Issue #1 ➔ PR #2 (CONTRIBUTING 가이드)
->   - 장양환: Issue #3 ➔ PR #4 (02-github-flow)
->   - 조은익: Issue #5 ➔ PR #6 (03-conflict-guide)
->   - 김건우: Issue #7 ➔ PR #8 (04-open-source)
->   - 김상교: Issue #9 ➔ PR #10 (01-git-basics)
->   - 장양환: Issue #11 ➔ PR #13 (test 컨벤션 규칙)
->   - 조은익: Issue #12 ➔ PR #14 (style 컨벤션 추가 및 충돌 1 해결)
-> - **다음 진행 작업 (제5부 김건우 님부터)**:  
->   - 최신 번호가 14번까지 소진되었으므로, **다음 이슈는 #15, 다음 PR은 #16**으로 정확하게 이어집니다!
+> **GitHub 일련번호 카운터 원리**: Issue와 PR은 생성될 때마다 1부터 카운터를 공유합니다.  
+> 현재 저장소는 **#1부터 #14까지 전원 머지/종료**되었으며, 앞으로 진행할 **#15부터 #24까지의 생성 순서와 번호**는 아래와 같이 100% 확정됩니다.
+
+| 순서(ID) | 구분 | 작성자 | 작업 내용 및 제목 | 연결 Issue (Closes #) | 지정 리뷰어 | 상태 |
+|:---:|:---:|:---:|:---|:---:|:---:|:---:|
+| **#1** | **ISSUE** | 김상교 | `[docs] 협업 규칙 가이드 CONTRIBUTING.md 작성` | - | - | **Closed** |
+| **#2** | **PR** | 김상교 | `docs: Add CONTRIBUTING.md guide for team collaboration` | Closes #1 | 장양환 (Approve) | **Merged** |
+| **#3** | **ISSUE** | 장양환 | `[feat] GitHub Flow 브랜치 전략 학습노트 작성` | - | - | **Closed** |
+| **#4** | **PR** | 장양환 | `feat: Add notes/02-github-flow.md detailing branch lifecycle` | Closes #3 | 조은익 (Approve) | **Merged** |
+| **#5** | **ISSUE** | 조은익 | `[feat] Git 충돌 원리와 해결법 학습노트 작성` | - | - | **Closed** |
+| **#6** | **PR** | 조은익 | `feat: Add notes/03-conflict-guide.md explaining conflict causes...` | Closes #5 | 김건우 (Approve) | **Merged** |
+| **#7** | **ISSUE** | 김건우 | `[feat] 오픈소스 협업 및 PR 문화 학습노트 작성` | - | - | **Closed** |
+| **#8** | **PR** | 김건우 | `feat: Add notes/04-open-source.md on open source PR practices` | Closes #7 | 김상교 (Approve) | **Merged** |
+| **#9** | **ISSUE** | 김상교 | `[feat] Git 3대 영역과 기본 명령어 학습노트 작성` | - | - | **Closed** |
+| **#10** | **PR** | 김상교 | `feat: Add notes/01-git-basics.md explaining git three areas` | Closes #9 | 장양환 (Approve) | **Merged** |
+| **#11** | **ISSUE** | 장양환 | `[docs] 커밋 컨벤션에 test 규칙 추가` | - | - | **Closed** |
+| **#12** | **ISSUE** | 조은익 | `[docs] 커밋 컨벤션에 test 규칙 추가` | - | - | **Closed** |
+| **#13** | **PR** | 장양환 | `docs: Add test tag rule to commit conventions` | Closes #11 | 김상교 (Approve) | **Merged** |
+| **#14** | **PR** | 조은익 | `docs: Add style tag rule and resolve merge conflict (충돌 1)` | Closes #12 | 장양환 (Approve) | **Merged** |
+| **#15** | **ISSUE** | 김건우 | `[feat] 오픈소스 PR 템플릿 작성 요령 보강` | - | - | **진행 예정 (NEXT)** |
+| **#16** | **PR** | 김건우 | `feat: Add PR template guidelines and structure to notes/04` | Closes #15 | 김상교 (Request changes ➔ 반영 ➔ Approve) | **진행 예정** |
+| **#17** | **ISSUE** | 조은익 | `[refactor] 충돌 가이드 노트를 advanced 디렉터리로 이동 및 예방 수칙 추가` | - | - | **진행 예정** |
+| **#18** | **ISSUE** | 김건우 | `[docs] 충돌 가이드 노트에 3-Way Merge 개념 보강` | - | - | **진행 예정** |
+| **#19** | **PR** | 조은익 | `refactor: Relocate conflict guide to advanced dir and add prevention tips` | Closes #17 | 김건우 (Approve & 머지 선반영) | **진행 예정** |
+| **#20** | **PR** | 김건우 | `docs: Add 3-Way Merge principles and resolve rename/modify conflict` | Closes #18 | 조은익 (충돌 2 로컬 해결 후 Approve) | **진행 예정** |
+| **#21** | **ISSUE** | 장양환 | `[docs] 4인의 Git 트러블슈팅 실습 로그 작성` | - | - | **진행 예정** |
+| **#22** | **PR** | 장양환 | `docs: Add troubleshooting-log.md documenting 4 recovery scenarios` | Closes #21 | 조은익 (Approve) | **진행 예정** |
+| **#23** | **ISSUE** | 김상교 | `[docs] 최종 제출 문서 SUBMISSION.md 작성 및 README 목차 업데이트` | - | - | **진행 예정** |
+| **#24** | **PR** | 김상교 | `docs: Add SUBMISSION.md index and update README table of contents` | Closes #23 | 김건우 (Approve & Final 머지) | **진행 예정** |
 
 ---
 
@@ -49,8 +67,6 @@ mission_02_02/
 │   ├── conflict-resolution.md     # 충돌 2회(자명/비자명) 해결 기록부 (배운 점 포함)
 │   ├── troubleshooting-log.md     # Git 4대 트러블슈팅 실습 기록부 (Why 및 주의점 포함)
 │   └── git-history.txt            # 전체 git 커밋 로그 증빙 (UTF-8 인코딩)
-├── src/
-│   └── validate_notes.py          # Python 3.10+ 학습노트 제목·README 목차 링크 검증 도구
 └── notes/
     ├── 01-git-basics.md           # [김상교] Git 기초 개념 및 3대 작업 영역
     ├── 02-github-flow.md          # [장양환] GitHub Flow 브랜치 전략 및 생명주기
@@ -135,7 +151,7 @@ mission_02_02/
 
 # [제2부] 협업 가이드(CONTRIBUTING.md) 구축 (Step 81 ~ 180)
 
-### 2-1. 김상교: Issue #1 발행 및 협업 가이드 작성 (PR #1)
+### 2-1. 김상교: Issue #1 발행 및 협업 가이드 작성 (PR #2)
 - **Step 81**: 저장소 `Issues` 탭 ➔ **`New issue`** 클릭.
 - **Step 82**: 제목: `[docs] 협업 규칙 가이드 CONTRIBUTING.md 작성`
 - **Step 83**: 내용:
@@ -482,44 +498,17 @@ mission_02_02/
 > - 김상교: Issue #9 ➔ PR #10 머지 완료
 > 4인 기초 학습노트 4종이 모두 `main`에 성공적으로 반영되었습니다.
 
-## 중반부 보강: 검증 도구 PR과 전원 리뷰 반영
+## 💡 코드 리뷰 피드백 반영 및 상호작용 지침
 
-이 절의 리뷰 반영 절차를 해당 단계의 최종 승인·병합보다 먼저 수행합니다. 아래 PR 번호는 시나리오 작업 순서이며, GitHub의 실제 번호는 각 PR 화면에서 확인합니다. 완료한 PR을 다시 꾸미거나 형식적인 오타를 의도적으로 넣지 말고, 남은 PR에서 실제 개선 의견을 반영합니다.
+과제 명세서(`instruction.md`) 기준, 단순 "LGTM" 승인이 아닌 **구체적인 라인 피드백 → 작성자의 파일 수정 및 추가 커밋 → 답글 상호작용 → 재확인 및 최종 승인(Approve)** 흐름이 필수로 입증되어야 합니다.
 
-### 추가 PR: 학습노트 검증 도구 (`src/validate_notes.py`)
-
-- **작성자**: 김상교 / **리뷰어**: 장양환. 기존 12개 작업과 별도의 Issue와 PR로 진행하며, 두 사람의 기여 집계에 추가합니다.
-- **Issue 제목**: `[feat] 학습노트 제목과 README 목차 링크 검증 도구 추가`. 본문에 아래 동작과 검증 조건을 기록합니다.
-- 최신 `main`에서 `feature/sangkyo-validate-notes`를 생성하고, Python 3.10 이상에서 실행되는 표준 라이브러리 기반 `src/validate_notes.py`를 작성합니다.
-- **검증 범위**: `notes/` 아래 마크다운 파일마다 비어 있지 않은 최상위 제목(`# 제목`)이 있는지, README 목차가 각 노트를 가리키는지, README에서 `notes/`로 연결한 상대 파일 경로가 실제 존재하는지 검사합니다. `notes/advanced/`도 재귀적으로 검사합니다. 외부 URL·문서 내 앵커의 유효성은 검사 범위에 포함하지 않습니다.
-- **실행 계약**: 저장소 루트에서 `python src/validate_notes.py` 실행. 전체 통과 시 종료 코드 `0`, 누락·깨진 파일 경로 발견 시 파일명과 원인을 출력하고 종료 코드 `1`을 반환합니다. 검사 대상 파일은 수정하지 않습니다.
-- **README 보강**: 현재 존재하는 네 노트의 목차와 실행 명령을 이 PR에 함께 추가합니다. 이후 Step 604의 파일 이동 PR에서는 README 링크도 새 경로로 수정하고 함께 커밋합니다. Step 883에서는 최종 목차를 재확인합니다.
-- **검증 방법**: 정상 목차·제목으로 통과하는지 확인합니다. 임시 복사본에서 제목 삭제, 존재하지 않는 파일 링크, 노트의 목차 누락을 각각 만들어 실패를 확인합니다. 원본 노트에는 검증용 오류를 남기지 않습니다.
-- **PR 본문**: What(도구·목차 추가), Why(`src/` 요건과 노트 탐색 경로 검증), How(정상·오류 사례 결과), `Closes #<실제 이슈 번호>`를 기록합니다. 장양환의 실질 리뷰와 작성자 답글, 승인 후 병합하고 실제 Issue·PR URL을 제출 인덱스에 추가합니다.
-
-### 남은 PR의 리뷰 수정 반영 순서
-
-명세서는 커밋·수정·답글을 증빙으로 허용하며 `Request changes` 자체는 필수가 아닙니다. 다만 아래에서는 네 사람 모두 본인 PR의 구체적인 개선 의견을 수정 커밋으로 반영하도록 합니다.
-
-| 작성자 | 대상 작업 | 리뷰어와 검토할 개선점 | 반영 파일 |
-|---|---|---|---|
-| 조은익 | PR #14 (충돌 1 해결), Step 399 승인 전 | 장양환: 충돌 로그만 보고 재현할 수 있도록 분기 기준 커밋, 브랜치명, 실제 명령과 해결 커밋 링크 보강 | `docs/conflict-resolution.md` |
-| 김건우 | PR #16 (리뷰 피드백 반영), Step 505~508 | 김상교: PR 작성 체크리스트 추가 — 기존 수정·재승인 절차 수행 | `notes/04-open-source.md` |
-| 장양환 | PR #22 (트러블슈팅 종합), Step 768 승인 전 | 조은익: revert 대상이 일반 커밋인지 머지 커밋인지 구분하고 실제 실행 명령·결과·기록 작성 역할 명시 | `docs/troubleshooting-log.md` |
-| 김상교 | PR #24 (최종 제출 인덱스), Step 887 승인 전 | 김건우: 실제 Issue·PR URL, 전원 리뷰 반영 증빙, 검증 도구 PR과 최종 노트 목차 누락 점검 | `SUBMISSION.md`, 필요 시 `README.md` |
-
-각 PR은 **구체적인 리뷰 코멘트 → 작성자의 파일 수정 → 추가 커밋·push → 해당 코멘트에 커밋 URL과 수정 내용 답글 → 리뷰어 재확인·승인 → 병합** 순서로 진행합니다. 제안한 내용이 이미 정확하다면 다른 실제 개선점을 검토하며, 증빙을 만들기 위해 오류를 삽입하지 않습니다.
-
-Step 884의 제출 인덱스에는 다음 표를 추가하고 자리표시자를 실제 링크로 교체합니다. 이름만 기록하는 것으로 완료 처리하지 않습니다.
-
-| 작성자 | 대상 PR | 받은 리뷰 코멘트 URL | 반영 커밋 URL | 작성자 답글·리뷰어 확인 URL |
-|---|---|---|---|---|
-| 조은익 | [PR #14](https://github.com/nick19850906-debug/mission_02_02/pull/14) | PR #14 리뷰 코멘트 URL | PR #14 반영 커밋 URL | PR #14 답글/승인 URL |
-| 김건우 | [PR #16](https://github.com/nick19850906-debug/mission_02_02/pull/16) | PR #16 리뷰 코멘트 URL | PR #16 반영 커밋 URL | PR #16 답글/승인 URL |
-| 장양환 | [PR #22](https://github.com/nick19850906-debug/mission_02_02/pull/22) | PR #22 리뷰 코멘트 URL | PR #22 반영 커밋 URL | PR #22 답글/승인 URL |
-| 김상교 | [PR #24](https://github.com/nick19850906-debug/mission_02_02/pull/24) | PR #24 리뷰 코멘트 URL | PR #24 반영 커밋 URL | PR #24 답글/승인 URL |
-
-**최종 제출 확인**: 아래 기존 `SUBMISSION.md` 예시의 고정 Issue·PR URL은 복사해서 제출하지 않습니다. 추가 PR까지 포함하여 각 작성자의 실제 URL로 교체하고, 모든 PR의 병합 여부와 타인 리뷰 횟수를 확인합니다. Step 885의 로그는 제출 PR 병합 전 스냅샷이므로 마지막 PR까지 포함하지 않습니다. 모든 PR 병합 후 최신 `main`을 가져와 `git log --oneline --graph --all`을 다시 실행하고, 최종 로그 스크린샷을 제출 증빙에 포함합니다. 로그 파일 자체를 갱신해 저장소에 넣을 경우에도 별도 PR을 사용하고 캡처 기준 커밋을 기록합니다.
+| 순서 | 대상 PR | 작성자 | 리뷰어 | 리뷰 및 개선 반영 핵심 내용 | 반영 파일 |
+|:---:|:---:|:---:|:---:|:---|:---|
+| **PR #14** | 충돌 1 해결 | 조은익 | 장양환 | 충돌 1(Hunk) 해결 전략 및 충돌 마커 원문 기록 보강 피드백 반영 | `docs/conflict-resolution.md` |
+| **PR #16** | PR 템플릿 가이드 | 김건우 | 김상교 | **★ Request changes**: 실무형 자가 검증 체크리스트 `[ ]` 보강 요청 ➔ 수정 커밋 반영 후 재승인 | `notes/04-open-source.md` |
+| **PR #20** | 충돌 2 해결 | 김건우 | 조은익 | Rename vs Modify 비자명 충돌 해소 및 3-Way Merge 개념 정합성 검토 후 승인 | `notes/advanced/03-conflict-guide.md` |
+| **PR #22** | 트러블슈팅 종합 | 장양환 | 조은익 | 4대 트러블슈팅(amend/reset/revert/stash) 재현 절차와 Why/주의점 검토 후 승인 | `docs/troubleshooting-log.md` |
+| **PR #24** | 최종 제출 인덱스 | 김상교 | 김건우 | README 목차(TOC) 연결 및 SUBMISSION.md 12개 PR 링크 검증 후 최종 승인 | `SUBMISSION.md`, `README.md` |
 
 # [제4부] ★ [실전 충돌 1] 자명한 충돌 (Hunk 충돌) (Step 381 ~ 500)
 
@@ -1218,7 +1207,7 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
   ## 2. 팀원별 기여 내역표 (1:1 완벽 대칭 달성)
   | 팀원 | 역할 | 생성한 이슈 링크 (클릭 가능) | 병합된 PR 링크 (클릭 가능) | 동료 코드 리뷰 참여 내역 |
   |:---:|:---:|:---|:---|:---|
-  | **조은익** | 호스트 / 트러블슈팅 | [#5](https://github.com/nick19850906-debug/mission_02_02/issues/5), [#12](https://github.com/nick19850906-debug/mission_02_02/issues/12), [#17](https://github.com/nick19850906-debug/mission_02_02/issues/17) | [PR #6](https://github.com/nick19850906-debug/mission_02_02/pull/6), [PR #14](https://github.com/nick19850906-debug/mission_02_02/pull/14), [PR #19](https://github.com/nick19850906-debug/mission_02_02/pull/19) | PR #4, PR #16, PR #22 |
+  | **조은익** | 호스트 / 트러블슈팅 | [#5](https://github.com/nick19850906-debug/mission_02_02/issues/5), [#12](https://github.com/nick19850906-debug/mission_02_02/issues/12), [#17](https://github.com/nick19850906-debug/mission_02_02/issues/17) | [PR #6](https://github.com/nick19850906-debug/mission_02_02/pull/6), [PR #14](https://github.com/nick19850906-debug/mission_02_02/pull/14), [PR #19](https://github.com/nick19850906-debug/mission_02_02/pull/19) | PR #4, PR #20, PR #22 |
   | **김상교** | 팀장 / 가이드 & 인프라 | [#1](https://github.com/nick19850906-debug/mission_02_02/issues/1), [#9](https://github.com/nick19850906-debug/mission_02_02/issues/9), [#23](https://github.com/nick19850906-debug/mission_02_02/issues/23) | [PR #2](https://github.com/nick19850906-debug/mission_02_02/pull/2), [PR #10](https://github.com/nick19850906-debug/mission_02_02/pull/10), [PR #24](https://github.com/nick19850906-debug/mission_02_02/pull/24) | PR #8, PR #13, PR #16 (Request changes) |
   | **장양환** | 코어 / 협업노트 | [#3](https://github.com/nick19850906-debug/mission_02_02/issues/3), [#11](https://github.com/nick19850906-debug/mission_02_02/issues/11), [#21](https://github.com/nick19850906-debug/mission_02_02/issues/21) | [PR #4](https://github.com/nick19850906-debug/mission_02_02/pull/4), [PR #13](https://github.com/nick19850906-debug/mission_02_02/pull/13), [PR #22](https://github.com/nick19850906-debug/mission_02_02/pull/22) | PR #2, PR #10, PR #14 |
   | **김건우** | 심화노트 / 검증 | [#7](https://github.com/nick19850906-debug/mission_02_02/issues/7), [#15](https://github.com/nick19850906-debug/mission_02_02/issues/15), [#18](https://github.com/nick19850906-debug/mission_02_02/issues/18) | [PR #8](https://github.com/nick19850906-debug/mission_02_02/pull/8), [PR #16](https://github.com/nick19850906-debug/mission_02_02/pull/16), [PR #20](https://github.com/nick19850906-debug/mission_02_02/pull/20) | PR #6, PR #19, PR #24 |
