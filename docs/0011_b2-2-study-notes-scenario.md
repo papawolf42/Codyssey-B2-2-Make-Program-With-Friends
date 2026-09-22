@@ -227,7 +227,19 @@ mission_02_02/
   - 조은익 님 **`Approve`** 제출 ➔ 장양환 님이 `Merge pull request` 클릭하여 머지 완료.
 
 ### 3-2. 조은익: 충돌 원리 학습노트 작성 (PR #3)
-- **Step 187**: 조은익 님 이슈 발행: `[feat] Git 충돌 원리와 해결법 학습노트 작성` ➔ **이슈 #3**.
+- **Step 187**: 조은익 님 이슈 발행:
+  - **제목(Title)**: `[feat] Git 충돌 원리와 해결법 학습노트 작성`
+  - **내용(Description)**:
+    ```markdown
+    ## 작업 목적
+    - 팀원들이 Git 충돌(Conflict)이 발생하는 근본 원인과 충돌 마커 구조를 이해할 수 있도록 기초 가이드 노트를 작성합니다.
+
+    ## 세부 작업 내용
+    - [ ] notes/03-conflict-guide.md 생성
+    - [ ] 충돌 발생 정의 및 메커니즘 정리
+    - [ ] 충돌 마커(HEAD, =======, origin/main) 구조 설명
+    ```
+  - **`Submit new issue`** 클릭 ➔ **이슈 #3** 생성 확인.
 - **Step 188**: 로컬 터미널에서 브랜치 분기:
   ```bash
   git checkout main
@@ -259,7 +271,19 @@ mission_02_02/
   - 김건우 님 **`Approve`** 제출 ➔ 조은익 님이 `Merge pull request` 클릭하여 머지 완료.
 
 ### 3-3. 김건우: 오픈소스 협업 기본노트 작성 (PR #4)
-- **Step 193**: 김건우 님 이슈 발행: `[feat] 오픈소스 협업 및 PR 문화 학습노트 작성` ➔ **이슈 #4**.
+- **Step 193**: 김건우 님 이슈 발행:
+  - **제목(Title)**: `[feat] 오픈소스 협업 및 PR 문화 학습노트 작성`
+  - **내용(Description)**:
+    ```markdown
+    ## 작업 목적
+    - 팀원들이 오픈소스 커뮤니티와 현업에서 사용하는 PR 작성 에티켓 및 코드 리뷰 수용 문화를 체득할 수 있도록 가이드를 작성합니다.
+
+    ## 세부 작업 내용
+    - [ ] notes/04-open-source.md 생성
+    - [ ] 작은 단위 커밋/PR의 중요성 정리
+    - [ ] 코드 리뷰 피드백 수용 자세 서술
+    ```
+  - **`Submit new issue`** 클릭 ➔ **이슈 #4** 생성 확인.
 - **Step 194**: 로컬 터미널에서 브랜치 분기:
   ```bash
   git checkout main
@@ -290,7 +314,19 @@ mission_02_02/
   - 김상교 님 **`Approve`** 제출 ➔ 김건우 님이 `Merge pull request` 클릭하여 머지 완료.
 
 ### 3-4. 김상교: Git 기초 개념노트 작성 (PR #5)
-- **Step 199**: 김상교 님 이슈 발행: `[feat] Git 3대 영역과 기본 명령어 학습노트 작성` ➔ **이슈 #5**.
+- **Step 199**: 김상교 님 이슈 발행:
+  - **제목(Title)**: `[feat] Git 3대 영역과 기본 명령어 학습노트 작성`
+  - **내용(Description)**:
+    ```markdown
+    ## 작업 목적
+    - Git의 핵심 3대 작업 영역(Working Directory, Staging Area, Repository)의 데이터 흐름과 기본 라이프사이클을 정리합니다.
+
+    ## 세부 작업 내용
+    - [ ] notes/01-git-basics.md 생성
+    - [ ] 3대 작업 영역별 역할 정의
+    - [ ] add -> commit -> push 기본 라이프사이클 서술
+    ```
+  - **`Submit new issue`** 클릭 ➔ **이슈 #5** 생성 확인.
 - **Step 200**: 로컬 터미널에서 브랜치 분기:
   ```bash
   git checkout main
@@ -337,8 +373,28 @@ mission_02_02/
 ```
 
 ### 4-1. 두 팀원의 동시 분기
-- **Step 381**: 장양환 님 이슈 발행: `[docs] 커밋 컨벤션에 test 규칙 추가` ➔ **이슈 #6**.
-- **Step 382**: 조은익 님 이슈 발행: `[docs] 커밋 컨벤션에 style 규칙 추가` ➔ **이슈 #7**.
+- **Step 381**: 장양환 님 이슈 발행:
+  - **제목(Title)**: `[docs] 커밋 컨벤션에 test 규칙 추가`
+  - **내용(Description)**:
+    ```markdown
+    ## 작업 목적
+    - 협업 가이드라인 문서에 단위 테스트 및 검증을 위한 `test` 커밋 태그 규칙을 추가합니다.
+
+    ## 세부 작업 내용
+    - [ ] docs/CONTRIBUTING.md에 `test` 커밋 컨벤션 항목 추가
+    ```
+  - **`Submit new issue`** 클릭 ➔ **이슈 #6** 생성 확인.
+- **Step 382**: 조은익 님 이슈 발행:
+  - **제목(Title)**: `[docs] 커밋 컨벤션에 style 규칙 추가`
+  - **내용(Description)**:
+    ```markdown
+    ## 작업 목적
+    - 협업 가이드라인 문서에 마크다운 서식 정리를 위한 `style` 커밋 태그 규칙을 추가합니다.
+
+    ## 세부 작업 내용
+    - [ ] docs/CONTRIBUTING.md에 `style` 커밋 컨벤션 항목 추가
+    ```
+  - **`Submit new issue`** 클릭 ➔ **이슈 #7** 생성 확인.
 - **Step 383**: 두 팀원 모두 동일한 최신 `main`에서 브랜치를 분기합니다:
   ```bash
   # 장양환 님:
@@ -459,7 +515,17 @@ mission_02_02/
 
 # [제5부] ★ 필수 요건: 코드 리뷰 피드백 반영 (Request Changes) (Step 501 ~ 600)
 
-- **Step 501**: 김건우 님 이슈 발행: `[feat] 오픈소스 PR 템플릿 작성 요령 보강` ➔ **이슈 #8**.
+- **Step 501**: 김건우 님 이슈 발행:
+  - **제목(Title)**: `[feat] 오픈소스 PR 템플릿 작성 요령 보강`
+  - **내용(Description)**:
+    ```markdown
+    ## 작업 목적
+    - 오픈소스 협업 노트에 PR 본문 템플릿 구조와 작성 요령 항목을 추가합니다.
+
+    ## 세부 작업 내용
+    - [ ] notes/04-open-source.md에 PR 템플릿 작성 가이드 추가
+    ```
+  - **`Submit new issue`** 클릭 ➔ **이슈 #8** 생성 확인.
 - **Step 502**: 김건우 님 브랜치 분기: `feature/gunwoo-template-guide`
 - **Step 503**: 김건우 님이 `notes/04-open-source.md`에 내용을 추가할 때, **고의로 PR 템플릿의 핵심 체크리스트를 누락**한 채 작성합니다:
   ```markdown
@@ -522,8 +588,29 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
 ```
 
 ### 6-1. 두 팀원의 동시 분기
-- **Step 601**: 조은익 님 이슈 발행: `[refactor] 충돌 가이드 노트를 advanced 디렉터리로 이동 및 예방 수칙 추가` ➔ **이슈 #9**.
-- **Step 602**: 김건우 님 이슈 발행: `[docs] 충돌 가이드 노트에 3-Way Merge 개념 보강` ➔ **이슈 #10**.
+- **Step 601**: 조은익 님 이슈 발행:
+  - **제목(Title)**: `[refactor] 충돌 가이드 노트를 advanced 디렉터리로 이동 및 예방 수칙 추가`
+  - **내용(Description)**:
+    ```markdown
+    ## 작업 목적
+    - 프로젝트 문서 구조 개선을 위해 충돌 가이드를 notes/advanced 디렉터리로 이동하고 충돌 예방 수칙을 보강합니다.
+
+    ## 세부 작업 내용
+    - [ ] notes/advanced/03-conflict-guide.md로 경로 이동
+    - [ ] 충돌 예방 수칙 항목 작성
+    ```
+  - **`Submit new issue`** 클릭 ➔ **이슈 #9** 생성 확인.
+- **Step 602**: 김건우 님 이슈 발행:
+  - **제목(Title)**: `[docs] 충돌 가이드 노트에 3-Way Merge 개념 보강`
+  - **내용(Description)**:
+    ```markdown
+    ## 작업 목적
+    - 충돌 가이드 노트에 Git 내부 병합 알고리즘인 3-Way Merge의 원리를 상세히 설명하는 내용을 추가합니다.
+
+    ## 세부 작업 내용
+    - [ ] notes/03-conflict-guide.md에 3-Way Merge 원리 항목 추가
+    ```
+  - **`Submit new issue`** 클릭 ➔ **이슈 #10** 생성 확인.
 - **Step 603**: 두 팀원 모두 최신 `main`에서 브랜치를 분기합니다:
   ```bash
   # 조은익 님:
@@ -703,7 +790,18 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
   > 📸 **[추천 캡처 - 김건우] `git stash` & `pop` 실습 화면**: stash pop 후 미완성 작업 내용이 완벽 복원된 터미널 화면을 캡처하여 `docs/images/10-troubleshoot-stash.png`로 저장하세요.
 
 ### 7-5. 장양환: 트러블슈팅 종합 기록부 작성 및 머지 (PR #11)
-- **Step 764**: 장양환 님 이슈 발행: `[docs] 4인의 Git 트러블슈팅 실습 로그 작성` ➔ **이슈 #11**.
+- **Step 764**: 장양환 님 이슈 발행:
+  - **제목(Title)**: `[docs] 4인의 Git 트러블슈팅 실습 로그 작성`
+  - **내용(Description)**:
+    ```markdown
+    ## 작업 목적
+    - 팀원 4인이 각자 실습한 Git 복구 명령어(amend, reset, revert, stash)의 과정과 Why, 주의점을 종합 기록합니다.
+
+    ## 세부 작업 내용
+    - [ ] docs/troubleshooting-log.md 작성
+    - [ ] 4인 트러블슈팅 종합 요약표 및 협업 시 주의사항 명시
+    ```
+  - **`Submit new issue`** 클릭 ➔ **이슈 #11** 생성 확인.
 - **Step 765**: 브랜치 분기:
   ```bash
   git checkout main
@@ -749,7 +847,19 @@ git mv notes/03-... notes/advanced/03-...           기존 notes/03-conflict-gui
 # [제8부] 최종 산출물 제출 인덱스 & 인터뷰 대비 (Step 881 ~ 1000)
 
 ### 8-1. 김상교: README 목차 보강, SUBMISSION.md 작성 및 최종 머지 (PR #12)
-- **Step 881**: 김상교 님 이슈 발행: `[docs] 최종 제출 문서 SUBMISSION.md 작성 및 README 목차 업데이트` ➔ **이슈 #12**.
+- **Step 881**: 김상교 님 이슈 발행:
+  - **제목(Title)**: `[docs] 최종 제출 문서 SUBMISSION.md 작성 및 README 목차 업데이트`
+  - **내용(Description)**:
+    ```markdown
+    ## 작업 목적
+    - README.md에 전체 학습노트 목차를 완성하고, 최종 과제 제출용 SUBMISSION.md 인덱스를 작성합니다.
+
+    ## 세부 작업 내용
+    - [ ] README.md 목차(TOC) 보강
+    - [ ] SUBMISSION.md 작성 (팀원별 기여 내역 및 Full PR URL 연결)
+    - [ ] docs/git-history.txt 생성
+    ```
+  - **`Submit new issue`** 클릭 ➔ **이슈 #12** 생성 확인.
 - **Step 882**: 브랜치 분기:
   ```bash
   git checkout main
