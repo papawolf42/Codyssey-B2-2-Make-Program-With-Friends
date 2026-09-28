@@ -14,6 +14,16 @@ Git의 기본 기능(Commit, Push)을 넘어 **GitHub Flow, Issue/PR 연동, 코
 
 ---
 
+## 재시도 실행안
+
+현재 운영 기준은 **[0015. 4인 병렬 협업 실행안](docs/0015_b2-2-retry-workflow.md)**입니다. 기존 기록의 부족분 확인, 역할별 작업·리뷰 배정, 두 쌍의 충돌 실습, 최종 제출 기준을 담았습니다.
+
+화면 조작, 복사할 PowerShell 명령, 기대 결과와 오류 대응은 **[0016. 담당자별 Step-by-step 실행서](docs/0016_b2-2-retry-step-by-step.md)**에서 확인합니다.
+
+`0004`~`0013`의 분석·선택안·시나리오는 이전 설계 자료입니다. 재시도 절차는 0015를 사용하고, 과제 요건은 [instruction.md](instruction.md)와 [evalutation.md](evalutation.md)로 확인합니다.
+
+---
+
 ## 📂 저장소 구조
 
 ```text

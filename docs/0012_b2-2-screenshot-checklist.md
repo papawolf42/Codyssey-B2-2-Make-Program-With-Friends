@@ -1,5 +1,7 @@
 # B2-2 협업 증빙 매핑 및 캡처 체크리스트 가이드
 
+> 이전 시나리오에 맞춘 증빙 가이드입니다. 고정 PR 번호·Step·완료 표시는 재시도 상태가 아닙니다. 현재 증빙과 완료 기준은 [0015 실행안](0015_b2-2-retry-workflow.md)의 6~8절을 사용합니다.
+
 > **대상 과제**: Codyssey B2-2 - 친구 3~5명과 함께 프로그램 만드는 법 연습하기 (`mission_02_02`)  
 > **기준 시나리오**: [`docs/0011_b2-2-study-notes-scenario.md`](file:///C:/Users/alsgu/Dev/Codyssey/B2-2/docs/0011_b2-2-study-notes-scenario.md)  
 > **저장소 URL**: [`https://github.com/nick19850906-debug/mission_02_02`](https://github.com/nick19850906-debug/mission_02_02)  

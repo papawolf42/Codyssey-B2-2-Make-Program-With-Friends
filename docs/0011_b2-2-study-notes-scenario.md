@@ -1,5 +1,7 @@
 # B2-2 학습정리노트 1000스텝 마스터 협업 시나리오 (mission_02_02 완전 무결판)
 
+> 이전 시도의 실행 대본입니다. 고정 Issue·PR 번호와 순서는 재시도에 적용하지 않습니다. 현재 운영 기준은 [0015 실행안](0015_b2-2-retry-workflow.md)이며, 아래 진행 상태는 당시 기록으로 읽습니다.
+
 > **팀원 (4명)**: **조은익(저장소 호스트), 김상교(팀장), 장양환, 김건우**  
 > **저장소 URL**: **[`https://github.com/nick19850906-debug/mission_02_02`](https://github.com/nick19850906-debug/mission_02_02)**  
 > **저장소 형태**: **조은익 님의 개인 Public GitHub Repository + 팀원 3명 Collaborator 초대 방식**  
