@@ -692,7 +692,12 @@ mkdir -p src/practice docs/evidence
 
 1. **오타가 포함된 1차 커밋 생성**:
    ```bash
+   # Mac / Linux / Git Bash:
    echo "amend 메시지 수정 실습 파일" > src/practice/sangkyo-recovery.txt
+
+   # Windows PowerShell:
+   "amend 메시지 수정 실습 파일" | Out-File -FilePath src/practice/sangkyo-recovery.txt -Encoding utf8
+
    git add src/practice/sangkyo-recovery.txt
    git commit -m "feat: Rekord amend practice with typoo"
    ```
@@ -806,26 +811,40 @@ mkdir -p src/practice docs/evidence
 
 1. **로컬 커밋 생성**:
    ```bash
+   # Mac / Linux / Git Bash:
    echo "soft reset 변경 보존 실습 파일" > src/practice/yanghwan-recovery.txt
+
+   # Windows PowerShell:
+   "soft reset 변경 보존 실습 파일" | Out-File -FilePath src/practice/yanghwan-recovery.txt -Encoding utf8
+
    git add src/practice/yanghwan-recovery.txt
    git commit -m "feat: Temporary commit to be reset"
+   git rev-parse HEAD
    ```
+   *(취소 대상이 될 커밋 해시(예: `a1b2c3d...`)를 복사해 둡니다.)*
+
 2. **`git reset --soft HEAD~1` 실행 (원격 push 전!)**:
    ```bash
    git reset --soft HEAD~1
    ```
-3. **결과 확인 (가장 중요!)**:
+
+3. **리셋 직후 상태 및 되돌아간 HEAD 위치 복사 (가장 중요!)**:
    ```bash
+   git rev-parse HEAD
    git status --short
    ```
+   *(★ 다시 커밋하기 전, 이 시점에서 되돌아간 HEAD 해시와 `A  src/practice/yanghwan-recovery.txt` 출력을 복사해 둡니다!)*  
    **기대 화면**: `A  src/practice/yanghwan-recovery.txt`가 **녹색 'A' (Changes to be committed, Staged 상태)**로 온전히 살아있어야 합니다! 커밋 껍데기만 쏙 빠지고 작업 내용은 안전하게 보존되었습니다.
+
 4. **올바른 메시지로 다시 커밋**:
    ```bash
    git commit -m "feat: Record soft reset practice and preserve staged changes"
+   git rev-parse HEAD
    ```
+   *(새로 생성된 재커밋 해시를 복사해 둡니다.)*
 
 ### Step 4-8. [장양환] 증빙 문서 작성 및 공통 파일 수정
-1. `docs/evidence/yanghwan-reset.md` 생성 후 아래 내용 저장:
+1. `docs/evidence/yanghwan-reset.md` 생성 후 아래 내용 저장 (복사한 실제 SHA와 터미널 출력 입력):
 
 ````markdown
 # B 장양환: reset --soft 실습 기록
@@ -840,15 +859,15 @@ mkdir -p src/practice docs/evidence
 - 아직 원격에 푸시하기 전이므로 로컬 히스토리만 안전하게 한 단계 롤백함.
 
 ## 3. 실행 명령 및 상태 변화
-- 취소 대상 커밋 SHA: `(Step 4-7 1번에서 커밋한 해시 입력)`
+- 취소 대상 커밋 SHA: `(Step 4-7 1번에서 복사한 취소 대상 해시 입력)`
 - 실행 명령: `git reset --soft HEAD~1`
-- 리셋 후 HEAD 위치: `(리셋 후 git rev-parse HEAD 해시 입력)`
+- 리셋 후 HEAD 위치: `(Step 4-7 3번에서 복사한 리셋 직후 HEAD 해시 입력)`
 - 리셋 후 `git status --short`:
   ```text
-  A  src/practice/yanghwan-recovery.txt
+  (Step 4-7 3번에서 확인한 git status --short 터미널 출력을 붙여넣으세요)
   ```
 - 확인: 파일이 Staged Area에 온전히 보존되어 녹색 'A' 상태로 확인됨.
-- 재커밋 SHA: `(Step 4-7 4번 재커밋 후 git rev-parse HEAD 해시 입력)`
+- 재커밋 SHA: `(Step 4-7 4번에서 복사한 재커밋 해시 입력)`
 - 재커밋 명령: `git commit -m "feat: Record soft reset practice and preserve staged changes"`
 
 ## 4. 선택 이유 및 주의점
@@ -1008,31 +1027,45 @@ mkdir -p src/practice docs/evidence
 
 1. **실수로 잘못 공유된 1차 커밋 생성**:
    ```bash
+   # Mac / Linux / Git Bash:
    echo "원격 공유 후 취소할 실수 문장" > src/practice/eunik-recovery.txt
+
+   # Windows PowerShell:
+   "원격 공유 후 취소할 실수 문장" | Out-File -FilePath src/practice/eunik-recovery.txt -Encoding utf8
+
    git add src/practice/eunik-recovery.txt
    git commit -m "feat: Add faulty feature to be reverted"
+   git rev-parse HEAD
    ```
+   *(취소 대상이 될 1차 커밋 해시를 복사해 둡니다.)*
+
 2. **원격에 먼저 푸시 (공유 이력 만들기!)**:
    ```bash
    git push -u origin feature/eunik-revert-practice
    ```
+   *(원격 푸시 성공을 확인합니다. 원격에 이미 공유된 커밋임을 확정합니다.)*
+
 3. **`git revert`로 공유 이력을 보존하며 안전 취소**:
    ```bash
    git revert --no-commit HEAD
    ```
-4. **역커밋(Revert Commit) 생성 및 원격 푸시**:
+
+4. **역커밋(Revert Commit) 생성 및 2차 원격 푸시**:
    ```bash
    git commit -m "revert: Revert faulty feature to preserve public commit history"
+   git rev-parse HEAD
    git push origin feature/eunik-revert-practice
    ```
-5. **결과 확인**:
+   *(새로 생성된 역커밋 해시를 복사하고, 2차 원격 푸시 성공을 확인합니다.)*
+
+5. **결과 확인 (두 커밋 이력 보존 확인)**:
    ```bash
    git log -2 --oneline
    ```
-   *(원본 커밋 위에 이를 뒤집는 revert 커밋이 새로 추가된 것을 확인합니다!)*
+   *(원본 커밋 위에 이를 뒤집는 revert 커밋이 나란히 생성된 터미널 출력을 복사해 둡니다!)*
 
 ### Step 5-4. [조은익] 증빙 문서 작성 및 공통 파일 수정
-1. `docs/evidence/eunik-revert.md` 생성 후 아래 내용 저장:
+1. `docs/evidence/eunik-revert.md` 생성 후 아래 내용 저장 (복사한 실제 SHA와 터미널 출력 입력):
 
 ````markdown
 # C 조은익: revert 실습 기록
@@ -1043,14 +1076,21 @@ mkdir -p src/practice docs/evidence
 - 실습 도구: `git revert`
 
 ## 2. 상황 및 재현 조건
-- 원격 저장소에 이미 푸시된 공유 커밋을 취소해야 하는 상황을 가정하여 별도 실습 파일 생성.
-- 원격 푸시 완료: `git push -u origin feature/eunik-revert-practice`
+- 원격 저장소에 이미 푸시된 공유 커밋을 취소해야 하는 상황을 가정하여 실습 파일 생성 후 원격 푸시 완료.
+- 1차 푸시 대상 커밋 SHA: `(Step 5-3 1번에서 복사한 1차 커밋 해시 입력)`
+- 1차 푸시 실행: `git push -u origin feature/eunik-revert-practice` (원격 브랜치에 공유 확인)
 
-## 3. 실행 명령 및 결과
+## 3. 실행 명령 및 전후 결과
 - 취소 명령: `git revert --no-commit HEAD`
 - 역커밋 생성 명령: `git commit -m "revert: Revert faulty feature to preserve public commit history"`
-- 역커밋 푸시: `git push origin feature/eunik-revert-practice`
-- 결과: 이전 커밋 이력을 삭제(reset)하지 않고 취소하는 새로운 커밋을 추가하여 파일 상태를 안전하게 원복함.
+- 역커밋 SHA: `(Step 5-3 4번에서 복사한 역커밋 해시 입력)`
+- 역커밋 2차 푸시: `git push origin feature/eunik-revert-practice` (원격 반영 완료)
+- 결과: 이전 커밋 이력을 삭제(reset)하지 않고 취소하는 새로운 역커밋을 추가하여 파일 상태를 안전하게 원복함.
+
+### git log -2 결과 확인 (실행 증빙)
+```text
+(Step 5-3 5번에서 확인한 git log -2 --oneline 터미널 출력을 붙여넣으세요)
+```
 
 ## 4. 선택 이유 및 주의점
 - 원격에 이미 푸시된 커밋을 reset으로 되돌리고 force push하면 다른 동료들의 로컬 이력이 깨지는 치명적인 문제가 발생함.
@@ -1116,12 +1156,20 @@ git checkout -b feature/gunwoo-stash-practice
 mkdir -p src/practice docs/evidence
 ```
 
-1. **기준 파일 생성 및 1차 커밋 (Git 추적 상태 만들기)**:
+1. **기준 파일 생성 및 1차 커밋 (UTF-8 인코딩 필수!)**:
    ```bash
+   # Mac / Linux / Git Bash:
    echo "stash 복구 비교용 기준 내용" > src/practice/gunwoo-recovery.txt
+
+   # Windows PowerShell:
+   "stash 복구 비교용 기준 내용" | Out-File -FilePath src/practice/gunwoo-recovery.txt -Encoding utf8
+
    git add src/practice/gunwoo-recovery.txt
    git commit -m "feat: Add base tracking file for stash practice"
    ```
+   > ⚠️ **인코딩 주의 (Windows PowerShell 5.1)**:  
+   > PowerShell 5.1에서 `echo ... >` 리디렉션을 쓰면 기본 UTF-16LE로 저장되어 이후 `git diff` 실행 시 텍스트 대신 `Binary files ... differ`로 출력됩니다! PowerShell 사용자는 반드시 위와 같이 `| Out-File -FilePath ... -Encoding utf8` 명령을 사용하거나, VS Code에서 파일을 직접 생성하여 UTF-8로 저장해 주세요.
+
 2. **작업 중인 미완성 변경 사항 추가**:
    에디터(VS Code 등)로 `src/practice/gunwoo-recovery.txt` 파일을 열고 둘째 줄에 다음 내용을 추가하고 저장합니다:
    ```text
@@ -1138,7 +1186,7 @@ mkdir -p src/practice docs/evidence
    git status
    ```
    **기대 화면**: `working tree clean`이 뜨며 작업 중이던 내용이 보관함으로 들어갔습니다!
-5. **stash 보관 목록 확인**:
+5. **stash 보관 목록 확인 및 복사**:
    ```bash
    git stash list
    ```
@@ -1155,18 +1203,18 @@ mkdir -p src/practice docs/evidence
    git stash pop
    git status
    ```
-8. **복원 내용 diff 일치 검증**:
+8. **복원 내용 diff 일치 검증 및 복사**:
    ```bash
    git diff src/practice/gunwoo-recovery.txt
    ```
-   *(3번에서 복사해 둔 diff와 정확히 일치하여 작업 내용이 온전히 복원되었음을 확인합니다!)*
+   *(3번에서 복사해 둔 diff와 정확히 일치하여 작업 내용이 온전히 복원되었음을 확인하고, 해당 diff 출력을 복사해 둡니다!)*
 9. **복원된 내용 커밋**:
    ```bash
    git commit -am "feat: Restore stashed work after branch switching"
    ```
 
 ### Step 5-8. [김건우] 증빙 문서 작성 및 공통 파일 수정
-1. `docs/evidence/gunwoo-stash.md` 생성 후 아래 내용 저장:
+1. `docs/evidence/gunwoo-stash.md` 생성 후 아래 내용 저장 (복사한 실제 터미널 출력 입력):
 
 ````markdown
 # D 김건우: stash/pop 실습 기록
@@ -1181,33 +1229,21 @@ mkdir -p src/practice docs/evidence
 - 미완성 작업을 커밋하지 않고 안전하게 보관 후 복귀하고자 함.
 
 ## 3. 실행 절차 및 검증
-1. 작업 변경점 확인:
+1. 작업 변경점 확인 (보관 전 git diff 출력):
 ```text
-diff --git a/src/practice/gunwoo-recovery.txt b/src/practice/gunwoo-recovery.txt
-index 613b678..163440e 100644
---- a/src/practice/gunwoo-recovery.txt
-+++ b/src/practice/gunwoo-recovery.txt
-@@ -1 +1,2 @@
- stash 복구 비교용 기준 내용
-+작업 중이던 미완성 추가 라인
+(Step 5-7 3번에서 확인한 git diff 터미널 출력을 붙여넣으세요)
 ```
 2. `git stash push -m "브랜치 전환 전 임시 보관" src/practice/gunwoo-recovery.txt` 실행
-- `git stash list` 확인:
+- `git stash list` 확인 출력:
 ```text
-stash@{0}: On feature/gunwoo-stash-practice: 브랜치 전환 전 임시 보관
+(Step 5-7 5번에서 확인한 git stash list 터미널 출력을 붙여넣으세요)
 ```
 3. `git checkout main`으로 전환하여 메인 브랜치 확인 (`git status`: 깨끗함)
 4. `git checkout feature/gunwoo-stash-practice`로 원래 작업 브랜치 복귀
 5. `git stash pop` 실행하여 보관 내용 복원
 - 복원 후 diff 일치 확인:
 ```text
-diff --git a/src/practice/gunwoo-recovery.txt b/src/practice/gunwoo-recovery.txt
-index 613b678..163440e 100644
---- a/src/practice/gunwoo-recovery.txt
-+++ b/src/practice/gunwoo-recovery.txt
-@@ -1 +1,2 @@
- stash 복구 비교용 기준 내용
-+작업 중이던 미완성 추가 라인
+(Step 5-7 8번에서 확인한 git diff 터미널 출력을 붙여넣으세요)
 ```
 6. 복원 커밋: `git commit -am "feat: Restore stashed work after branch switching"`
 
