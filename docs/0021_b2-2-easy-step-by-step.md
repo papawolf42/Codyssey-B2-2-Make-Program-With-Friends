@@ -1621,22 +1621,21 @@ git status
 
 # [제7부] 최종 산출물 취합 및 SUBMISSION 제출 PR
 
-> **목표**: 팀장 김상교 님이 최종 제출 Issue를 발행하고, 전원의 충돌 기록과 트러블슈팅 기록을 종합 문서로 취합하며, `README.md` 목차와 평가 제출용 `SUBMISSION.md`를 완성하여 최종 PR을 올립니다. 김건우 님이 꼼꼼한 기술 검토 후 머지합니다.
+> **실제 저장소 기준으로 채운 버전**: [beatles12/codyssey-b2-2-gitflow](https://github.com/beatles12/codyssey-b2-2-gitflow)
+> **확인 시점**: 2026-09-29, main `06ef0c10efeba1d9ecfff7a2d59bae0f617b417f`.
+> 이슈·PR·리뷰 댓글·피드백 반영 커밋은 실제 기록으로 채웠습니다. 아래 코드 상자는 각각 지정된 파일에 복사할 내용입니다. 터미널 명령은 **이 팀 저장소를 복제한 폴더**에서 실행합니다.
+>
+> **합의 근거**: [PR #22에 포함된 판단·합의 기록](https://github.com/beatles12/codyssey-b2-2-gitflow/blob/4c88be797baaf1e4a4d2f913ef2298efaaf10b86/docs/evidence/conflict-delete-modify.md#L31-L36)에 삭제 이유, 유지 필요성, 파일 유지 결정이 적혀 있어 그 부분으로 연결했습니다.
+> **남은 항목**: 최종 제출 PR은 아직 생성 전입니다. stash 증빙에는 실제 출력 3곳이 아직 비어 있어 보완 필요로 표시했습니다.
 
-### Step 7-1. [김상교] 최종 제출 Issue 발행
-1. GitHub `Issues` ➔ `New issue` 클릭.
-2. **Title**: `[docs] 최종 평가 제출 산출물 취합 및 SUBMISSION 색인 작성`
-3. **Description**:
-   ```markdown
-   ## 작업 목적
-   - 충돌 3회 종합 보고서 및 4대 트러블슈팅 종합 로그 취합
-   - README 목차 최신화 및 SUBMISSION.md 평가 색인표 링크 완결
-   - 전체 Git 커밋 이력(git-history.txt) 추출
-   ```
-4. `Submit new issue` 클릭 ➔ **실제 이슈 번호(예: #12) 메모!**
+### Step 7-1. [김상교] 이미 만든 최종 제출 이슈 확인
+새 이슈를 만들 필요 없이 [최종 제출 이슈 #23](https://github.com/beatles12/codyssey-b2-2-gitflow/issues/23)을 사용합니다.
+- 작성자: 김상교 (`beatles12`)
+- 제목: `[docs] 최종 평가 제출 산출물 취합 및 SUBMISSION 색인 작성`
+- 최종 PR 본문에는 **`Closes #23`**을 넣습니다.
 
 ### Step 7-2. [김상교] 최종 브랜치 분기
-김상교 님 터미널:
+팀 저장소 폴더에서 실행합니다:
 ```bash
 git checkout main
 git pull origin main
@@ -1644,134 +1643,176 @@ git checkout -b feature/sangkyo-final-submission
 ```
 
 ### Step 7-3. [김상교] 충돌 종합 보고서 `docs/conflict-resolution.md` 작성
-`docs/conflict-resolution.md` 파일을 생성하고 아래 내용을 저장합니다. 충돌 3의 빈칸은 제6부의 실제 증빙과 PR 링크로 채웁니다:
+아래 내용을 파일에 저장합니다. SHA·PR·댓글 링크는 실제 기록을 반영했습니다.
 ```markdown
-# 충돌 해결 종합 보고서 (팀 전체 3회 완결)
+# 충돌 해결 종합 보고서 — 실제 기록 3건
 
-## 1. 충돌 1: 리뷰 요청 가이드 (`src/practice/review-request.md`)
-- **참여자**: 김상교(선병합), 장양환(충돌해결)
-- **상황 및 기준 커밋**: 공통 기준 커밋에서 분기 후 동일한 한 줄을 각자 수정
-- **충돌 마커**:
-  - HEAD: `리뷰 요청: PR 링크와 검증 결과를 공유한다.`
-  - main: `리뷰 요청: PR 링크와 변경 이유를 공유한다.`
-- **해결 절차 및 의사결정**:
-  - 변경 이유와 검증 결과 모두 협업에 필요한 핵심 정보이므로 두 의미를 모두 보존
-  - 최종 해결: `리뷰 요청: PR 링크, 변경 이유와 검증 결과를 공유한다.`
-- **관련 증빙**: [docs/evidence/conflict-ab.md](evidence/conflict-ab.md)
-- **배운 점**: 동일 hunk 수정 시 기계적 병합이 불가능하므로, 팀원 간 의도 공유를 통한 의미적 통합이 필수적임을 확인함.
+- 대상 저장소: [beatles12/codyssey-b2-2-gitflow](https://github.com/beatles12/codyssey-b2-2-gitflow)
+- 확인 기준: 2026-09-29, main `06ef0c10efeba1d9ecfff7a2d59bae0f617b417f`
+- 공통 기준과 두 부모 커밋은 Git 이력으로 확인했다. 충돌 당시 출력은 각 실습 증빙 문서를 근거로 기록했다.
 
-## 2. 충돌 2: 동기화 시점 가이드 (`src/practice/sync-timing.md`)
-- **참여자**: 조은익(선병합), 김건우(충돌해결)
-- **상황 및 기준 커밋**: 공통 기준 커밋에서 분기 후 동일한 동기화 안내 문구를 각자 수정
-- **충돌 마커**:
-  - HEAD: `동기화: PR 병합 전에 원격 변경을 확인한다.`
-  - main: `동기화: 작업 시작 전에 원격 변경을 확인한다.`
-- **해결 절차 및 의사결정**:
-  - 작업 시작 전 동기화와 PR 병합 직전 동기화는 둘 다 필수적인 절차이므로 두 조건을 모두 명시
-  - 최종 해결: `동기화: 작업 시작 전과 PR 병합 전에 원격 변경을 확인한다.`
-- **관련 증빙**: [docs/evidence/conflict-cd.md](evidence/conflict-cd.md)
-- **배운 점**: 충돌은 협업 과정에서 서로 다른 관점이 모이는 자연스러운 현상이며, 명확한 기준을 통해 더 완전한 결과물로 발전시킬 수 있음을 학습함.
+## 1. 충돌 1: 같은 줄 수정 — 리뷰 요청 가이드
+- **참여자**: 김상교(변경 이유 추가·선병합), 장양환(검증 결과 추가·해결)
+- **대상 파일**: `src/practice/review-request.md`
+- **공통 기준 SHA**: `b6a572a8ecdef171c7809f005e27b8baa736d126`
+- **병합 직전 작업 브랜치**: `551dab461e0901161f429e5b5756f92e64c89391`
+- **병합한 main**: `a61b344a89ad35dffb4a5c19ea87f60d4cdcf21e`
+- **관련 PR**: [선병합 #13](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/13), [충돌 해결 #14](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/14)
+- **해결 커밋**: [ce78f45](https://github.com/beatles12/codyssey-b2-2-gitflow/commit/ce78f45eb352f271f10747d3208e56b8159c1243)
+- **충돌 내용**: HEAD는 `리뷰 요청: PR 링크와 검증 결과를 공유한다.`, main은 `리뷰 요청: PR 링크와 변경 이유를 공유한다.`로 같은 줄을 다르게 수정했다.
+- **판단 이유**: 변경 이유와 검증 결과가 모두 필요하므로 한 문장에 두 정보를 포함했다.
+- **해결 절차**: `git fetch origin` → `git merge origin/main` → 양쪽 의도를 반영해 문장 수정 및 마커 제거 → `git add` → 머지 커밋 생성.
+- **결과**: 리뷰 요청: PR 링크, 변경 이유와 검증 결과를 공유한다.
+- **상세 증빙**: [conflict-ab.md](evidence/conflict-ab.md)
+- **주의점과 배운 점**: 같은 부분의 수정은 Git이 자동 선택할 수 없으므로 두 사람의 의도를 확인하고 필요한 내용을 보존한다.
 
-## 3. 충돌 3: 파일 삭제 vs 내용 수정 (`src/practice/sync-timing.md`)
-- **참여자**: 조은익(삭제·선병합), 김건우(내용 수정·충돌 해결)
-- **상황 및 기준 커밋**: (공통 기준 SHA 입력). 같은 기준에서 조은익은 파일을 삭제하고 김건우는 확인 항목을 추가함.
-- **발생 명령**: 김건우 브랜치에서 `git fetch origin` 다음 `git merge origin/main` 실행
-- **충돌 확인**: 실제 출력은 아래 상세 증빙에 수록. `CONFLICT (modify/delete)`와 `UD` 상태를 확인했으며 문장 충돌 마커는 없었음.
-- **해결 절차 및 의사결정**:
-  - 삭제 이유: (실제 논의 내용)
-  - 유지 이유: (실제 논의 내용)
-  - 파일을 유지하기로 합의하고 `git add src/practice/sync-timing.md`로 해결 표시
-  - 미해결 파일 목록이 비었는지 확인하고 증빙을 포함해 머지 커밋 생성
-- **최종 결과**: main에서 파일과 추가한 확인 항목이 보존됨.
-- **관련 PR 및 합의**: (삭제 PR / 수정·해결 PR / 합의 댓글의 실제 URL)
-- **관련 증빙**: [docs/evidence/conflict-delete-modify.md](evidence/conflict-delete-modify.md)
-- **배운 점과 주의점**: 마커가 없어도 미해결 충돌일 수 있으므로 상태를 확인해야 함. 파일의 필요성을 논의한 뒤 유지 또는 삭제를 결정함.
+## 2. 충돌 2: 같은 줄 수정 — 동기화 시점 가이드
+- **참여자**: 조은익(작업 시작 전 추가·선병합), 김건우(PR 병합 전 추가·해결)
+- **대상 파일**: `src/practice/sync-timing.md`
+- **공통 기준 SHA**: `a61b344a89ad35dffb4a5c19ea87f60d4cdcf21e`
+- **병합 직전 작업 브랜치**: `2fc1ee4ee6e56944a90540df3f8613aebb79d85c`
+- **병합한 main**: `dfad80634ec2ba70ba1124af3912ed01cfaecd8f`
+- **관련 PR**: [선병합 #17](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/17), [충돌 해결 #18](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/18)
+- **해결 커밋**: [877c3d8](https://github.com/beatles12/codyssey-b2-2-gitflow/commit/877c3d8b235824e3cce22a9b2154f242f9db4cd9)
+- **충돌 내용**: HEAD는 `동기화: PR 병합 전에 원격 변경을 확인한다.`, main은 `동기화: 작업 시작 전에 원격 변경을 확인한다.`로 같은 줄을 다르게 수정했다.
+- **판단 이유**: 작업 시작 전과 PR 병합 전 확인이 모두 필요하므로 두 시점을 보존했다.
+- **해결 절차**: `git fetch origin` → `git merge origin/main` → 양쪽 의도를 반영해 문장 수정 및 마커 제거 → `git add` → 머지 커밋 생성.
+- **결과**: 동기화: 작업 시작 전과 PR 병합 전에 원격 변경을 확인한다.
+- **상세 증빙**: [conflict-cd.md](evidence/conflict-cd.md)
+- **주의점과 배운 점**: 같은 부분의 수정은 Git이 자동 선택할 수 없으므로 두 사람의 의도를 확인하고 필요한 내용을 보존한다.
+
+## 3. 충돌 3: 파일 삭제 vs 내용 수정 — 동기화 시점 가이드
+- **참여자**: 조은익(파일 삭제·선병합), 김건우(확인 항목 추가·해결)
+- **대상 파일**: `src/practice/sync-timing.md`
+- **공통 기준 SHA**: `fd69265bc0dc394c5b6de84c8a38dbc5b66ded0e`
+- **병합 직전 작업 브랜치**: `ec5e025eaf9353289ccccd3fce29c589eb9b63fd`
+- **병합한 main**: `f721723200224b5f3fd5b35ce2dad3e2417fa1e7`
+- **관련 PR**: [선병합 #21](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/21), [충돌 해결 #22](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/22)
+- **해결 커밋**: [4c88be7](https://github.com/beatles12/codyssey-b2-2-gitflow/commit/4c88be797baaf1e4a4d2f913ef2298efaaf10b86)
+- **충돌 내용**: main에서는 파일을 삭제했고 김건우 브랜치에서는 파일 내용을 수정했다. 증빙에 `CONFLICT (modify/delete)`와 `UD src/practice/sync-timing.md`가 기록되어 있으며 문장 충돌 마커는 없었다.
+- **판단 이유**: 짧은 연습용 문서라 삭제하려 했지만, PR 병합 전에 계속 사용할 안내와 확인 항목이 필요하다는 이유로 파일을 유지했다.
+- **해결 절차**: `git fetch origin` → `git merge origin/main` → 파일 유지 결정 → `git add src/practice/sync-timing.md` → 미해결 파일 목록 확인 → 증빙을 포함한 머지 커밋 생성.
+- **결과**: 파일을 유지하고, 원래 동기화 문장 아래에 “확인 항목: 원격 변경 내용과 내 작업에 미치는 영향을 확인한다.”를 보존했다.
+- **상세 증빙**: [conflict-delete-modify.md](evidence/conflict-delete-modify.md)
+- **삭제 이유 답변**: [조은익의 답변](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/21#discussion_r4130999727)
+- **유지·해결 설명**: [김건우의 답변](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/22#discussion_r4131095430)
+- **리뷰 확인**: [장양환의 질문](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/22#discussion_r4131086126), [승인](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/22#pullrequestreview-5349538018)
+- **합의 기록**: [PR #22에 포함된 판단·합의 기록](https://github.com/beatles12/codyssey-b2-2-gitflow/blob/4c88be797baaf1e4a4d2f913ef2298efaaf10b86/docs/evidence/conflict-delete-modify.md#L31-L36) — 삭제 이유와 유지 필요성을 비교한 뒤 파일과 확인 항목을 보존하기로 한 결정이 기록됨.
+- **주의점과 배운 점**: 문장 마커가 없어도 충돌일 수 있다. `UD` 상태와 미해결 파일 목록을 확인하고 파일을 남길지 결정해야 한다.
 ```
 
 ### Step 7-4. [김상교] 트러블슈팅 종합 보고서 `docs/troubleshooting-log.md` 작성
-`docs/troubleshooting-log.md` 파일을 생성하고 아래 내용을 저장합니다:
+실습자가 기록한 내용과 원격에서 확인할 수 있는 이력을 구분했습니다. 아래 내용을 저장합니다:
 ```markdown
-# Git 4대 트러블슈팅 종합 실습 로그
+# Git 4대 트러블슈팅 실습 기록
 
-## 1. `git commit --amend` (수행자: 김상교)
-- **상황**: 로컬 최신 커밋 메시지에 오타 발생 (원격 푸시 전)
-- **재현 절차**: `git commit --amend -m "수정된 메시지"` 실행
-- **전후 결과**: 커밋 내용은 유지되고 커밋 해시가 갱신되며 메시지 교체 완료
-- **선택 이유 및 주의점**: 미푸시 커밋의 오타를 깔끔히 바로잡는 용도이며, 이미 공유된 커밋에는 강제 푸시를 피해야 하므로 사용 금지
-- **상세 증빙**: [docs/evidence/sangkyo-amend.md](evidence/sangkyo-amend.md)
+대상: [beatles12/codyssey-b2-2-gitflow](https://github.com/beatles12/codyssey-b2-2-gitflow) / 확인 기준: 2026-09-29
 
-## 2. `git reset --soft HEAD~1` (수행자: 장양환)
-- **상황**: 로컬 커밋을 취소하되 작업 중인 파일 변경점(Staged)은 보존 필요
-- **재현 절차**: `git reset --soft HEAD~1` 실행 후 `git status --short`로 Staged 상태 확인 후 재커밋
-- **전후 결과**: HEAD는 이전 부모로 이동하고 변경점은 Staging Area에 온전히 유지됨
-- **선택 이유 및 주의점**: 작업 손실 없이 커밋만 안전하게 취소하는 용도이며, 공유 이력 재작성 금지
-- **상세 증빙**: [docs/evidence/yanghwan-reset.md](evidence/yanghwan-reset.md)
+## 1. amend — 김상교
+- **상황**: 원격에 올리기 전 로컬 커밋 메시지의 오타 수정.
+- **명령**: `git commit --amend -m "feat: Record amend practice with corrected commit message"`
+- **증빙 문서에 기록된 이전 SHA**: `38eaa9998342e3787dd2281f522179d0bfad7bbd` (로컬에서 교체된 이력이며 원격에서 직접 확인한 커밋으로 간주하지 않음).
+- **원격에서 확인한 수정 후 커밋**: [24444d3](https://github.com/beatles12/codyssey-b2-2-gitflow/commit/24444d3b2555316734453af0d29779ff1591fd4c)
+- **결과**: 증빙에는 파일 내용 유지와 메시지 변경이 기록되어 있음.
+- **주의점**: 이미 공유한 커밋에 무리하게 amend와 강제 푸시를 적용하지 않음.
+- **관련 링크**: [#11](https://github.com/beatles12/codyssey-b2-2-gitflow/issues/11), [PR #13](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/13), [amend 증빙](evidence/sangkyo-amend.md)
 
-## 3. `git revert` (수행자: 조은익)
-- **상황**: 이미 원격에 푸시된 공유 커밋을 안전하게 취소해야 하는 상황
-- **재현 절차**: `git revert --no-commit HEAD` 실행 후 역커밋 생성
-- **전후 결과**: 이전 커밋 이력을 삭제하지 않고 역(Reverse) 변경 커밋을 추가하여 안전 복구
-- **선택 이유 및 주의점**: 공유 이력을 깨뜨리지 않고 취소 사실을 투명하게 남기기 위해 revert 선택
-- **상세 증빙**: [docs/evidence/eunik-revert.md](evidence/eunik-revert.md)
+## 2. reset --soft — 장양환
+- **상황**: 직전 로컬 커밋을 취소하되 파일과 스테이징 상태는 유지.
+- **명령**: `git reset --soft HEAD~1`
+- **증빙 문서의 취소 대상 SHA**: `ecdac5a` (로컬 기록).
+- **reset 직후 HEAD**: `b6a572a8ecdef171c7809f005e27b8baa736d126`
+- **기록된 상태**: `A  src/practice/yanghwan-recovery.txt`
+- **재커밋**: [5bb0b18](https://github.com/beatles12/codyssey-b2-2-gitflow/commit/5bb0b185f192c0602a2f2d855cbe21f3013dd953)
+- **주의점**: 이 실습은 미푸시 커밋을 대상으로 수행. 공유 이력을 강제로 덮어쓰지 않음.
+- **관련 링크**: [#12](https://github.com/beatles12/codyssey-b2-2-gitflow/issues/12), [PR #14](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/14), [reset 증빙](evidence/yanghwan-reset.md)
 
-## 4. `git stash` & `git stash pop` (수행자: 김건우)
-- **상황**: 미완성 작업 중 긴급하게 다른 브랜치(main) 상태 확인 필요
-- **재현 절차**: `git stash push` ➔ `git checkout main` ➔ `git checkout <작업브랜치>` ➔ `git stash pop`
-- **전후 결과**: 작업 트리가 깨끗해진 상태로 브랜치를 전환하고, 복귀 후 작업 변경점 완벽 복원
-- **선택 이유 및 주의점**: 불완전한 코드를 커밋하지 않고 안전하게 임시 보관할 수 있음
-- **상세 증빙**: [docs/evidence/gunwoo-stash.md](evidence/gunwoo-stash.md)
+## 3. revert — 조은익
+- **상황**: 증빙에 따르면 원격에 먼저 공유한 잘못된 변경을 취소.
+- **명령**: `git revert --no-commit HEAD` 후 역커밋 생성 및 푸시.
+- **원본 커밋**: [8a3deb9](https://github.com/beatles12/codyssey-b2-2-gitflow/commit/8a3deb979893e71db17db3d28734867b1381a3fd)
+- **역커밋**: [f1cf34a](https://github.com/beatles12/codyssey-b2-2-gitflow/commit/f1cf34a5eba6b0fdb1261ebb88cd007eb8d24341)
+- **결과**: 원격 Git 이력에 원본과 역커밋이 모두 남아 있음. 푸시를 먼저 했다는 실행 순서는 실습 증빙의 기록을 근거로 함.
+- **주의점**: 공유 이력을 지우지 않고 취소 내용을 새 커밋으로 남김.
+- **관련 링크**: [#16](https://github.com/beatles12/codyssey-b2-2-gitflow/issues/16), [PR #17](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/17), [revert 증빙](evidence/eunik-revert.md)
+
+## 4. stash / pop — 김건우 (실행 출력 보완 필요)
+- **상황**: 파일을 수정하던 중 main 브랜치를 확인한 뒤 작업을 복원하는 실습.
+- **문서에 적힌 절차**: `git stash push` → main 전환 → 원래 브랜치 복귀 → `git stash pop`.
+- **원격에서 확인한 기준 파일 커밋**: [067c43d](https://github.com/beatles12/codyssey-b2-2-gitflow/commit/067c43d4b9f4331d83d85eb8f96c8a0b101170c0)
+- **원격에서 확인한 복원 커밋**: [9545889](https://github.com/beatles12/codyssey-b2-2-gitflow/commit/95458897008bab7a78d8e78c30190d505f45f184). 실제 변경에는 `작업 중이던 미완성 추가 라인` 추가가 포함됨.
+- **확인 한계**: 현재 stash 증빙의 보관 전 diff, stash 목록, 복원 후 diff는 입력 안내 문구로 남아 있음. 커밋만으로 stash/pop 실행과 전후 일치까지 확인할 수는 없음.
+- **남은 작업**: 당시 실제 출력이 있으면 첨부. 없다면 재실습 날짜와 별도 기록임을 명시해 수행한 뒤 증빙을 보완함.
+- **주의점**: 현재 커밋에서 계산한 diff를 과거 터미널 실행 기록인 것처럼 넣지 않음.
+- **관련 링크**: [#15](https://github.com/beatles12/codyssey-b2-2-gitflow/issues/15), [PR #18](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/18), [stash 증빙](evidence/gunwoo-stash.md)
 ```
 
-### Step 7-5. [김상교] `README.md` 목차(TOC) 최신화
-`README.md` 파일을 열어 프로젝트 소개 및 전체 산출물 링크를 작성합니다:
+### Step 7-5. [김상교] `README.md` 목차 최신화
+아래 내용으로 저장하고, 이번에 만드는 종합 문서 링크도 함께 확인합니다:
 ```markdown
-# Git & GitHub 개발 협업 학습정리노트 (B2-2 팀 프로젝트)
+# Git & GitHub 개발 협업 학습정리노트 (B2-2)
 
-본 저장소는 실무 Git/GitHub 협업 워크플로우를 완벽하게 체화하기 위해 4인의 팀원이 역할을 나누어 완성한 학습 프로젝트입니다.
+4명이 학습 노트, PR 리뷰, 충돌 해결과 Git 복구 실습을 함께 수행한 저장소입니다.
 
-## 📚 팀원별 학습 정리 노트
-1. [01. Git 기초와 3대 작업 영역](notes/01-git-basics.md) - 담당자: 김상교
-2. [02. GitHub Flow 브랜치 생명주기](notes/02-github-flow.md) - 담당자: 장양환
-3. [03. Git 충돌 원리와 마커 해독](notes/03-conflict-guide.md) - 담당자: 조은익
-4. [04. 오픈소스 PR 문화와 리뷰 에티켓](notes/04-open-source.md) - 담당자: 김건우
+- 저장소: [beatles12/codyssey-b2-2-gitflow](https://github.com/beatles12/codyssey-b2-2-gitflow)
+- 최종 정리 이슈: [#23](https://github.com/beatles12/codyssey-b2-2-gitflow/issues/23)
 
-## 🛠️ 실습 및 협업 보고서
-- [협업 가이드라인 (CONTRIBUTING)](docs/CONTRIBUTING.md)
-- [충돌 3회 해결 종합 보고서](docs/conflict-resolution.md)
-- [Git 4대 트러블슈팅 종합 실습 로그](docs/troubleshooting-log.md)
-- [최종 평가 제출 인덱스 표](SUBMISSION.md)
+## 팀원별 학습 노트
+1. [Git 기초](notes/01-git-basics.md) — 김상교 / [PR #6](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/6)
+2. [GitHub Flow](notes/02-github-flow.md) — 장양환 / [PR #5](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/5)
+3. [충돌 원리](notes/03-conflict-guide.md) — 조은익 / [PR #10](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/10)
+4. [오픈소스 PR 문화](notes/04-open-source.md) — 김건우 / [PR #9](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/9)
+
+## 협업 및 실습 기록
+- [협업 가이드](docs/CONTRIBUTING.md)
+- [충돌 3회 종합 보고서](docs/conflict-resolution.md)
+- [트러블슈팅 4종 기록과 확인 상태](docs/troubleshooting-log.md)
+- [최종 제출 인덱스](SUBMISSION.md)
+- [Git 이력](docs/git-history.txt)
+
+## 확인이 남은 항목
+- stash 증빙의 실제 출력 3곳 보완
+- 최종 제출 PR 생성, 리뷰와 병합
 ```
 
-### Step 7-6. [김상교] 평가 제출용 최종 색인표 `SUBMISSION.md` 작성
-`SUBMISSION.md` 파일을 생성하고 아래 표를 작성합니다 (팀 저장소의 실제 이슈/PR 링크를 기재):
-
-> 💡 **안내**: 김상교 님의 '최종 PR'은 아직 생성 전이므로, 우선 `(아래 Step 7-8-B에서 최종 PR 생성 후 링크 추가)`로 작성해 두고, PR 생성 직후 Step 7-8-B에서 실제 URL로 수정하여 추가 커밋합니다.
-
-````markdown
+### Step 7-6. [김상교] `SUBMISSION.md` 작성
+이슈·PR·리뷰·피드백 반영 링크는 채워 두었습니다. **최종 제출 PR 링크는 생성 후 Step 7-8-B에서 추가**합니다. 체크리스트는 파일 작성 및 확인이 끝난 항목만 `[x]`로 바꿉니다.
+```markdown
 # B2-2 최종 평가 제출 인덱스
 
-## 1. 팀원별 기여도 증빙표
+- 저장소: [beatles12/codyssey-b2-2-gitflow](https://github.com/beatles12/codyssey-b2-2-gitflow)
+- 확인 기준: 2026-09-29 / main `06ef0c10efeba1d9ecfff7a2d59bae0f617b417f`
+- 최종 정리 이슈: [#23](https://github.com/beatles12/codyssey-b2-2-gitflow/issues/23)
+- 최종 제출 PR: 아직 생성 전. 생성 후 이 줄을 실제 PR 링크로 갱신한다.
+- 아래 PR 목록은 확인 시점에 병합된 PR만 포함한다. 최종 제출 PR과 그 리뷰는 완료 건수에 포함하지 않는다.
 
-| 팀원 | 역할 | 생성한 이슈 | 병합된 본인 PR (2개 이상) | 작성한 동료 리뷰 (2개 이상) | 본인 PR 피드백 반영 | 트러블슈팅 증빙 |
-|:---:|:---:|:---|:---|:---|:---|:---|
-| **김상교** | 호스트 & 팀장 / 인프라 | 준비 이슈, 노트 이슈, 실습 이슈, 최종 이슈 | 준비 PR, 노트 PR, 실습 PR, 최종 PR (아래 Step 7-8-B에서 링크 추가) | 김건우 노트 리뷰, 조은익 실습 리뷰, 조은익 삭제 PR 리뷰 | 노트 PR 반영 완료 | [amend 증빙](docs/evidence/sangkyo-amend.md) |
-| **장양환** | 코어 / 충돌1 | 노트 이슈, 실습 이슈 | 노트 PR, 실습 PR | 김상교 준비 리뷰, 김상교 노트 리뷰, 김건우 실습 리뷰, 김건우 추가 충돌 PR 리뷰 | 노트 PR 반영 완료 | [reset 증빙](docs/evidence/yanghwan-reset.md) |
-| **조은익** | 코어 / 충돌이론 | 노트 이슈, 실습 이슈, 삭제 이슈 | 노트 PR, 실습 PR, 삭제 PR | 장양환 노트 리뷰, 김상교 실습 리뷰 | 노트 PR 반영 완료 | [revert 증빙](docs/evidence/eunik-revert.md) |
-| **김건우** | 심화 / 충돌2·3 | 노트 이슈, 실습 이슈, 수정·해결 이슈 | 노트 PR, 실습 PR, 수정·해결 PR | 조은익 노트 리뷰, 장양환 실습 리뷰, 김상교 최종 리뷰 | 노트 PR 반영 완료 | [stash 증빙](docs/evidence/gunwoo-stash.md) |
+## 1. 팀원별 기여도 증빙
 
-### 추가 충돌 실습 연결
-- 충돌 3 증빙: [삭제/수정 충돌 기록](docs/evidence/conflict-delete-modify.md)
-- 조은익 삭제 PR / 김상교 리뷰: (각 실제 URL)
-- 김건우 수정·해결 PR / 장양환 리뷰 / 두 사람의 합의: (각 실제 URL)
+| 팀원·GitHub 계정 | 역할 | 생성한 이슈 | 병합된 본인 PR | 작성한 동료 리뷰 | 본인 PR 피드백 반영 | 트러블슈팅 |
+|---|---|---|---|---|---|---|
+| 김상교 (`beatles12`) | 호스트·amend | [#1](https://github.com/beatles12/codyssey-b2-2-gitflow/issues/1), [#4](https://github.com/beatles12/codyssey-b2-2-gitflow/issues/4), [#11](https://github.com/beatles12/codyssey-b2-2-gitflow/issues/11), [#23](https://github.com/beatles12/codyssey-b2-2-gitflow/issues/23) | [PR #2](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/2), [PR #6](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/6), [PR #13](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/13); 최종 제출 PR은 아직 생성 전 | [#9 리뷰](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/9#discussion_r4130342783), [#17 리뷰](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/17#discussion_r4130699673), [#21 리뷰](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/21#discussion_r4130998461) | [답글](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/6#discussion_r4130327381) / [수정 커밋](https://github.com/beatles12/codyssey-b2-2-gitflow/commit/04e73f57662dc05fe0ed84fba13e1a20c2cd2d34) | [증빙](docs/evidence/sangkyo-amend.md) |
+| 장양환 (`surilog`) | reset·충돌 1 | [#3](https://github.com/beatles12/codyssey-b2-2-gitflow/issues/3), [#12](https://github.com/beatles12/codyssey-b2-2-gitflow/issues/12) | [PR #5](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/5), [PR #14](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/14) | [#2 리뷰](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/2#discussion_r4129609129), [#6 리뷰](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/6#discussion_r4130296198), [#18 리뷰](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/18#discussion_r4130871572), [#22 리뷰](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/22#discussion_r4131086126) | [답글](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/5#discussion_r4130279945) / [수정 커밋](https://github.com/beatles12/codyssey-b2-2-gitflow/commit/9cf8ebdbd3e59d78e83be23f3bcd367ac8041c3f) | [증빙](docs/evidence/yanghwan-reset.md) |
+| 조은익 (`nick19850906-debug`) | revert·삭제 | [#8](https://github.com/beatles12/codyssey-b2-2-gitflow/issues/8), [#16](https://github.com/beatles12/codyssey-b2-2-gitflow/issues/16), [#20](https://github.com/beatles12/codyssey-b2-2-gitflow/issues/20) | [PR #10](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/10), [PR #17](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/17), [PR #21](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/21) | [#5 리뷰](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/5#discussion_r4130256916), [#13 리뷰](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/13#discussion_r4130518024) | [답글](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/10#discussion_r4130381744) / [수정 커밋](https://github.com/beatles12/codyssey-b2-2-gitflow/commit/d8b5259581d4fb32f13cc2331742aea1dc731d69) | [증빙](docs/evidence/eunik-revert.md) |
+| 김건우 (`papawolf42`) | stash·충돌 2·3 | [#7](https://github.com/beatles12/codyssey-b2-2-gitflow/issues/7), [#15](https://github.com/beatles12/codyssey-b2-2-gitflow/issues/15), [#19](https://github.com/beatles12/codyssey-b2-2-gitflow/issues/19) | [PR #9](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/9), [PR #18](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/18), [PR #22](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/22) | [#10 리뷰](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/10#discussion_r4130362745), [#14 리뷰](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/14#discussion_r4130573312) | [답글](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/9#discussion_r4130349921) / [수정 커밋](https://github.com/beatles12/codyssey-b2-2-gitflow/commit/7552a917fc1c68e7c9ee98b9f723ba3ac080d1da) | [증빙](docs/evidence/gunwoo-stash.md) — 실제 출력 보완 필요 |
 
-## 2. 필수 산출물 점검
-- [x] [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) (4인 분담 작성, GitHub Flow 채택 이유 3줄 포함)
-- [x] [docs/conflict-resolution.md](docs/conflict-resolution.md) (충돌 3회 완결 기록: 같은 부분 수정 2회 + 삭제/수정 1회)
-- [x] [docs/troubleshooting-log.md](docs/troubleshooting-log.md) (트러블슈팅 4종 완결 기록)
-- [x] [docs/evidence/](docs/evidence/) (개인별 도구 4건 및 충돌 3건, 총 증빙 7건)
-- [x] [notes/](notes/) (팀원 4인의 학습 정리 노트 4종)
-- [x] [docs/git-history.txt](docs/git-history.txt) (전체 Git 커밋 이력 UTF-8)
-````
+## 2. 추가 충돌 실습 연결
+- 삭제 이슈 [#20](https://github.com/beatles12/codyssey-b2-2-gitflow/issues/20) / 삭제 [PR #21](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/21) / [김상교 리뷰](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/21#discussion_r4130998461) / [조은익 답변](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/21#discussion_r4130999727)
+- 수정·해결 이슈 [#19](https://github.com/beatles12/codyssey-b2-2-gitflow/issues/19) / 해결 [PR #22](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/22) / [장양환 리뷰](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/22#discussion_r4131086126) / [김건우 답변](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/22#discussion_r4131095430)
+- 해결 커밋: [4c88be7](https://github.com/beatles12/codyssey-b2-2-gitflow/commit/4c88be797baaf1e4a4d2f913ef2298efaaf10b86)
+- 합의 근거: [PR #22에 포함된 판단·합의 기록](https://github.com/beatles12/codyssey-b2-2-gitflow/blob/4c88be797baaf1e4a4d2f913ef2298efaaf10b86/docs/evidence/conflict-delete-modify.md#L31-L36). 삭제·유지 이유와 파일을 유지하기로 한 결정이 기록되어 있음.
+
+## 3. 산출물 확인 상태
+- [x] [협업 가이드](docs/CONTRIBUTING.md): 파일과 팀원 분담 의견 확인 — [#1](https://github.com/beatles12/codyssey-b2-2-gitflow/issues/1), [PR #2](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/2)
+- [x] [개인 학습 노트](notes/): 4개 파일 및 리뷰 반영 커밋 확인
+- [x] [충돌 상세 증빙](docs/evidence/): content 충돌 2건과 삭제/수정 충돌 1건 존재
+- [ ] [충돌 종합 보고서](docs/conflict-resolution.md): 제7부에서 작성 후 확인
+- [ ] [트러블슈팅 종합 기록](docs/troubleshooting-log.md): 제7부에서 작성 후 확인
+- [ ] [stash 실행 증빙](docs/evidence/gunwoo-stash.md): 실제 출력 3곳 보완 필요
+- [ ] [Git 이력](docs/git-history.txt): Step 7-7에서 생성 후 확인
+- [ ] 최종 제출 PR 링크 추가, 김건우 리뷰 및 최종 병합
+
+증빙 파일은 총 7개 존재하지만, 파일 존재와 내용의 완결 여부는 다르다. 완료하지 않은 항목은 완료로 표시하지 않는다.
+```
 
 ### Step 7-7. [김상교] Git 히스토리 로그 추출 (UTF-8 인코딩)
 김상교 님 터미널에서 전체 커밋 로그를 UTF-8 텍스트 파일로 추출합니다:
@@ -1789,57 +1830,62 @@ git log --graph --oneline --all | Out-File -FilePath docs/git-history.txt -Encod
 > ⚠️ **인코딩 주의사항 (Windows PowerShell 5.1)**:  
 > Windows PowerShell 기본 창에서 `>` 리디렉션을 사용할 경우 UTF-16LE(BOM 포함)로 저장되어 GitHub 웹이나 Linux 환경에서 파일이 깨져 보일 수 있습니다. PowerShell 환경에서는 반드시 위와 같이 `| Out-File -FilePath docs/git-history.txt -Encoding utf8` 명령을 사용하거나 Git Bash 터미널에서 실행해 주세요.
 
-### Step 7-8. [김상교] 1차 커밋, 푸시 및 최종 PR 생성
-1. 커밋 & 푸시:
+### Step 7-8. [김상교] 커밋, 푸시 및 최종 PR 생성
+1. 위 파일을 저장하고 링크와 상태 표시를 확인한 다음 커밋합니다:
    ```bash
    git add docs/conflict-resolution.md docs/troubleshooting-log.md README.md SUBMISSION.md docs/git-history.txt
-   git commit -m "docs: Finalize SUBMISSION index, conflict report, troubleshooting log, and TOC"
+   git diff --cached --check
+   git commit -m "docs: Add verified submission links and practice summaries"
    git push -u origin feature/sangkyo-final-submission
    ```
-2. GitHub에서 `Compare & pull request` 클릭.
-3. **Title**: `docs: Add SUBMISSION index and finalize project documentation`
-4. **Description**:
+2. [팀 저장소 PR 화면](https://github.com/beatles12/codyssey-b2-2-gitflow/pulls)에서 `New pull request`를 누릅니다. **base `main`**, **compare `feature/sangkyo-final-submission`**을 선택합니다.
+3. **Title**: `docs: Add verified submission links and practice summaries`
+4. **본문**:
    ```markdown
-   Closes #최종이슈번호
+   Closes #23
 
    ## What
-   - docs/conflict-resolution.md: 충돌 3회 종합 기록: 같은 부분 수정 2회 + 삭제/수정 1회
-   - docs/troubleshooting-log.md: 4대 트러블슈팅 종합 기록
-   - README.md: 목차 링크 갱신
-   - SUBMISSION.md: 최종 평가 인덱스 표 완성
-   - docs/git-history.txt: 전체 커밋 로그 추출
+   - 충돌 3회 종합 기록 및 실제 해결 커밋·PR 링크
+   - 트러블슈팅 4종의 기록과 확인 가능한 범위
+   - README, SUBMISSION, Git 히스토리
+   - 4인의 실제 이슈·PR·리뷰·피드백 반영 링크
 
    ## Why
-   - B2-2 과제 최종 평가 제출을 위한 모든 산출물을 완결하기 위함입니다.
+   - 최종 평가자가 협업 과정과 산출물을 직접 확인할 수 있도록 정리
 
    ## How
-   - 모든 상대 링크 유효성 검증 완료
-   - 기여 분담표 및 필수 산출물 전수 확인 완료
-   ```
-5. **Reviewers**: **김건우** 지정 ➔ `Create pull request` 클릭!
+   - 2026-09-29 기준 병합된 PR 11개와 리뷰 댓글·반영 커밋을 대조함
+   - 충돌 해결 커밋 3개의 부모와 공통 기준을 Git 이력으로 확인함
+   - 아래 미완료 항목은 완료로 표시하지 않음
 
-### Step 7-8-B. [김상교] 생성된 최종 PR 링크를 `SUBMISSION.md`에 채우고 추가 커밋
-최종 PR이 생성되었으므로, 해당 PR의 URL을 `SUBMISSION.md`에 채워 제출 인덱스를 완결합니다.
-
-1. 방금 생성된 GitHub PR 페이지의 브라우저 주소창에서 URL(예: `https://github.com/조직명/저장소명/pull/9`)을 복사합니다.
-2. `SUBMISSION.md` 파일을 열고, 김상교 님의 PR 항목에 실제 PR 번호와 링크를 입력하고 저장합니다:
-   ```markdown
-   | **김상교** | 호스트 & 팀장 / 인프라 | 준비 이슈, 노트 이슈, 실습 이슈, 최종 이슈 | 준비 PR, 노트 PR, 실습 PR, [최종 PR #9](https://github.com/조직명/저장소명/pull/9) | 김건우 노트 리뷰, 조은익 실습 리뷰, 조은익 삭제 PR 리뷰 | 노트 PR 반영 완료 | [amend 증빙](docs/evidence/sangkyo-amend.md) |
+   ## 남은 확인
+   - stash 증빙의 실제 출력 3곳 보완
+   - 본 PR 생성 후 SUBMISSION의 최종 PR 링크 추가
+   - 생성한 문서와 로그의 링크·내용 최종 검토
    ```
-3. 수정 사항을 커밋하고 푸시합니다:
+5. **Reviewers**에 김건우 (`papawolf42`)를 지정해 PR을 만듭니다. 남은 작업을 완료하면 PR 본문도 실제 상태로 갱신합니다.
+
+### Step 7-8-B. [김상교] 생성된 최종 PR 링크 추가
+현재는 최종 PR이 없어 실제 번호를 미리 채울 수 없습니다. **#24 등으로 추측하지 마세요.**
+1. 생성된 최종 PR의 주소를 복사합니다. 주소가 `https://github.com/beatles12/codyssey-b2-2-gitflow/pull/`로 시작하는지 확인합니다.
+2. `SUBMISSION.md`의 `최종 제출 PR: 아직 생성 전...` 줄을 방금 복사한 실제 링크로 바꿉니다. 위 기여도 표의 김상교 행에도 같은 링크를 추가하되, 아직 병합 전이라는 상태를 적습니다.
+3. 링크 추가 내용을 커밋하고 같은 브랜치에 푸시합니다:
    ```bash
-   git commit -am "docs: Add final PR link to SUBMISSION index"
+   git add SUBMISSION.md
+   git commit -m "docs: Add final PR link to SUBMISSION index"
    git push origin feature/sangkyo-final-submission
    ```
-   *(푸시 즉시 이미 생성된 GitHub PR에 커밋이 자동 반영됩니다.)*
+4. README와 PR 본문에 남은 상태 표시가 실제 상황과 맞는지도 확인합니다.
 
-### Step 7-9. [김건우 & 김상교] 최종 기술 검토, Approve 및 최종 머지!
-1. **[김건우]**: PR `Files changed` 탭 확인 ➔ `SUBMISSION.md`에 최종 PR 링크까지 온전히 채워졌는지와 `docs/git-history.txt` 확인 후 라인 코멘트 작성:
-   > *"SUBMISSION.md의 4인 기여도 표(최종 PR 링크 포함)와 산출물 상대 링크(conflict-resolution, troubleshooting-log, evidence 7종)를 전수 클릭하여 정상 연결됨을 확인했습니다. 추가로 `docs/git-history.txt`가 UTF-8 인코딩으로 저장되었는지, 그리고 최신 merge commit 그래프까지 온전히 포함되어 있는지 확인 부탁드립니다."*
-2. **[김상교]**: 확인 후 답글 작성:
-   > *"`docs/git-history.txt`의 UTF-8 인코딩 및 SHA-1 해시 그래프 라인을 재검증 완료했습니다. 최종 통합 PR의 머지 커밋은 본 PR 머지 완료 즉시 원격 main에 영구 반영되므로 제출 요건을 100% 충족합니다."*
-3. **[김건우]**: `Review changes` ➔ **`Approve`** 제출!
-4. **[김상교]**: 초록색 **`Merge pull request`** ➔ **`Confirm merge`** 클릭! 🎉
+### Step 7-9. [김건우 & 김상교] 최종 리뷰 및 병합
+1. **김건우**는 `Files changed`에서 다음을 확인합니다:
+   - 실제 이슈·PR·리뷰·커밋 링크가 열리는가?
+   - 종합 문서와 Git 로그가 생성됐으며 한글이 정상인가?
+   - stash 증빙의 실제 출력이 보완됐는가? 미완료 내용이 완료로 표시되지 않았는가?
+   - `SUBMISSION.md`에 방금 만든 최종 PR 주소가 있는가?
+2. 확인한 파일의 해당 줄에 실제 질문이나 수정 요청을 남기고, **김상교**는 답변하거나 내용을 수정합니다. 아직 없는 리뷰 주소를 과거 리뷰인 것처럼 표에 넣지 않습니다.
+3. 필요한 보완이 끝나면 **김건우**가 `Approve`, **김상교**가 `Merge pull request` ➔ `Confirm merge`를 누릅니다.
+4. `git-history.txt`는 Step 7-7 시점의 이력입니다. 아직 만들어지지 않았던 최종 병합 커밋까지 그 파일에 포함됐다고 적지 않습니다. 최종 병합 여부는 방금 만든 PR의 실제 병합 상태로 확인합니다.
 
 ---
 
