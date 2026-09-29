@@ -7,7 +7,7 @@
 
 ---
 
-## 👥 팀원 배역 및 1:1 완벽 대칭 기여 분담표
+## 👥 팀원 배역 및 기여 분담표
 
 | 기호 | 팀원 이름 | 역할 | 개인 학습 노트 (제3부) | 4대 트러블슈팅 (제4/5부) | 충돌 실습 (공통 파일) | 내가 작성할 동료 리뷰 (2건) | 내 PR을 검토할 리뷰어 |
 |:---:|:---:|:---:|:---|:---:|:---|:---|:---|
@@ -18,7 +18,8 @@
 
 > 💡 **공통 PR 분담**:
 > - **제2부 공통 준비 PR**: 김상교 작성 ➔ 장양환 리뷰 및 승인
-> - **제6부 최종 통합 PR**: 김상교 작성 ➔ 김건우 리뷰 및 승인
+> - **제6부 추가 충돌 PR 2건**: 조은익의 삭제 PR ➔ 김상교 리뷰 / 김건우의 수정·해결 PR ➔ 장양환 리뷰
+> - **제7부 최종 통합 PR**: 김상교 작성 ➔ 김건우 리뷰 및 승인
 
 ---
 
@@ -40,10 +41,19 @@
    ├─ 김상교: amend 실습 & 선병합         ├─ 조은익: revert 실습 & 선병합
    └─ 장양환: reset 실습 & 충돌 해결      └─ 김건우: stash 실습 & 충돌 해결
    ↓
-[제6부] 최종 산출물 취합 & 제출 PR (김상교 작성 ➔ 김건우 리뷰 & 최종 머지)
+[제6부] 추가 충돌 3: 파일 삭제 vs 내용 수정 (제4·5부 완료 후 시작)
+   ├─ 조은익: 삭제 PR 선병합 (리뷰어: 김상교)
+   └─ 김건우: 내용 수정 & 충돌 해결 (리뷰어: 장양환)
    ↓
-[제7부] 최종 평가 항목별 구두 면접 문답 대비 (항목 2~4 전수 점검)
+[제7부] 최종 산출물 취합 & 제출 PR (김상교 작성 ➔ 김건우 리뷰 & 최종 머지)
+   ↓
+[제8부] 최종 평가 항목별 구두 면접 문답 대비 (항목 2~4 전수 점검)
 ```
+
+**충돌 실습은 총 3번입니다**:
+- **제4·5부**: 같은 파일의 같은 줄을 서로 다르게 수정하고 문장을 합칩니다. 과제의 비자명 충돌 조건 1번에 해당합니다.
+- **새 제6부**: 한 사람은 파일을 삭제하고 다른 사람은 그 파일을 수정합니다. 파일을 남길지 결정하며, 과제의 비자명 충돌 조건 2번을 경험합니다.
+- 과제의 최소 요구는 충돌 2회(그중 비자명 충돌 1회)입니다. 이 문서에서는 유형을 바꾼 실습을 하나 더 하며, 총 3회의 실제 충돌과 해결 기록을 남깁니다.
 
 ---
 
@@ -57,6 +67,7 @@
    - 다른 사람 끝날 때까지 기다리지 마세요. 4개의 노트는 서로 다른 파일이므로 각자 자기 컴퓨터에서 동시에 만들고 PR을 올리면 됩니다.
 3. **충돌 실습은 자기 파트너(1조는 상교-양환, 2조는 은익-건우)하고만 맞추세요!**
    - 1조와 2조는 다루는 파일이 완전히 다르므로 서로 기다릴 필요 없이 자기 조끼리만 순서를 지켜 머지하면 됩니다.
+   - 제6부는 제4·5부 PR이 모두 병합된 뒤, 새 브랜치에서 시작하는 추가 실습입니다.
 
 ---
 
@@ -178,7 +189,7 @@
 - **장양환 댓글**:
   > *"커밋 메시지 태그로 `feat`(새 기능/노트), `fix`(버그/충돌해결), `docs`(가이드/증빙/SUBMISSION), `refactor`(구조 개선) 4종을 기본으로 채택할 것을 제안합니다."*
 - **조은익 댓글**:
-  > *"충돌 발생 시 PR 웹 에디터가 아닌 로컬 터미널에서 두 사람의 의도를 파악하고 양쪽 의미를 모두 살려 합의 해결한 뒤 `docs/conflict-resolution.md`에 기록하는 규칙을 제안합니다."*
+  > *"충돌 발생 시 로컬 터미널에서 두 사람의 의도를 파악하고, 문장을 합칠지 또는 파일을 유지할지 등을 합의한 뒤 `docs/conflict-resolution.md`에 결정 이유를 기록하는 규칙을 제안합니다."*
 - **김건우 댓글**:
   > *"PR 작성 시 What/Why/How 및 Closes #이슈번호 기재를 필수로 하고, 단순 'LGTM' 승인을 지양하며 라인 코멘트로 질문/대안을 주고받는 최소 품질 기준을 제안합니다."*
 
@@ -222,8 +233,8 @@ git checkout -b feature/sangkyo-setup
    ## 4. 충돌 발생 시 기본 대응 흐름 - 작성 담당: 조은익
    - **발생 감지**: GitHub PR 화면에 충돌 경고가 뜨거나 로컬 머지 시 `CONFLICT` 알림을 확인합니다.
    - **대응 주체**: 충돌을 유발한 PR 작업자가 즉시 팀원들에게 상황을 공유하고 로컬 터미널에서 직접 해결합니다.
-   - **해결 절차**: `git fetch origin && git merge origin/main` 후 VS Code에서 충돌 마커를 정리하고 머지 커밋을 올립니다.
-   - **기록 의무**: 충돌 원인, 충돌 마커 원문, 해결 전략, 배운 점을 `docs/conflict-resolution.md`에 필수로 기록합니다.
+   - **해결 절차**: `git fetch origin` 다음 `git merge origin/main`을 실행하고 `git status`로 충돌 파일을 확인합니다. 문장 충돌은 마커를 정리하고, 삭제/수정 충돌은 파일을 유지할지 삭제할지 합의한 뒤 해결 결과를 커밋합니다.
+   - **기록 의무**: 충돌 원인, 충돌 마커 원문(있는 경우), 실제 충돌 메시지와 상태, 해결 전략, 배운 점을 `docs/conflict-resolution.md`에 필수로 기록합니다.
    ```
 
 ### Step 2-5. [김상교] PR 템플릿 `.github/pull_request_template.md` 작성
@@ -505,10 +516,10 @@ mkdir -p notes
 # 03. Git 충돌(Conflict)의 원리와 해결
 
 ## 1. 충돌이 발생하는 원인
-동일한 공통 조상(Base)에서 분기한 두 브랜치가 **동일한 파일의 동일한 위치(Hunk)**를 서로 다르게 수정하고 병합할 때, Git은 어떤 것이 올바른 변경인지 스스로 판단할 수 없어 충돌을 일으키고 작업을 멈춥니다.
+동일한 공통 조상(Base)에서 분기한 두 브랜치가 **동일한 파일의 동일한 위치(Hunk)**를 서로 다르게 수정하고 병합할 때, Git은 어떤 것이 올바른 변경인지 스스로 판단할 수 없어 충돌을 일으키고 작업을 멈춥니다. **한쪽은 파일을 삭제하고 다른 쪽은 그 파일을 수정한 경우**에도, 파일을 없앨지 수정 내용을 살릴지 사람이 결정해야 하므로 충돌이 발생합니다.
 
 ## 2. 충돌 마커 읽는 법
-충돌이 발생하면 파일 내에 다음과 같은 마커가 표시됩니다:
+같은 부분의 문장 수정이 충돌하면 파일 내에 다음과 같은 마커가 표시됩니다:
 ```text
 <<<<<<< HEAD
 현재 내 브랜치의 변경 사항
@@ -521,9 +532,9 @@ mkdir -p notes
 - `>>>>>>> ...`: 병합하려는 상대방 브랜치의 코드
 
 ## 3. 충돌 해결 원칙
-1. 충돌 마커를 무작정 지우지 말고 두 사람의 작업 의도를 파악합니다.
+1. `git status`와 충돌 메시지를 확인하고 두 사람의 작업 의도를 파악합니다. 삭제/수정 충돌에는 위 마커가 없을 수 있습니다.
 2. 양쪽의 유효한 내용을 합의하여 하나의 온전한 코드로 정리합니다.
-3. 충돌 마커 기호(`<<<<<<<`, `=======`, `>>>>>>>`)를 완전히 삭제한 후 스테이징(`git add`)하고 머지 커밋을 작성합니다.
+3. 문장 충돌은 마커 기호(`<<<<<<<`, `=======`, `>>>>>>>`)를 완전히 지운 후 `git add`합니다. 삭제/수정 충돌은 파일을 남기기로 했다면 `git add`, 삭제하기로 했다면 `git rm`으로 결정을 반영한 뒤 머지 커밋을 작성합니다.
 ````
 
 #### Step 3-3-3. 커밋 & 푸시
@@ -1365,23 +1376,266 @@ git push origin feature/gunwoo-stash-practice
 
 ---
 
-# [제6부] 최종 산출물 취합 및 SUBMISSION 제출 PR
+# [제6부] 추가 충돌 3 — 한쪽은 파일 삭제, 다른 쪽은 내용 수정
+
+> **목표**: 앞의 두 충돌 실습을 마친 뒤, 과제의 두 번째 비자명 충돌 유형도 경험합니다.
+> - **조은익**: `src/practice/sync-timing.md`가 짧은 실습용 문서여서 이제 필요 없다고 판단하고 삭제합니다.
+> - **김건우**: 같은 파일을 PR 병합 전 확인 안내로 계속 쓰려고 내용을 추가합니다.
+> - **김상교**: 삭제 PR 리뷰 / **장양환**: 내용 수정·충돌 해결 PR 리뷰
+> - **결정할 문제**: "이 파일을 지울까, 수정한 내용을 살려 남길까?"
+> - **이번 안내의 해결 방향**: 두 사람이 논의한 뒤 파일을 유지합니다. 문장을 합치는 대신 **파일의 존속 여부**를 결정하는 연습입니다.
+
+앞의 `amend/reset/revert/stash` 실습은 반복하지 않습니다. 제4·5부의 PR을 모두 병합한 뒤 진행하세요.
+
+### Step 6-1. [조은익 & 김건우] 추가 실습 Issue를 각각 만들기
+GitHub의 `Issues` ➔ `New issue`에서 각자 아래 이슈를 만들고 실제 번호를 메모합니다.
+
+**조은익의 삭제 이슈**:
+```markdown
+제목: [practice] 동기화 실습 파일 삭제로 추가 충돌 준비
+
+## 작업 목적
+- 짧은 실습 문서가 더 이상 필요 없다고 판단한 상황을 가정한다.
+- src/practice/sync-timing.md를 삭제하고 PR로 먼저 병합한다.
+- 김건우의 내용 수정과 삭제/수정 충돌을 만들기 전에 공통 기준에서 브랜치를 준비한다.
+```
+
+**김건우의 수정·해결 이슈**:
+```markdown
+제목: [practice] 동기화 안내 보완 및 삭제/수정 충돌 해결
+
+## 작업 목적
+- src/practice/sync-timing.md에 확인 항목을 추가한다.
+- 조은익의 삭제와 충돌하면 파일을 유지할지 논의한다.
+- 실제 충돌 출력, 해결 과정과 판단 이유를 docs/evidence/conflict-delete-modify.md에 기록한다.
+```
+
+### Step 6-2. [조은익 & 김건우] 같은 출발점에서 브랜치를 미리 만들기
+두 사람 모두 실행합니다:
+```bash
+git checkout main
+git pull origin main
+git status
+git rev-parse HEAD
+```
+작업 중인 변경이 없는지 확인하고, 두 사람의 마지막 커밋 번호가 같은지 비교합니다. 이 번호를 **공통 기준 SHA**로 복사해 둡니다. 파일을 열어 제5부에서 완성한 다음 내용도 확인하세요:
+```markdown
+# 동기화 시점 실습
+
+동기화: 작업 시작 전과 PR 병합 전에 원격 변경을 확인한다.
+```
+
+이제 **각자 자기 이름의 명령만** 실행합니다.
+
+- 조은익:
+  ```bash
+  git checkout -b feature/eunik-delete-guide
+  ```
+- 김건우:
+  ```bash
+  git checkout -b feature/gunwoo-keep-guide
+  ```
+
+**두 사람 모두 브랜치를 만들었다고 확인한 뒤 삭제 작업을 시작합니다.** 김건우는 Step 6-5 전까지 이 작업 브랜치에 최신 main을 합치지 않습니다. 삭제가 끝난 main에서 새 브랜치를 만들면, 이번에 연습하려는 "원래 있던 파일의 삭제 vs 수정" 상황이 달라집니다.
+
+### Step 6-3. [조은익 & 김상교] 파일 삭제 PR을 먼저 병합하기
+1. **조은익** 터미널에서:
+   ```bash
+   git rm src/practice/sync-timing.md
+   git status --short
+   ```
+   `D  src/practice/sync-timing.md`가 보이면 삭제가 다음 커밋에 들어갈 준비가 된 것입니다. `git rm`은 파일을 지우면서 그 삭제를 Git에도 기록합니다.
+2. 커밋하고 푸시합니다:
+   ```bash
+   git commit -m "practice: Remove sync timing practice guide"
+   git push -u origin feature/eunik-delete-guide
+   ```
+3. GitHub에서 PR을 만듭니다. **base는 `main`**, **compare는 `feature/eunik-delete-guide`**, **Reviewers는 김상교**입니다.
+   - **Title**: `practice: Remove sync timing practice guide`
+   - **본문** (이슈 번호는 Step 6-1에서 만든 실제 번호로 교체):
+   ```markdown
+   Closes #삭제이슈번호
+
+   ## What
+   - src/practice/sync-timing.md 삭제
+   ## Why
+   - 짧은 실습 문서를 정리하려는 상황을 가정한 삭제/수정 충돌 연습
+   ## How
+   - git status에서 삭제가 기록된 것을 확인
+   - 두 사람이 삭제 전 공통 기준에서 각자 브랜치를 만든 것을 확인
+   ```
+4. **김상교**는 `Files changed`의 삭제된 줄에 근거 있는 질문을 남깁니다. 예: *"이 안내를 삭제해도 된다고 판단한 이유가 무엇인가요?"*
+5. **조은익**은 실습에서 가정한 삭제 이유를 답합니다. 예: *"짧은 연습용 문서라 정리해도 된다고 판단한 상황입니다. 이후 다른 팀원이 추가한 내용과 충돌할 때 유지 필요성을 다시 논의하겠습니다."*
+6. **김상교**가 검토 후 `Approve`, **조은익**이 `Merge pull request` ➔ `Confirm merge`를 누릅니다. 삭제 PR 주소도 복사해 둡니다.
+
+### Step 6-4. [김건우] 기존 파일에 내용을 추가하고 PR 만들기
+1. Step 6-2에서 만든 브랜치인지 확인합니다:
+   ```bash
+   git branch --show-current
+   ```
+   `feature/gunwoo-keep-guide`가 보여야 합니다. 이 브랜치에는 삭제 이전 파일이 그대로 있습니다.
+2. `src/practice/sync-timing.md`를 열어 아래처럼 마지막 줄을 추가하고 저장합니다:
+   ```markdown
+   # 동기화 시점 실습
+
+   동기화: 작업 시작 전과 PR 병합 전에 원격 변경을 확인한다.
+   확인 항목: 원격 변경 내용과 내 작업에 미치는 영향을 확인한다.
+   ```
+3. 커밋하고 푸시합니다:
+   ```bash
+   git add src/practice/sync-timing.md
+   git commit -m "practice: Add a checklist to the sync timing guide"
+   git push -u origin feature/gunwoo-keep-guide
+   ```
+4. GitHub에서 **base `main`**, **compare `feature/gunwoo-keep-guide`**, **Reviewers 장양환**으로 PR을 만듭니다.
+   - **Title**: `practice: Keep sync guide and resolve delete-modify conflict`
+   - **본문**:
+   ```markdown
+   Closes #수정해결이슈번호
+
+   ## What
+   - src/practice/sync-timing.md에 확인 항목 추가
+   - 삭제/수정 충돌 해결 기록은 아래 실습 완료 후 추가 예정
+   ## Why
+   - PR 병합 전에 확인할 안내가 필요하므로 파일을 계속 활용하려고 함
+   ## How
+   - 조은익의 삭제가 반영된 main을 로컬에서 병합해 충돌 확인 예정
+   - 파일 유지 여부를 논의하고 해결 결과를 검증할 예정
+   ```
+5. 삭제 PR이 병합된 상태이므로 이 PR에는 충돌 경고가 표시됩니다. **아직 병합하지 않고**, PR 주소를 복사한 뒤 다음 단계로 갑니다.
+
+### Step 6-5. [김건우] 삭제/수정 충돌을 직접 확인하고 출력 복사하기
+1. 최신 원격 정보를 가져오고, 합치기 전 두 커밋 번호를 각각 복사합니다:
+   ```bash
+   git fetch origin
+   git rev-parse HEAD
+   git rev-parse origin/main
+   ```
+   첫 번호는 **김건우의 수정 커밋**, 두 번째는 **삭제가 반영된 main의 커밋**입니다.
+2. main을 현재 브랜치에 합칩니다:
+   ```bash
+   git merge origin/main
+   ```
+   아래는 **예상 출력**입니다. 증빙에는 자신의 터미널에 나온 실제 출력을 복사하세요.
+   ```text
+   CONFLICT (modify/delete): src/practice/sync-timing.md deleted in origin/main and modified in HEAD.  Version HEAD of src/practice/sync-timing.md left in tree.
+   Automatic merge failed; fix conflicts and then commit the result.
+   ```
+3. 상태도 확인하고 실제 출력을 복사합니다:
+   ```bash
+   git status --short
+   ```
+   이번 순서에서는 `UD src/practice/sync-timing.md`가 나옵니다. **나는 파일을 수정했는데, 합치려는 상대 쪽은 삭제했다**는 뜻입니다.
+4. 파일을 열어 Step 6-4에서 추가한 줄이 남아 있는지 확인합니다.
+
+**이번 충돌에는 `<<<<<<<` 같은 문장 충돌 표시가 없습니다.** Git이 김건우의 수정본을 남겨 놓았지만, 파일을 유지할지 삭제할지 결정하지 못한 상태입니다. 파일이 열리거나 마커가 없다는 이유만으로 해결됐다고 판단하면 안 됩니다.
+
+### Step 6-6. [조은익 & 김건우] 유지 여부를 합의하고 증빙 작성하기
+1. 두 사람은 수정·해결 PR에 **삭제 이유, 유지할 필요성, 최종 결정**을 댓글로 남깁니다. 다음은 대화 예시이며, 실제 대화와 결정에 맞게 작성합니다:
+   - **김건우**: *"이 안내에 확인 항목을 추가했습니다. PR 병합 전에 계속 쓸 수 있으니 파일을 남기면 어떨까요?"*
+   - **조은익**: *"짧은 실습 문서여서 삭제하려 했습니다. 확인 항목을 실제로 활용한다면 유지하는 데 동의합니다."*
+2. 이 안내에서는 **파일 유지**로 합의합니다. 김건우가 파일 내용을 확인한 뒤 실행합니다:
+   ```bash
+   git add src/practice/sync-timing.md
+   git diff --name-only --diff-filter=U
+   git status
+   ```
+   `git add`는 여기서 **이 파일을 남기는 것으로 충돌을 해결했다**는 뜻도 됩니다. `git diff --name-only --diff-filter=U`에 파일명이 나오지 않고, `git status`에 `All conflicts fixed but you are still merging`이 보이는지 확인합니다. 상태 출력을 복사해 둡니다. 아직 머지 커밋을 만들기 전입니다.
+
+   > 참고: 삭제하기로 합의했다면 `git rm`으로 해결합니다. 이번 안내는 유지 경로이므로 **두 명령을 모두 실행하지 마세요.**
+
+3. `docs/evidence/conflict-delete-modify.md`를 만들고 아래 빈칸을 **실제 번호·출력·대화 링크**로 채웁니다:
+
+````markdown
+# 충돌 3: 파일 삭제와 내용 수정
+
+## 1. 참여자 및 재현 조건
+- 삭제: 조은익 / 수정 및 해결: 김건우
+- 대상 파일: `src/practice/sync-timing.md`
+- 공통 기준 SHA: (Step 6-2에서 복사한 번호)
+- 병합 직전 김건우 HEAD: (Step 6-5의 첫 번째 번호)
+- 병합 직전 origin/main: (Step 6-5의 두 번째 번호)
+- 삭제 PR: (실제 URL)
+- 수정·해결 PR: (실제 URL)
+- 합의 댓글: (실제 URL)
+
+## 2. 상황 및 재현 절차
+1. 같은 공통 기준에서 두 브랜치를 만들었다.
+2. 조은익이 `git rm src/practice/sync-timing.md`로 삭제하고 PR을 먼저 병합했다.
+3. 김건우는 삭제 전 기준의 같은 파일에 확인 항목을 추가하고 커밋했다.
+4. 김건우 브랜치에서 `git fetch origin`, `git merge origin/main`을 실행했다.
+
+## 3. 실제 충돌 출력
+### git merge origin/main
+```text
+(Step 6-5에서 복사한 실제 충돌 메시지)
+```
+### 해결 전 git status --short
+```text
+(Step 6-5에서 복사한 UD 상태 출력)
+```
+- 문장 충돌 마커 유무: 없음. 수정한 파일이 남아 있어도 삭제 여부는 미해결 상태였음.
+
+## 4. 판단과 해결 결과
+- 삭제하려던 이유: (조은익이 설명한 이유)
+- 유지할 필요성: (김건우가 설명한 이유)
+- 합의한 결정: 파일을 유지하고 확인 항목을 보존한다.
+- 해결 명령: `git add src/practice/sync-timing.md`
+- 미해결 파일 확인: `git diff --name-only --diff-filter=U`에 출력 없음.
+### git add 후 git status
+```text
+(Step 6-6에서 복사한 실제 상태 출력)
+```
+
+## 5. 배운 점과 주의점
+- 삭제/수정 충돌은 문장 충돌 마커가 없어도 발생한다.
+- 삭제 이유와 수정 내용의 필요성을 확인하고 파일을 유지할지 결정해야 한다.
+- `git add`로 해결을 표시한 뒤에도 머지 커밋을 만들어야 병합이 끝난다.
+````
+
+### Step 6-7. [김건우 & 장양환] 해결 커밋, 리뷰 및 병합
+1. **김건우**가 증빙을 포함해 머지 커밋을 만듭니다:
+   ```bash
+   git add docs/evidence/conflict-delete-modify.md
+   git diff --cached --check
+   git commit -m "fix: Resolve delete-modify conflict by keeping sync guide"
+   git status
+   git show --no-patch --format="%H%n%P%n%s" HEAD
+   git push origin feature/gunwoo-keep-guide
+   ```
+   `git diff --cached --check`가 문제를 표시하면 먼저 해당 줄을 고칩니다. 커밋 후 작업 트리가 깨끗한지 확인합니다. `git show` 결과의 첫 줄은 **해결 커밋 번호**, 둘째 줄의 두 번호는 **합친 두 이력의 마지막 커밋**입니다. 이 결과를 수정·해결 PR 댓글에도 붙여넣습니다.
+2. PR의 `What`에는 증빙 문서 추가를, `How`에는 실제 충돌·파일 유지·미해결 파일 없음 확인 결과를 적어 **예정 문구를 수행 결과로 바꿉니다.** 충돌 경고가 사라졌는지도 확인합니다.
+3. **장양환**은 `Files changed`의 증빙 문서에서 판단 이유를 검토하고 질문합니다. 예: *"파일에 충돌 마커가 없었는데 미해결 상태인 것을 어떻게 확인했나요?"*
+4. **김건우**는 실제 증빙을 근거로 답합니다. 예: *"`CONFLICT (modify/delete)`와 `UD`를 확인했습니다. 유지하기로 합의한 뒤 `git add`했고, 미해결 파일 목록이 비었는지 확인했습니다."*
+5. **장양환**이 확인 후 `Approve`, **김건우**가 `Merge pull request` ➔ `Confirm merge`를 누릅니다.
+
+### Step 6-8. [전원] 최종 결과 확인
+```bash
+git checkout main
+git pull origin main
+git status
+```
+`src/practice/sync-timing.md`를 열어 **파일이 존재하고 Step 6-4의 확인 항목이 남았는지**, `docs/evidence/conflict-delete-modify.md`에 실제 기록이 있는지 확인합니다. 이제 제7부에서 기존 충돌 2건과 이번 충돌 1건을 합쳐 **총 3건**을 정리합니다.
+
+---
+
+# [제7부] 최종 산출물 취합 및 SUBMISSION 제출 PR
 
 > **목표**: 팀장 김상교 님이 최종 제출 Issue를 발행하고, 전원의 충돌 기록과 트러블슈팅 기록을 종합 문서로 취합하며, `README.md` 목차와 평가 제출용 `SUBMISSION.md`를 완성하여 최종 PR을 올립니다. 김건우 님이 꼼꼼한 기술 검토 후 머지합니다.
 
-### Step 6-1. [김상교] 최종 제출 Issue 발행
+### Step 7-1. [김상교] 최종 제출 Issue 발행
 1. GitHub `Issues` ➔ `New issue` 클릭.
 2. **Title**: `[docs] 최종 평가 제출 산출물 취합 및 SUBMISSION 색인 작성`
 3. **Description**:
    ```markdown
    ## 작업 목적
-   - 충돌 2회 종합 보고서 및 4대 트러블슈팅 종합 로그 취합
+   - 충돌 3회 종합 보고서 및 4대 트러블슈팅 종합 로그 취합
    - README 목차 최신화 및 SUBMISSION.md 평가 색인표 링크 완결
    - 전체 Git 커밋 이력(git-history.txt) 추출
    ```
-4. `Submit new issue` 클릭 ➔ **실제 이슈 번호(예: #10) 메모!**
+4. `Submit new issue` 클릭 ➔ **실제 이슈 번호(예: #12) 메모!**
 
-### Step 6-2. [김상교] 최종 브랜치 분기
+### Step 7-2. [김상교] 최종 브랜치 분기
 김상교 님 터미널:
 ```bash
 git checkout main
@@ -1389,10 +1643,10 @@ git pull origin main
 git checkout -b feature/sangkyo-final-submission
 ```
 
-### Step 6-3. [김상교] 충돌 종합 보고서 `docs/conflict-resolution.md` 작성
-`docs/conflict-resolution.md` 파일을 생성하고 아래 내용을 저장합니다:
+### Step 7-3. [김상교] 충돌 종합 보고서 `docs/conflict-resolution.md` 작성
+`docs/conflict-resolution.md` 파일을 생성하고 아래 내용을 저장합니다. 충돌 3의 빈칸은 제6부의 실제 증빙과 PR 링크로 채웁니다:
 ```markdown
-# 충돌 해결 종합 보고서 (팀 전체 2회 완결)
+# 충돌 해결 종합 보고서 (팀 전체 3회 완결)
 
 ## 1. 충돌 1: 리뷰 요청 가이드 (`src/practice/review-request.md`)
 - **참여자**: 김상교(선병합), 장양환(충돌해결)
@@ -1417,9 +1671,24 @@ git checkout -b feature/sangkyo-final-submission
   - 최종 해결: `동기화: 작업 시작 전과 PR 병합 전에 원격 변경을 확인한다.`
 - **관련 증빙**: [docs/evidence/conflict-cd.md](evidence/conflict-cd.md)
 - **배운 점**: 충돌은 협업 과정에서 서로 다른 관점이 모이는 자연스러운 현상이며, 명확한 기준을 통해 더 완전한 결과물로 발전시킬 수 있음을 학습함.
+
+## 3. 충돌 3: 파일 삭제 vs 내용 수정 (`src/practice/sync-timing.md`)
+- **참여자**: 조은익(삭제·선병합), 김건우(내용 수정·충돌 해결)
+- **상황 및 기준 커밋**: (공통 기준 SHA 입력). 같은 기준에서 조은익은 파일을 삭제하고 김건우는 확인 항목을 추가함.
+- **발생 명령**: 김건우 브랜치에서 `git fetch origin` 다음 `git merge origin/main` 실행
+- **충돌 확인**: 실제 출력은 아래 상세 증빙에 수록. `CONFLICT (modify/delete)`와 `UD` 상태를 확인했으며 문장 충돌 마커는 없었음.
+- **해결 절차 및 의사결정**:
+  - 삭제 이유: (실제 논의 내용)
+  - 유지 이유: (실제 논의 내용)
+  - 파일을 유지하기로 합의하고 `git add src/practice/sync-timing.md`로 해결 표시
+  - 미해결 파일 목록이 비었는지 확인하고 증빙을 포함해 머지 커밋 생성
+- **최종 결과**: main에서 파일과 추가한 확인 항목이 보존됨.
+- **관련 PR 및 합의**: (삭제 PR / 수정·해결 PR / 합의 댓글의 실제 URL)
+- **관련 증빙**: [docs/evidence/conflict-delete-modify.md](evidence/conflict-delete-modify.md)
+- **배운 점과 주의점**: 마커가 없어도 미해결 충돌일 수 있으므로 상태를 확인해야 함. 파일의 필요성을 논의한 뒤 유지 또는 삭제를 결정함.
 ```
 
-### Step 6-4. [김상교] 트러블슈팅 종합 보고서 `docs/troubleshooting-log.md` 작성
+### Step 7-4. [김상교] 트러블슈팅 종합 보고서 `docs/troubleshooting-log.md` 작성
 `docs/troubleshooting-log.md` 파일을 생성하고 아래 내용을 저장합니다:
 ```markdown
 # Git 4대 트러블슈팅 종합 실습 로그
@@ -1453,12 +1722,12 @@ git checkout -b feature/sangkyo-final-submission
 - **상세 증빙**: [docs/evidence/gunwoo-stash.md](evidence/gunwoo-stash.md)
 ```
 
-### Step 6-5. [김상교] `README.md` 목차(TOC) 최신화
+### Step 7-5. [김상교] `README.md` 목차(TOC) 최신화
 `README.md` 파일을 열어 프로젝트 소개 및 전체 산출물 링크를 작성합니다:
 ```markdown
 # Git & GitHub 개발 협업 학습정리노트 (B2-2 팀 프로젝트)
 
-본 저장소는 실무 Git/GitHub 협업 워크플로우를 완벽하게 체화하기 위해 4인의 팀원이 1:1 대칭 기여로 완성한 학습 프로젝트입니다.
+본 저장소는 실무 Git/GitHub 협업 워크플로우를 완벽하게 체화하기 위해 4인의 팀원이 역할을 나누어 완성한 학습 프로젝트입니다.
 
 ## 📚 팀원별 학습 정리 노트
 1. [01. Git 기초와 3대 작업 영역](notes/01-git-basics.md) - 담당자: 김상교
@@ -1468,38 +1737,43 @@ git checkout -b feature/sangkyo-final-submission
 
 ## 🛠️ 실습 및 협업 보고서
 - [협업 가이드라인 (CONTRIBUTING)](docs/CONTRIBUTING.md)
-- [충돌 2회 해결 종합 보고서](docs/conflict-resolution.md)
+- [충돌 3회 해결 종합 보고서](docs/conflict-resolution.md)
 - [Git 4대 트러블슈팅 종합 실습 로그](docs/troubleshooting-log.md)
 - [최종 평가 제출 인덱스 표](SUBMISSION.md)
 ```
 
-### Step 6-6. [김상교] 평가 제출용 최종 색인표 `SUBMISSION.md` 작성
+### Step 7-6. [김상교] 평가 제출용 최종 색인표 `SUBMISSION.md` 작성
 `SUBMISSION.md` 파일을 생성하고 아래 표를 작성합니다 (팀 저장소의 실제 이슈/PR 링크를 기재):
 
-> 💡 **안내**: 김상교 님의 '최종 PR'은 아직 생성 전이므로, 우선 `(아래 Step 6-8-B에서 최종 PR 생성 후 링크 추가)`로 작성해 두고, PR 생성 직후 Step 6-8-B에서 실제 URL로 수정하여 추가 커밋합니다.
+> 💡 **안내**: 김상교 님의 '최종 PR'은 아직 생성 전이므로, 우선 `(아래 Step 7-8-B에서 최종 PR 생성 후 링크 추가)`로 작성해 두고, PR 생성 직후 Step 7-8-B에서 실제 URL로 수정하여 추가 커밋합니다.
 
 ````markdown
 # B2-2 최종 평가 제출 인덱스
 
-## 1. 팀원별 기여도 증빙표 (1:1 완전 대칭)
+## 1. 팀원별 기여도 증빙표
 
 | 팀원 | 역할 | 생성한 이슈 | 병합된 본인 PR (2개 이상) | 작성한 동료 리뷰 (2개 이상) | 본인 PR 피드백 반영 | 트러블슈팅 증빙 |
 |:---:|:---:|:---|:---|:---|:---|:---|
-| **김상교** | 호스트 & 팀장 / 인프라 | 준비 이슈, 노트 이슈, 실습 이슈, 최종 이슈 | 준비 PR, 노트 PR, 실습 PR, 최종 PR (아래 Step 6-8-B에서 링크 추가) | 김건우 노트 리뷰, 조은익 실습 리뷰 | 노트 PR 반영 완료 | [amend 증빙](docs/evidence/sangkyo-amend.md) |
-| **장양환** | 코어 / 충돌1 | 노트 이슈, 실습 이슈 | 노트 PR, 실습 PR | 김상교 준비 리뷰, 김상교 노트 리뷰, 김건우 실습 리뷰 | 노트 PR 반영 완료 | [reset 증빙](docs/evidence/yanghwan-reset.md) |
-| **조은익** | 코어 / 충돌이론 | 노트 이슈, 실습 이슈 | 노트 PR, 실습 PR | 장양환 노트 리뷰, 김상교 실습 리뷰 | 노트 PR 반영 완료 | [revert 증빙](docs/evidence/eunik-revert.md) |
-| **김건우** | 심화 / 충돌2 | 노트 이슈, 실습 이슈 | 노트 PR, 실습 PR | 조은익 노트 리뷰, 장양환 실습 리뷰, 김상교 최종 리뷰 | 노트 PR 반영 완료 | [stash 증빙](docs/evidence/gunwoo-stash.md) |
+| **김상교** | 호스트 & 팀장 / 인프라 | 준비 이슈, 노트 이슈, 실습 이슈, 최종 이슈 | 준비 PR, 노트 PR, 실습 PR, 최종 PR (아래 Step 7-8-B에서 링크 추가) | 김건우 노트 리뷰, 조은익 실습 리뷰, 조은익 삭제 PR 리뷰 | 노트 PR 반영 완료 | [amend 증빙](docs/evidence/sangkyo-amend.md) |
+| **장양환** | 코어 / 충돌1 | 노트 이슈, 실습 이슈 | 노트 PR, 실습 PR | 김상교 준비 리뷰, 김상교 노트 리뷰, 김건우 실습 리뷰, 김건우 추가 충돌 PR 리뷰 | 노트 PR 반영 완료 | [reset 증빙](docs/evidence/yanghwan-reset.md) |
+| **조은익** | 코어 / 충돌이론 | 노트 이슈, 실습 이슈, 삭제 이슈 | 노트 PR, 실습 PR, 삭제 PR | 장양환 노트 리뷰, 김상교 실습 리뷰 | 노트 PR 반영 완료 | [revert 증빙](docs/evidence/eunik-revert.md) |
+| **김건우** | 심화 / 충돌2·3 | 노트 이슈, 실습 이슈, 수정·해결 이슈 | 노트 PR, 실습 PR, 수정·해결 PR | 조은익 노트 리뷰, 장양환 실습 리뷰, 김상교 최종 리뷰 | 노트 PR 반영 완료 | [stash 증빙](docs/evidence/gunwoo-stash.md) |
+
+### 추가 충돌 실습 연결
+- 충돌 3 증빙: [삭제/수정 충돌 기록](docs/evidence/conflict-delete-modify.md)
+- 조은익 삭제 PR / 김상교 리뷰: (각 실제 URL)
+- 김건우 수정·해결 PR / 장양환 리뷰 / 두 사람의 합의: (각 실제 URL)
 
 ## 2. 필수 산출물 점검
 - [x] [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) (4인 분담 작성, GitHub Flow 채택 이유 3줄 포함)
-- [x] [docs/conflict-resolution.md](docs/conflict-resolution.md) (비자명 충돌 2회 완결 기록)
+- [x] [docs/conflict-resolution.md](docs/conflict-resolution.md) (충돌 3회 완결 기록: 같은 부분 수정 2회 + 삭제/수정 1회)
 - [x] [docs/troubleshooting-log.md](docs/troubleshooting-log.md) (트러블슈팅 4종 완결 기록)
-- [x] [docs/evidence/](docs/evidence/) (개인별 도구 및 충돌 증빙 6건)
+- [x] [docs/evidence/](docs/evidence/) (개인별 도구 4건 및 충돌 3건, 총 증빙 7건)
 - [x] [notes/](notes/) (팀원 4인의 학습 정리 노트 4종)
 - [x] [docs/git-history.txt](docs/git-history.txt) (전체 Git 커밋 이력 UTF-8)
 ````
 
-### Step 6-7. [김상교] Git 히스토리 로그 추출 (UTF-8 인코딩)
+### Step 7-7. [김상교] Git 히스토리 로그 추출 (UTF-8 인코딩)
 김상교 님 터미널에서 전체 커밋 로그를 UTF-8 텍스트 파일로 추출합니다:
 
 **Mac / Linux / Git Bash 터미널:**
@@ -1515,7 +1789,7 @@ git log --graph --oneline --all | Out-File -FilePath docs/git-history.txt -Encod
 > ⚠️ **인코딩 주의사항 (Windows PowerShell 5.1)**:  
 > Windows PowerShell 기본 창에서 `>` 리디렉션을 사용할 경우 UTF-16LE(BOM 포함)로 저장되어 GitHub 웹이나 Linux 환경에서 파일이 깨져 보일 수 있습니다. PowerShell 환경에서는 반드시 위와 같이 `| Out-File -FilePath docs/git-history.txt -Encoding utf8` 명령을 사용하거나 Git Bash 터미널에서 실행해 주세요.
 
-### Step 6-8. [김상교] 1차 커밋, 푸시 및 최종 PR 생성
+### Step 7-8. [김상교] 1차 커밋, 푸시 및 최종 PR 생성
 1. 커밋 & 푸시:
    ```bash
    git add docs/conflict-resolution.md docs/troubleshooting-log.md README.md SUBMISSION.md docs/git-history.txt
@@ -1529,7 +1803,7 @@ git log --graph --oneline --all | Out-File -FilePath docs/git-history.txt -Encod
    Closes #최종이슈번호
 
    ## What
-   - docs/conflict-resolution.md: 비자명 충돌 2회 종합 기록
+   - docs/conflict-resolution.md: 충돌 3회 종합 기록: 같은 부분 수정 2회 + 삭제/수정 1회
    - docs/troubleshooting-log.md: 4대 트러블슈팅 종합 기록
    - README.md: 목차 링크 갱신
    - SUBMISSION.md: 최종 평가 인덱스 표 완성
@@ -1544,13 +1818,13 @@ git log --graph --oneline --all | Out-File -FilePath docs/git-history.txt -Encod
    ```
 5. **Reviewers**: **김건우** 지정 ➔ `Create pull request` 클릭!
 
-### Step 6-8-B. [김상교] 생성된 최종 PR 링크를 `SUBMISSION.md`에 채우고 추가 커밋
+### Step 7-8-B. [김상교] 생성된 최종 PR 링크를 `SUBMISSION.md`에 채우고 추가 커밋
 최종 PR이 생성되었으므로, 해당 PR의 URL을 `SUBMISSION.md`에 채워 제출 인덱스를 완결합니다.
 
 1. 방금 생성된 GitHub PR 페이지의 브라우저 주소창에서 URL(예: `https://github.com/조직명/저장소명/pull/9`)을 복사합니다.
 2. `SUBMISSION.md` 파일을 열고, 김상교 님의 PR 항목에 실제 PR 번호와 링크를 입력하고 저장합니다:
    ```markdown
-   | **김상교** | 호스트 & 팀장 / 인프라 | 준비 이슈, 노트 이슈, 실습 이슈, 최종 이슈 | 준비 PR, 노트 PR, 실습 PR, [최종 PR #9](https://github.com/조직명/저장소명/pull/9) | 김건우 노트 리뷰, 조은익 실습 리뷰 | 노트 PR 반영 완료 | [amend 증빙](docs/evidence/sangkyo-amend.md) |
+   | **김상교** | 호스트 & 팀장 / 인프라 | 준비 이슈, 노트 이슈, 실습 이슈, 최종 이슈 | 준비 PR, 노트 PR, 실습 PR, [최종 PR #9](https://github.com/조직명/저장소명/pull/9) | 김건우 노트 리뷰, 조은익 실습 리뷰, 조은익 삭제 PR 리뷰 | 노트 PR 반영 완료 | [amend 증빙](docs/evidence/sangkyo-amend.md) |
    ```
 3. 수정 사항을 커밋하고 푸시합니다:
    ```bash
@@ -1559,9 +1833,9 @@ git log --graph --oneline --all | Out-File -FilePath docs/git-history.txt -Encod
    ```
    *(푸시 즉시 이미 생성된 GitHub PR에 커밋이 자동 반영됩니다.)*
 
-### Step 6-9. [김건우 & 김상교] 최종 기술 검토, Approve 및 최종 머지!
+### Step 7-9. [김건우 & 김상교] 최종 기술 검토, Approve 및 최종 머지!
 1. **[김건우]**: PR `Files changed` 탭 확인 ➔ `SUBMISSION.md`에 최종 PR 링크까지 온전히 채워졌는지와 `docs/git-history.txt` 확인 후 라인 코멘트 작성:
-   > *"SUBMISSION.md의 4인 기여도 표(최종 PR 링크 포함)와 산출물 상대 링크(conflict-resolution, troubleshooting-log, evidence 6종)를 전수 클릭하여 정상 연결됨을 확인했습니다. 추가로 `docs/git-history.txt`가 UTF-8 인코딩으로 저장되었는지, 그리고 최신 merge commit 그래프까지 온전히 포함되어 있는지 확인 부탁드립니다."*
+   > *"SUBMISSION.md의 4인 기여도 표(최종 PR 링크 포함)와 산출물 상대 링크(conflict-resolution, troubleshooting-log, evidence 7종)를 전수 클릭하여 정상 연결됨을 확인했습니다. 추가로 `docs/git-history.txt`가 UTF-8 인코딩으로 저장되었는지, 그리고 최신 merge commit 그래프까지 온전히 포함되어 있는지 확인 부탁드립니다."*
 2. **[김상교]**: 확인 후 답글 작성:
    > *"`docs/git-history.txt`의 UTF-8 인코딩 및 SHA-1 해시 그래프 라인을 재검증 완료했습니다. 최종 통합 PR의 머지 커밋은 본 PR 머지 완료 즉시 원격 main에 영구 반영되므로 제출 요건을 100% 충족합니다."*
 3. **[김건우]**: `Review changes` ➔ **`Approve`** 제출!
@@ -1569,7 +1843,7 @@ git log --graph --oneline --all | Out-File -FilePath docs/git-history.txt -Encod
 
 ---
 
-# [제7부] 평가 항목별 핵심 구두 면접 문답 대비 (항목 2~4 전수 점검)
+# [제8부] 평가 항목별 핵심 구두 면접 문답 대비 (항목 2~4 전수 점검)
 
 > 🎓 **평가관 질문 대비 요령**:  
 > 평가관 면접 시 단순히 정답만 외우기보다, **우리 팀이 실제로 작성한 파일과 PR 이력을 근거로 대답**하면 최고의 평가를 받습니다.
@@ -1586,7 +1860,7 @@ git log --graph --oneline --all | Out-File -FilePath docs/git-history.txt -Encod
 - **답변**: "단순 칭찬이나 확인 인사를 금지하고, 반드시 `Files changed`의 특정 코드 라인에 대해 질문, 대안, 또는 보완할 조건을 제시하도록 했습니다. 또한 작성자가 답글을 남기거나 수정 커밋을 올리는 상호작용이 확인된 후에만 Approve하도록 운영했습니다." (근거: `docs/CONTRIBUTING.md` 3절)
 
 #### Q4. "충돌이 발생했을 때 팀이 어떤 흐름(공유→해결→기록)으로 대응했나요?"
-- **답변**: "1) 충돌 발생 즉시 팀원들에게 알리고, 2) 해결 담당자가 로컬 터미널에서 `git merge origin/main`으로 충돌 마커를 확인한 뒤 양측 의도를 살려 합의 수정했으며, 3) 충돌 마커 원문과 해결 이유, 배운 점을 `docs/conflict-resolution.md`에 의무적으로 기록했습니다." (근거: `docs/conflict-resolution.md`)
+- **답변**: "1) 충돌 발생 즉시 팀원들에게 알리고, 2) 앞의 두 실습에서는 서로 다르게 수정한 문장을 합쳤으며, 제6부에서는 삭제 이유와 수정 내용의 필요성을 비교해 파일을 유지하기로 합의했습니다. 3) 문장 충돌은 마커 원문을, 삭제/수정 충돌은 실제 충돌 메시지와 상태 출력을 남겼고, 해결 이유와 배운 점을 `docs/conflict-resolution.md`에 기록했습니다." (근거: `docs/conflict-resolution.md`)
 
 #### Q5. "트러블슈팅 로그를 '재현 가능'하게 만들기 위해 어떤 항목을 고정했나요?"
 - **답변**: "상황 및 재현 조건, 실행한 정확한 명령어, 변경 전후의 커밋 SHA 및 `git status`/`diff` 출력, 해당 명령을 선택한 이유와 주의점의 4가지 항목을 필수로 수록하여 누구나 동일하게 재현할 수 있게 작성했습니다." (근거: `docs/troubleshooting-log.md`)
@@ -1607,8 +1881,8 @@ git log --graph --oneline --all | Out-File -FilePath docs/git-history.txt -Encod
 #### Q9. "원격에 push된 커밋을 되돌릴 때 `reset` 대신 `revert`를 선택해야 하는 이유는 무엇인가요?"
 - **답변**: "`reset`은 이전 커밋 이력 자체를 지워버리므로, 이미 원격에 푸시된 상태에서 reset 후 강제 푸시(`--force`)를 하면 다른 동료들의 로컬 이력과 충돌하여 심각한 협업 장애를 일으킵니다. 반면 `revert`는 기존 이력을 온전히 보존하면서 이를 상쇄하는 새로운 역커밋을 추가하므로 공유 브랜치에서 가장 안전합니다." (근거: `docs/troubleshooting-log.md` 3절)
 
-#### Q10. "충돌 마커(`<<<<<<<`, `=======`, `>>>>>>>`)의 의미는 무엇인가요?"
-- **답변**: "`<<<<<<< HEAD`는 현재 내 로컬 브랜치의 변경 사항이고, `=======`는 두 변경 사항의 경계선이며, `>>>>>>> origin/main`은 원격 main에서 가져오려는 상대방의 변경 사항입니다." (근거: `notes/03-conflict-guide.md`)
+#### Q10. "충돌 마커(`<<<<<<<`, `=======`, `>>>>>>>`)의 의미와 비자명 충돌의 해결 기준은 무엇인가요?"
+- **답변**: "`<<<<<<< HEAD` 아래는 현재 내 브랜치의 내용이고, `=======`는 양쪽 내용을 구분하며, `>>>>>>> origin/main` 위쪽은 합치려는 main의 내용입니다. 앞의 두 실습에서는 양쪽 정보가 모두 필요해 문장을 합쳤습니다. 추가 삭제/수정 충돌에는 이 마커가 없었지만 `UD`로 미해결 상태를 확인했고, 확인 안내가 계속 필요하다는 판단에 따라 파일을 유지했습니다." (근거: `notes/03-conflict-guide.md`, `docs/evidence/conflict-delete-modify.md`)
 
 ---
 
