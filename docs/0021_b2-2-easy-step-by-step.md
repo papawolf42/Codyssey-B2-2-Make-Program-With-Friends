@@ -2413,6 +2413,8 @@ Closes #27
 
 # [파트 10] PR #29 수습하기 — 보너스 파일은 살리고 제출 문서 완성하기
 
+> **후속 진행:** #29를 닫고 #31을 만든 뒤라면, 아래 새 PR 생성 단계를 반복하지 말고 **[파트 11] PR #31 마지막 수정**으로 이동하세요.
+
 > **2026-09-29 확인 결과:** #28은 이미 병합됐고, #29는 아직 열린 상태입니다. 지금은 **Step 10-2 → 10-3 → 10-4 → 10-5 → 10-6** 순서로 진행합니다. **Step 10-7은 #29까지 실수로 병합했을 때만** 사용합니다. 아래는 실행 안내이며, #29를 닫거나 복구 PR을 병합한 결과를 미리 기록한 것이 아닙니다.
 
 ### Step 10-1. 무엇이 꼬였는지 이해하기
@@ -2670,6 +2672,202 @@ git push -u origin feature/sangkyo-restore-bonus
 새 PR의 제목은 `fix: Restore bonus evidence removed by PR #29`로 하고, 본문에 “#29로 삭제된 보너스 파일 3개를 #28 병합 시점의 내용으로 복구한다”고 적습니다. Files changed에서 세 파일의 추가를 확인하고 동료 승인 후 병합합니다. **복구가 main에 들어간 것을 확인한 뒤** Step 10-3부터 새 문서 보완 작업을 시작합니다.
 
 이 과정에서는 `git reset --hard`, main 강제 푸시, 공유 main의 rebase가 필요 없습니다. #28을 다시 열거나 이미 병합된 #29를 닫는 것만으로 파일이 복구되지는 않습니다.
+
+---
+
+# [파트 11] PR #31 마지막 수정 — 이 순서로 마무리하기
+
+> **2026-09-29 재검토 기준:** #29는 병합 없이 닫혔고, #31은 아직 Open입니다. 따라서 파트 10의 새 브랜치·새 이슈·새 PR 생성은 반복하지 않습니다. **현재 #31 브랜치를 고쳐서 다시 push**하면 됩니다. 아래 체크는 실행 후 직접 표시합니다.
+
+### Step 11-1. [김상교] 현재 PR의 작업 브랜치로 이동하기
+
+**팀 저장소 `beatles12/codyssey-b2-2-gitflow` 폴더**에서 실행합니다. 이 안내서 저장소와는 다릅니다.
+
+```bash
+git remote get-url origin
+git status
+```
+
+origin이 팀 저장소인지 확인합니다. 수정 중인 파일이 있으면 먼저 내용을 저장·보관합니다. 진행 중인 merge/rebase가 있거나 작업 공간이 깨끗하지 않으면 아래 브랜치 이동부터 무작정 실행하지 않습니다. 보관 방법은 Step 10-3을 참고합니다.
+
+```bash
+git fetch origin
+git checkout feature/sangkyo-bonus-submit-fix
+git pull --ff-only origin feature/sangkyo-bonus-submit-fix
+git branch --show-current
+```
+
+로컬에 해당 브랜치가 없다는 오류가 나면 다음으로 브랜치를 가져옵니다.
+
+```bash
+git checkout -b feature/sangkyo-bonus-submit-fix --track origin/feature/sangkyo-bonus-submit-fix
+```
+
+마지막에 표시되는 브랜치는 `feature/sangkyo-bonus-submit-fix`여야 합니다. `pull --ff-only`가 실패하면 로컬과 원격에 서로 다른 커밋이 있는 것이므로 강제로 초기화하지 말고 상태를 확인합니다.
+
+### Step 11-2. [김상교] CODEOWNERS 증빙을 아래 전체 내용으로 저장하기
+
+#31에서는 `docs/evidence/codeowners-review.md`의 원래 33줄이 삭제되고 후속 결과만 남았습니다. **자동 요청을 입증하는 원래 기록 + 후속 승인·병합 결과**가 모두 있어야 합니다.
+
+VS Code에서 `docs/evidence/codeowners-review.md`를 열어 아래 코드 블록 **안의 내용 전체**로 저장합니다. 세 개의 백틱은 파일에 넣지 않습니다. 이 내용은 main에 남아 있는 실제 증빙과 확인된 후속 결과를 합친 것입니다.
+
+```markdown
+# CODEOWNERS 자동 리뷰 요청 확인
+
+## 설정과 확인 대상
+- 저장소: https://github.com/beatles12/codyssey-b2-2-gitflow
+- 설정 이슈: https://github.com/beatles12/codyssey-b2-2-gitflow/issues/25
+- 설정 PR: https://github.com/beatles12/codyssey-b2-2-gitflow/pull/26
+- 설정 PR 병합 시각: 2026-09-29 18:25:39 KST
+- 히스토리 정리 이슈: https://github.com/beatles12/codyssey-b2-2-gitflow/issues/27
+- 확인 PR: https://github.com/beatles12/codyssey-b2-2-gitflow/pull/28
+- PR 작성자: 김상교 (beatles12)
+- base 브랜치: main
+- 작업 브랜치: feature/sangkyo-rebase-bonus
+- 확인 시점 PR 유형: 일반 PR (Draft 아님)
+- base의 설정 파일: https://github.com/beatles12/codyssey-b2-2-gitflow/blob/579c0eea163cab1f2b45d5d702eeb391b9d4f645/.github/CODEOWNERS
+
+## 매칭 규칙과 실제 요청
+- 변경 파일: docs/bonus/rebase-practice.md, docs/evidence/sangkyo-rebase.md
+- 적용 규칙: /docs/ @papawolf42 @nick19850906-debug
+- 요청된 리뷰어: 김건우 (papawolf42), 조은익 (nick19850906-debug)
+- PR 생성 시각: 2026-09-29 18:48:21 KST
+- 두 리뷰 요청의 생성 시각: 2026-09-29 18:48:22 KST
+- 확인 방법: PR 타임라인의 code owners에 따른 요청 표시와 API의 review_requested 이벤트를 대조함.
+- 화면에서 확인한 상태: 두 계정 모두 code owner로 표시되고 리뷰 요청 대기 상태였음.
+
+## 실제 근거
+- [PR #28 타임라인과 Reviewers](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/28)
+- [김건우 리뷰 요청 이벤트](https://api.github.com/repos/beatles12/codyssey-b2-2-gitflow/issues/events/32068086978)
+- [조은익 리뷰 요청 이벤트](https://api.github.com/repos/beatles12/codyssey-b2-2-gitflow/issues/events/32068087060)
+
+## 결과와 범위
+- CODEOWNERS가 먼저 main에 반영된 뒤, /docs/ 아래 파일을 변경한 PR에서 지정된 두 리뷰어에게 요청이 생성된 것을 확인했다.
+- 단순히 요청 시각이 빠르다는 추측이 아니라, GitHub 타임라인의 code owners 요청 표시를 근거로 확인했다.
+- 이 기록은 자동 리뷰 요청의 증빙이다. 확인 당시 PR #28의 승인과 병합은 아직 완료되지 않았다.
+
+## 후속 결과
+- 자동 리뷰 요청을 확인한 이후 PR #28의 승인과 병합이 완료됐다.
+- 승인자: 김건우 (papawolf42)
+- [실제 승인 기록](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/28#pullrequestreview-5351052238)
+- 병합 시각: 2026-09-29 19:22:17 KST
+- 병합 커밋: f25c75c7e9137451ee5d3291b01c20e2d19b3997
+- [PR #28](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/28)
+```
+
+### Step 11-3. [김상교] README와 SUBMISSION의 옛 문장 정리하기
+
+**① `README.md`**
+
+`## 확인이 남은 항목` 아래에서 다음 줄을 삭제합니다. #24가 이미 병합됐으므로 현재 상황과 맞지 않습니다.
+
+```markdown
+- 최종 제출 PR 생성, 리뷰와 병합
+```
+
+stash 증빙을 아직 채우지 않았다면 다음 줄은 남깁니다. 아래쪽의 `제출 및 선택 보너스` 절과 링크도 유지합니다.
+
+```markdown
+- stash 증빙의 실제 출력 3곳 보완
+```
+
+**② `SUBMISSION.md`**
+
+`## 3. 산출물 확인 상태` 뒤쪽의 다음 문장에서 숫자를 고칩니다.
+
+변경 전:
+```text
+증빙 파일은 총 7개 존재하지만, 파일 존재와 내용의 완결 여부는 다르다. 완료하지 않은 항목은 완료로 표시하지 않는다.
+```
+
+변경 후:
+```text
+증빙 파일은 총 9개 존재하지만, 파일 존재와 내용의 완결 여부는 다르다. 완료하지 않은 항목은 완료로 표시하지 않는다.
+```
+
+위쪽에서 두 줄로 갈라진 설명도 한 줄로 정리합니다.
+
+```markdown
+- PR 병합 여부와 각 실습 증빙의 완결 여부는 구분해서 기록한다.
+```
+
+김상교의 기여도 표에서 `생성한 이슈` 칸의 기존 링크는 유지하고, 끝에 실제 보너스 이슈 두 개를 추가합니다.
+
+```markdown
+, [#25](https://github.com/beatles12/codyssey-b2-2-gitflow/issues/25), [#27](https://github.com/beatles12/codyssey-b2-2-gitflow/issues/27)
+```
+
+stash 항목은 실제 증빙을 넣기 전까지 `[ ]`로 둡니다. #31을 병합한 것만으로 stash 실습까지 완료한 것은 아닙니다.
+
+### Step 11-4. [김상교] 같은 PR #31에 수정 올리기
+
+```bash
+git diff -- README.md SUBMISSION.md docs/evidence/codeowners-review.md
+git add README.md SUBMISSION.md docs/evidence/codeowners-review.md
+git diff --cached --name-status
+git diff --cached --check
+```
+
+세 파일의 수정 내용을 확인합니다. CODEOWNERS 증빙에는 제목, 설정 정보, 자동 요청 이벤트 링크, 후속 결과가 모두 있어야 합니다. 파일 삭제나 관계없는 변경이 보이면 원인을 먼저 확인합니다.
+
+```bash
+git commit -m "docs: Restore CODEOWNERS evidence and fix submission status"
+git push origin feature/sangkyo-bonus-submit-fix
+```
+
+[PR #31](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/31)의 **Files changed**를 다시 엽니다. 이 화면은 PR 전체와 main의 차이입니다. CODEOWNERS 증빙의 기존 33줄이 통째로 빨간 삭제로 보이면 아직 잘못된 상태입니다. 원래 내용은 유지되고 맨 아래 `후속 결과`가 추가돼야 합니다.
+
+**새 PR은 만들지 않습니다. #29를 다시 열거나 #28을 Revert하지도 않습니다.**
+
+### Step 11-5. [김건우 또는 조은익 → 김상교] 리뷰·승인·병합하기
+
+1. 리뷰어는 #31의 세 파일을 읽고, 자동 요청 이벤트 링크와 후속 승인 링크가 유지됐는지 확인합니다.
+2. 필요한 질문이나 개선점이 있으면 해당 줄에 실제 리뷰를 남깁니다. 작성자인 김상교는 답변하거나 수정합니다. 수행하지 않은 대화를 증빙으로 만들지 않습니다.
+3. 리뷰어는 수정 결과를 확인하고 Approve합니다. 작성자 본인은 자기 PR을 승인할 수 없습니다.
+4. 승인 등 저장소의 병합 조건을 충족하면 #31을 병합합니다.
+5. main에서 수정된 세 파일을 다시 열어 확인합니다. `Closes #30`으로 연결된 [이슈 #30](https://github.com/beatles12/codyssey-b2-2-gitflow/issues/30)의 종료 여부도 확인합니다.
+
+이 단계까지 완료하면 **#29 사고 수습과 제출 문서 정리**는 끝납니다. 아래 stash 출력이 비어 있다면 과제 증빙 전체가 완성된 것은 아닙니다.
+
+### Step 11-6. [김건우] 마지막 남은 stash 실제 출력 보완하기
+
+[현재 stash 증빙](https://github.com/beatles12/codyssey-b2-2-gitflow/blob/main/docs/evidence/gunwoo-stash.md)에는 아래 세 자리에 “출력을 붙여넣으세요”가 남아 있습니다.
+
+- 보관 전 `git diff`
+- 보관 후 `git stash list`
+- 복원 후 `git diff`
+
+과거 터미널 기록이 남아 있다면 실제 기록으로 채웁니다. 기록이 없다면 **Step 5-7의 stash 실습을 별도 개인 브랜치에서 다시 수행**하고, 그때의 출력과 재실습 날짜를 기록합니다. 이미 병합된 예전 PR에 계속 push하지 말고 최신 main에서 새 작업 브랜치를 만듭니다. 다음은 #31 병합 후, 팀 저장소의 깨끗한 작업 공간에서 시작하는 예시입니다.
+
+```bash
+git fetch origin
+git checkout -b feature/gunwoo-stash-evidence-fix origin/main
+```
+
+재실습은 이번 브랜치에서 진행하며, Step 5-7에 나오는 예전 브랜치 이름 대신 `feature/gunwoo-stash-evidence-fix`를 사용합니다. 기존 파일을 지우거나 과거 상태로 되돌릴 필요는 없습니다. 작은 미완성 변경을 만들고, 보관 → 브랜치 이동 → 원래 브랜치 복귀 → 복원의 흐름을 실제로 확인합니다.
+
+증빙의 수행 브랜치·날짜·명령·출력은 실제 재실습에 맞춰 갱신하고, “기존 제출에서 누락된 출력을 재실습으로 보완했다”고 명시합니다. stash 전후 diff가 같은지 확인하며, 충돌이 났다면 충돌과 해결 결과도 그대로 기록합니다. 예전 실습의 출력인 것처럼 적지 않습니다.
+
+실제 출력이 모두 들어간 다음에만 다음을 함께 정리합니다.
+
+- README에서 `stash 증빙의 실제 출력 3곳 보완`을 제거하거나 완료 기록으로 바꾸기
+- SUBMISSION의 stash 체크를 `[x]`로 바꾸고, 기여도 표와 마지막 문단의 `보완 필요` 문구 갱신하기
+- `docs/troubleshooting-log.md`에도 남아 있는 stash 미보완 안내가 있다면 실제 결과에 맞춰 갱신하기
+
+변경 파일과 실습 내용을 확인하여 커밋·push하고 새 PR에서 동료 리뷰·승인을 받아 병합합니다. 이 PR 번호와 결과는 **실제로 생성·완료된 뒤** 기록합니다.
+
+### Step 11-7. 최종 완료 체크
+
+아래는 미리 완료 표시하지 않습니다. GitHub main과 각 PR을 보면서 확인합니다.
+
+- [ ] #29가 병합 없이 Closed 상태다.
+- [ ] #31에서 CODEOWNERS 원래 증빙을 보존하고 후속 결과를 추가했다.
+- [ ] README의 오래된 최종 제출 대기 문장과 SUBMISSION의 7개 표기를 고쳤다.
+- [ ] #31의 승인·병합이 완료됐고 main에서 수정 결과를 확인했다.
+- [ ] stash의 실제 출력 3곳을 보완했고, 관련 문서의 완료 상태도 일치한다.
+- [ ] stash 보완 PR도 승인·병합됐으며 main에서 실제 출력을 확인했다.
+
+**#31 병합까지는 수습 완료, stash 증빙 보완까지는 이번 검토에서 발견한 남은 작업 완료**입니다. 이 체크표는 이번 검토 범위의 마무리 기준이며, 모든 평가 항목을 새로 전수 검증했다는 뜻은 아닙니다.
 
 ---
 
