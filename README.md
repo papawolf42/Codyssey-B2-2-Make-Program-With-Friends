@@ -24,6 +24,8 @@ Git의 기본 기능(Commit, Push)을 넘어 **GitHub Flow, Issue/PR 연동, 코
 
 어려운 전문 용어를 걷어내고 팀원 누구나 0011처럼 바로 복사-붙여넣기하며 진행할 수 있는 알기 쉬운 실전 매뉴얼은 **[0017. 초간편 실전 협업 가이드](docs/0017_b2-2-easy-guide.md)**를 참조하세요.
 
+기존 저장소를 이어 쓸지 새 저장소를 만들지 고민된다면 **[0019. 기존 레포 vs 새 레포 의사결정 가이드](docs/0019_b2-2-repo-reuse-vs-fresh-start.md)**를 확인하세요. (새 레포 1시간 완주 추천)
+
 `0004`~`0013`의 분석·선택안·시나리오는 이전 설계 자료입니다. 재시도 절차는 0015를 사용하고, 과제 요건은 [instruction.md](instruction.md)와 [evalutation.md](evalutation.md)로 확인합니다.
 
 ---
