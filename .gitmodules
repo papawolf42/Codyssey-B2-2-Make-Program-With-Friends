@@ -55,3 +55,6 @@
 [submodule "repos/team_21_jha21vvv__codyssey-b2-02"]
 	path = repos/team_21_jha21vvv__codyssey-b2-02
 	url = https://github.com/jha21vvv/codyssey-b2-02.git
+[submodule "test"]
+	path = test
+	url = https://github.com/papawolf42/Codyssey-B2-2-Test.git
