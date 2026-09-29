@@ -2225,7 +2225,7 @@ git push -u origin feature/sangkyo-rebase-bonus
 2. 제목: `docs: Demonstrate interactive rebase and preserve evidence`
 3. 본문:
    ```markdown
-   Closes #히스토리정리이슈번호
+   Closes #27
 
    ## What
    - docs/bonus/rebase-practice.md: reword/squash를 적용한 연습 문서
@@ -2243,49 +2243,147 @@ git push -u origin feature/sangkyo-rebase-bonus
    - 이번 PR의 base가 main이며 Draft가 아닌가?
    - `/docs/` 규칙과 계정 철자가 정확하고 계정에 쓰기 권한이 있는가?
    - GitHub에서 CODEOWNERS 파일을 열었을 때 오류가 표시되는가?
-6. 실제 확인 후 `docs/evidence/codeowners-review.md`를 작성합니다:
+6. `docs/evidence/codeowners-review.md`에 **아래 완성된 내용을 저장**합니다. GitHub 화면과 API에서 확인한 기록을 넣었으므로 실제 URL이나 계정을 다시 채울 필요가 없습니다. 캡처를 새로 만들었다고 적는 대신, 확인 가능한 PR 타임라인과 이벤트 기록을 근거로 사용합니다.
    ```markdown
    # CODEOWNERS 자동 리뷰 요청 확인
-   - 설정 PR: (Step 9-3에서 만든 실제 PR URL)
-   - 확인 PR: (현재 rebase 실습 PR URL)
+
+   ## 설정과 확인 대상
+   - 저장소: https://github.com/beatles12/codyssey-b2-2-gitflow
+   - 설정 이슈: https://github.com/beatles12/codyssey-b2-2-gitflow/issues/25
+   - 설정 PR: https://github.com/beatles12/codyssey-b2-2-gitflow/pull/26
+   - 설정 PR 병합 시각: 2026-09-29 18:25:39 KST
+   - 히스토리 정리 이슈: https://github.com/beatles12/codyssey-b2-2-gitflow/issues/27
+   - 확인 PR: https://github.com/beatles12/codyssey-b2-2-gitflow/pull/28
+   - PR 작성자: 김상교 (beatles12)
    - base 브랜치: main
+   - 작업 브랜치: feature/sangkyo-rebase-bonus
+   - 확인 시점 PR 유형: 일반 PR (Draft 아님)
+   - base의 설정 파일: https://github.com/beatles12/codyssey-b2-2-gitflow/blob/579c0eea163cab1f2b45d5d702eeb391b9d4f645/.github/CODEOWNERS
+
+   ## 매칭 규칙과 실제 요청
    - 변경 파일: docs/bonus/rebase-practice.md, docs/evidence/sangkyo-rebase.md
-   - 매칭 규칙: /docs/ @papawolf42 @nick19850906-debug
-   - 실제 요청된 리뷰어: (화면에서 확인한 계정)
-   - 확인 방식: 수동 추가 전에 Reviewers 영역 확인
-   - 화면 증빙: (같은 PR에 첨부한 캡처의 링크)
-   - 확인 결과와 시각: (실제 관찰 내용)
+   - 적용 규칙: /docs/ @papawolf42 @nick19850906-debug
+   - 요청된 리뷰어: 김건우 (papawolf42), 조은익 (nick19850906-debug)
+   - PR 생성 시각: 2026-09-29 18:48:21 KST
+   - 두 리뷰 요청의 생성 시각: 2026-09-29 18:48:22 KST
+   - 확인 방법: PR 타임라인의 code owners에 따른 요청 표시와 API의 review_requested 이벤트를 대조함.
+   - 화면에서 확인한 상태: 두 계정 모두 code owner로 표시되고 리뷰 요청 대기 상태였음.
+
+   ## 실제 근거
+   - [PR #28 타임라인과 Reviewers](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/28)
+   - [김건우 리뷰 요청 이벤트](https://api.github.com/repos/beatles12/codyssey-b2-2-gitflow/issues/events/32068086978)
+   - [조은익 리뷰 요청 이벤트](https://api.github.com/repos/beatles12/codyssey-b2-2-gitflow/issues/events/32068087060)
+
+   ## 결과와 범위
+   - CODEOWNERS가 먼저 main에 반영된 뒤, /docs/ 아래 파일을 변경한 PR에서 지정된 두 리뷰어에게 요청이 생성된 것을 확인했다.
+   - 단순히 요청 시각이 빠르다는 추측이 아니라, GitHub 타임라인의 code owners 요청 표시를 근거로 확인했다.
+   - 이 기록은 자동 리뷰 요청의 증빙이다. 확인 당시 PR #28의 승인과 병합은 아직 완료되지 않았다.
    ```
-7. 이 증빙을 같은 브랜치에 추가합니다:
+7. **팀 저장소 폴더**에서 현재 브랜치가 `feature/sangkyo-rebase-bonus`인지 확인하고 증빙을 커밋합니다:
    ```bash
+   git branch --show-current
    git add docs/evidence/codeowners-review.md
-   git commit -m "docs: Record automatic code owner review requests"
+   git diff --cached --check
+   git commit -m "docs: Record verified CODEOWNERS review requests for PR 28"
    git push origin feature/sangkyo-rebase-bonus
    ```
-8. 김건우 또는 조은익이 실제 파일의 해당 줄에 질문하고 김상교가 답하거나 수정합니다. 필요한 승인 후 병합합니다. 자동 요청은 자동 승인이나 자동 병합을 뜻하지 않습니다.
+   다른 브랜치가 표시되거나 검사에서 오류가 나오면 먼저 확인하고 다음 명령으로 넘어갑니다. 푸시하면 **기존 PR #28**에 추가됩니다.
+8. **아직 병합하지 말고 Step 9-11에서 README와 SUBMISSION도 같은 PR에 반영합니다.** 그 뒤 동료 리뷰·승인을 받아 한 번에 병합합니다.
 
-이 증빙까지 추가하면 PR에 새 커밋이 더 생기는 것이 정상입니다. 정리 전후 개수는 Step 9-8의 기록으로 평가합니다. GitHub의 **Squash and merge 버튼만 누르는 것으로 로컬 `git rebase -i` 실습을 대신하지 않습니다.**
+확인 당시 PR #28에는 정리된 작업 커밋 2개와 증빙 작성·수정 커밋 3개, 총 5개가 있었습니다. 이후 기록을 더 넣으면 개수는 늘어납니다. **3개 → 2개 정리는 증빙을 추가하기 전의 실습 결과**이며, 증빙 파일의 전후 로그로 확인합니다. GitHub의 Squash and merge 버튼을 누르는 것만으로 로컬 rebase 실습을 대신하지 않습니다.
 
-### Step 9-11. [김상교] 제출 문서에 보너스 연결하기
-아직 최종 제출 전이면 제7부 문서를 만들 때 아래 링크도 넣습니다. 이미 최종 제출 PR이 병합됐다면 보너스 증빙 두 개가 main에 들어온 뒤 **별도 문서 수정 브랜치·이슈·PR**로 README와 SUBMISSION을 갱신합니다.
+### Step 9-11. [김상교] README·SUBMISSION까지 PR #28에서 마무리하기
+최종 제출 PR [#24](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/24)는 이미 병합됐습니다. 현재 보너스 PR [#28](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/28)이 열려 있으므로 **지금 사용하는 `feature/sangkyo-rebase-bonus` 브랜치에서** 아래 두 파일도 수정합니다. 새 최종 제출 PR을 만들 필요는 없습니다.
 
-`README.md`의 보고서 목록에:
+**1. `README.md`에 아래 절을 추가합니다.** 기존 팀원 노트와 보고서 목록은 유지합니다.
 ```markdown
+## 선택 보너스
+- [CODEOWNERS 설정 PR #26](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/26): main에 병합됨
+- [rebase·자동 리뷰 요청 실습 PR #28](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/28): 실제 승인·병합 상태는 PR에서 확인
 - [개인 브랜치 rebase 전후 비교](docs/evidence/sangkyo-rebase.md)
 - [CODEOWNERS 자동 리뷰 요청 확인](docs/evidence/codeowners-review.md)
 ```
 
-`SUBMISSION.md`에 다음 절을 추가하고 실제 링크와 수행 결과를 넣습니다:
+**2. `SUBMISSION.md`에 남아 있는 최종 PR 표시도 바로잡습니다.**
+- `최종 제출 PR: 아직 생성 전...` 문장을 아래 첫 줄로 바꿉니다.
+- 김상교 기여도 표의 `최종 제출 PR은 아직 생성 전`도 아래 같은 PR #24 링크로 바꾸고 병합 완료로 적습니다.
+- “최종 제출 PR은 완료 건수에 포함하지 않는다”는 예전 설명은 아래 두 번째 줄로 바꿉니다.
 ```markdown
-## 선택 보너스
-- CODEOWNERS 설정 PR: (실제 PR URL)
-- 히스토리 정리 및 자동 리뷰 확인 PR: (실제 PR URL)
-- [rebase 증빙](docs/evidence/sangkyo-rebase.md)
-- [자동 리뷰 증빙](docs/evidence/codeowners-review.md)
-- 확인 결과: (reword/squash, 내용 동일, 자동 리뷰 요청을 실제 확인한 결과)
+- 최종 제출 PR: [PR #24 — 병합 완료](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/24)
+- 기여도 표에는 병합 완료한 PR을 기록하며, 열린 보너스 PR #28은 아래 별도 항목에서 추적한다.
 ```
 
-기본 증빙 7개에 이번 파일 2개를 더하면 **9개**입니다. 기존 체크리스트에 총 개수가 있다면 실제 파일을 확인해 갱신합니다. 새 PR의 번호는 생성 후 채우며, 아직 수행하지 않은 보너스를 완료라고 표시하지 않습니다.
+그런 다음 아래 **보너스 절 전체**를 추가합니다:
+```markdown
+## 선택 보너스: 히스토리 정리와 리뷰어 자동화
+
+### 관련 이슈·PR
+- 담당자 설정 이슈: [#25](https://github.com/beatles12/codyssey-b2-2-gitflow/issues/25)
+- CODEOWNERS 설정 PR: [#26](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/26) — main에 병합됨
+- 히스토리 정리 이슈: [#27](https://github.com/beatles12/codyssey-b2-2-gitflow/issues/27)
+- rebase·자동 리뷰 확인 PR: [#28](https://github.com/beatles12/codyssey-b2-2-gitflow/pull/28) — 이 제출 내용이 추가되는 PR이며, 승인·병합 여부는 실제 PR 상태로 확인
+
+### rebase 수행 기록
+- 수행자: 김상교 (beatles12)
+- 범위: 최초 push 전의 개인 feature 브랜치
+- 사용한 작업: reword, squash, pick
+- 증빙에 기록된 정리 전: 7c62fec → 27b2411 → 82cc811 (3개)
+- 원격에서도 확인되는 정리 후: 5cfb318 → 04b1a83 (2개)
+- 내용 보존: 실습 증빙에 git diff 출력 없음, 종료 코드 0으로 기록됨
+- [정리 전후 실제 로그와 비교 결과](docs/evidence/sangkyo-rebase.md)
+- [정리 후 첫 커밋](https://github.com/beatles12/codyssey-b2-2-gitflow/commit/5cfb318436a8929c80a1a7beda79252a859fb216)
+- [정리 후 둘째 커밋](https://github.com/beatles12/codyssey-b2-2-gitflow/commit/04b1a83b7886b187de13248f15f84b63d5e5616e)
+
+### CODEOWNERS 확인
+- 설정 파일: [.github/CODEOWNERS](.github/CODEOWNERS)
+- 적용한 경로 규칙: /docs/ @papawolf42 @nick19850906-debug
+- 요청된 계정: 김건우(papawolf42), 조은익(nick19850906-debug)
+- 요청 생성 시각: 2026-09-29 18:48:22 KST
+- [자동 요청 이벤트와 확인 결과](docs/evidence/codeowners-review.md)
+
+### 확인 상태
+- [x] CODEOWNERS 설정 PR #26 병합
+- [x] reword/squash 전후 이력 기록
+- [x] PR #28의 code owners 리뷰 요청 기록 확인
+- [ ] 보너스 PR #28의 최종 리뷰·승인·병합 — 실제 완료 후 갱신
+```
+
+**3. 같은 브랜치에 커밋하고 PR 본문도 현재 상태로 바꿉니다.**
+```bash
+git add README.md SUBMISSION.md
+git diff --cached --check
+git commit -m "docs: Link bonus evidence and correct final submission PR"
+git push origin feature/sangkyo-rebase-bonus
+```
+
+PR #28 본문은 다음처럼 갱신합니다. 아래 내용은 **앞 단계의 파일을 저장하고 푸시한 다음** 사용합니다:
+```markdown
+Closes #27
+
+## What
+- docs/bonus/rebase-practice.md: 개인 브랜치 reword/squash 실습
+- docs/evidence/sangkyo-rebase.md: 정리 전후 실제 로그 및 내용 보존 결과
+- docs/evidence/codeowners-review.md: 실제 code owners 리뷰 요청 이벤트
+- README.md, SUBMISSION.md: 보너스 증빙 연결 및 최종 PR #24 링크 정리
+
+## Why
+- 개인 작업 이력을 정리하고, 담당 리뷰어 자동 요청이 동작한 근거를 제출하기 위함
+
+## How
+- 증빙 작성 전 작업 커밋 3개 → 2개 확인 기록
+- 실습 증빙에 내용 비교 출력 없음, 종료 코드 0 기록
+- 설정 PR #26 병합 후 PR #28에서 두 code owner에게 요청된 이벤트 확인
+- 요청 시각: 2026-09-29 18:48:22 KST
+- 증빙과 README·SUBMISSION 링크 확인
+
+## 남은 작업
+- 동료의 파일별 리뷰에 답변하고 필요한 수정 반영
+- 승인 후 main에 병합
+```
+
+**4. 동료 리뷰·승인 후 병합합니다.** 김건우 또는 조은익이 실제 변경 파일의 해당 줄을 검토하고 질문하면 김상교가 답하거나 수정합니다. 승인 조건을 충족한 뒤 PR #28을 병합합니다. 이 안내를 작성할 때는 아직 리뷰·병합 전이므로 완료했다고 대신 적지 않았습니다.
+
+병합 뒤에는 main에서 두 보너스 증빙이 열리는지 확인합니다. 증빙 파일은 기존 7개에 보너스 2개를 더해 총 9개가 되며, **파일 수와 실습 내용의 완결 여부는 별도로 확인**합니다. SUBMISSION의 보너스 완료 체크와 PR 상태를 갱신할 때도 일반 문서 수정 PR 절차를 따릅니다.
 
 ### Step 9-12. 막혔을 때와 평가 질문 대비
 
