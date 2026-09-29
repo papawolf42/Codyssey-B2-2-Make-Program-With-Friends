@@ -48,8 +48,8 @@
 
 ## [0단계] 공통 준비: 시작 전 필수 세팅 (1회만 수행)
 
-### 0-1. 조은익 (호스트): Collaborator 초대 및 main 브랜치 보호 설정
-1. GitHub 저장소 `Settings` ➔ `Collaborators`에서 팀원 3명(김상교, 장양환, 김건우) 초대 수락 확인.
+### 0-1. 김상교 (호스트): Collaborator 초대 및 main 브랜치 보호 설정
+1. GitHub 저장소 `Settings` ➔ `Collaborators`에서 팀원 3명(장양환, 조은익, 김건우) 초대 수락 확인.
 2. `Settings` ➔ `Branches` ➔ `Branch protection rule` 생성 (대상: `main`):
    - [x] **Require a pull request before merging** (체크)
    - [x] **Require approvals: 1** (체크)

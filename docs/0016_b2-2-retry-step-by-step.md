@@ -10,9 +10,9 @@
 
 | 기호 | 팀원 이름 | 역할 | 개인 학습 노트 (제3부) | 4대 트러블슈팅 (제4/5부) | 충돌 실습 (공통 파일) | 리뷰 담당 (리뷰어) |
 |:---:|:---:|:---:|:---|:---:|:---|:---|
-| **A** | **김상교** | 팀장 / 인프라 & 최종 취합 | `notes/01-git-basics.md` | `git commit --amend` | **1조 선병합** (`review-request.md`) | 장양환 노트 리뷰, 조은익 실습 리뷰 |
+| **A** | **김상교** | 호스트 & 팀장 / 인프라 & 최종 취합 | `notes/01-git-basics.md` | `git commit --amend` | **1조 선병합** (`review-request.md`) | 장양환 노트 리뷰, 조은익 실습 리뷰 |
 | **B** | **장양환** | 코어 / Flow & 충돌해결 | `notes/02-github-flow.md` | `git reset --soft` | **1조 충돌 해결** (`review-request.md`) | 조은익 노트 리뷰, 김건우 실습 리뷰 |
-| **C** | **조은익** | 호스트 / 권한 & 충돌이론 | `notes/03-conflict-guide.md` | `git revert` | **2조 선병합** (`sync-timing.md`) | 김건우 노트 리뷰, 김상교 실습 리뷰 |
+| **C** | **조은익** | 코어 / 충돌이론 & revert | `notes/03-conflict-guide.md` | `git revert` | **2조 선병합** (`sync-timing.md`) | 김건우 노트 리뷰, 김상교 실습 리뷰 |
 | **D** | **김건우** | 심화 / PR문화 & 충돌해결 | `notes/04-open-source.md` | `git stash` & `pop` | **2조 충돌 해결** (`sync-timing.md`) | 김상교 노트 리뷰, 장양환 실습 리뷰 |
 
 > 💡 **공통 PR 분담**:
@@ -24,7 +24,7 @@
 ## 🧭 전체 진행 로드맵 한눈에 보기
 
 ```
-[제1부] 사전 준비 (조은익 저장소 세팅/보호 + 전원 클론)
+[제1부] 사전 준비 (김상교 새 저장소 생성/보호 + 전원 클론)
    ↓
 [제2부] 협업 규칙 & 공통 실습 파일 준비 (김상교 작성 ➔ 장양환 리뷰 & 머지)
    ↓
@@ -61,33 +61,33 @@
 
 # [제1부] 사전 준비 & 팀 저장소 기본 세팅
 
-> **목표**: 팀 저장소를 마련하고, 팀원 3명을 초대하며, `main` 브랜치를 안전하게 보호합니다.
+> **목표**: 저장소 호스트인 **김상교** 님이 팀 저장소를 새로 생성하고, 팀원 3명(장양환, 조은익, 김건우)을 초대하며, `main` 브랜치를 안전하게 보호합니다.
 
-### Step 1-1. [조은익] 저장소 준비 (기존 재사용 or 신규 생성)
-1. 웹 브라우저를 열고 GitHub에 로그인합니다.
-2. **기존 저장소(`nick19850906-debug/mission_02_02`)를 이어 쓰는 경우**: 해당 저장소 페이지로 바로 이동합니다.
-3. **새 저장소로 깔끔하게 시작하는 경우**:
-   - 우측 상단 `+` 버튼 ➔ **`New repository`** 클릭.
-   - **Repository name**: `mission_02_02` (또는 원하는 이름) 입력.
-   - **Public** 선택.
-   - **Add a README file** 체크.
-   - 초록색 **`Create repository`** 버튼 클릭.
+### Step 1-1. [김상교] 저장소 생성 (새 저장소 기준)
+1. 웹 브라우저를 열고 김상교 님의 GitHub에 로그인합니다.
+2. 우측 상단 `+` 버튼 ➔ **`New repository`** 클릭.
+3. 설정 입력:
+   - **Repository name**: `mission_02_02` (또는 팀에서 정한 새 저장소 이름)
+   - **Public** 선택 (과제 평가를 위해 필수)
+   - **Add a README file** 체크 (초기 `main` 브랜치 자동 생성용)
+4. 초록색 **`Create repository`** 버튼 클릭!
+5. 📌 **저장소 URL 확인**: 생성된 저장소 주소(예: `https://github.com/김상교GitHubID/mission_02_02`)를 팀원들에게 공유합니다.
 
-### Step 1-2. [조은익] 팀원 3명 Collaborator 초대
+### Step 1-2. [김상교] 팀원 3명 Collaborator 초대
 1. 저장소 상단 탭에서 **`Settings`** 클릭.
-2. 좌측 사이드바에서 **`Collaborators`** 클릭 (비밀번호나 모바일 인증 요구 시 완료).
+2. 좌측 사이드바에서 **`Collaborators`** 클릭 (비밀번호나 모바일 2FA 인증 요구 시 완료).
 3. 초록색 **`Add people`** 버튼 클릭.
 4. 검색창에 팀원 3명의 GitHub ID(또는 이메일)를 차례대로 검색하여 추가:
-   - **김상교** 님 GitHub ID 입력 ➔ **`Add ... to this repository`** 클릭
    - **장양환** 님 GitHub ID 입력 ➔ **`Add ... to this repository`** 클릭
+   - **조은익** 님 GitHub ID 입력 ➔ **`Add ... to this repository`** 클릭
    - **김건우** 님 GitHub ID 입력 ➔ **`Add ... to this repository`** 클릭
 
-### Step 1-3. [김상교, 장양환, 김건우] 초대 수락
+### Step 1-3. [장양환, 조은익, 김건우] 초대 수락
 1. 각자의 이메일함 또는 GitHub 알림창(`https://github.com/notifications`)을 확인합니다.
-2. 조은익 님이 보낸 초대장을 열고 초록색 **`Accept invitation`** 버튼을 클릭합니다.
+2. 김상교 님이 보낸 초대장을 열고 초록색 **`Accept invitation`** 버튼을 클릭합니다.
 3. 저장소 메인 페이지가 정상적으로 열리는지 확인합니다.
 
-### Step 1-4. [조은익] `main` 브랜치 보호 규칙(Branch Protection) 설정
+### Step 1-4. [김상교] `main` 브랜치 보호 규칙(Branch Protection) 설정
 > ⚠️ **이유**: 누군가 실수로 `main` 브랜치에 직접 푸시하여 코드가 꼬이는 것을 원천 차단하고, 반드시 PR과 1명 이상의 승인(Review)을 거쳐서만 머지되도록 강제합니다.
 
 1. 저장소 상단 **`Settings`** ➔ 좌측 사이드바 **`Branches`** 클릭.
@@ -96,11 +96,11 @@
 4. 아래 핵심 항목들을 체크합니다:
    - [x] **`Require a pull request before merging`** 체크
    - [x] **`Require approvals`** 체크하고 숫자 `1` 확인
-   - [x] **`Do not allow bypassing the above settings`** 체크 (저장소 소유자를 포함해 전원 우회 금지)
+   - [x] **`Do not allow bypassing the above settings`** 체크 (저장소 소유자인 김상교 님을 포함해 전원 우회 금지)
 5. 맨 아래 초록색 **`Create`** (또는 `Save changes`) 버튼 클릭!
 
-### Step 1-5. [조은익] 직접 푸시 차단 검증 (캡처 포인트 📸)
-1. 조은익 님의 로컬 터미널(PowerShell 또는 Bash)을 엽니다.
+### Step 1-5. [김상교] 직접 푸시 차단 검증 (캡처 포인트 📸)
+1. 김상교 님의 로컬 터미널(PowerShell 또는 Bash)을 엽니다.
 2. 임의로 `main`에 직접 푸시를 시도해 봅니다:
    ```bash
    git checkout main
@@ -121,9 +121,9 @@
 
 ### Step 1-6. [전원: 김상교, 장양환, 조은익, 김건우] 로컬 복제 & Git 사용자 설정
 1. 각자의 컴퓨터에서 터미널(PowerShell, CMD, Git Bash, Mac 터미널 등)을 엽니다.
-2. 작업할 폴더로 이동한 후 저장소를 복제합니다:
+2. 작업할 폴더로 이동한 후 김상교 님의 새 저장소를 복제합니다:
    ```bash
-   git clone https://github.com/조은익ID/mission_02_02.git
+   git clone https://github.com/김상교GitHubID/mission_02_02.git
    cd mission_02_02
    ```
 3. 이번 프로젝트에서 사용할 본인의 이름과 이메일을 정확히 설정합니다:
@@ -1293,9 +1293,9 @@ git checkout -b feature/sangkyo-final-submission
 
 | 팀원 | 역할 | 개인 학습 노트 PR | 트러블슈팅 & 실습 PR | 동료 리뷰 참여 |
 |:---:|:---:|:---|:---|:---|
-| **김상교** | 팀장 / 인프라 | PR (Git 기초) | PR (amend 실습) | 장양환 노트 리뷰, 조은익 실습 리뷰 |
+| **김상교** | 호스트 & 팀장 / 인프라 | PR (Git 기초) | PR (amend 실습) | 장양환 노트 리뷰, 조은익 실습 리뷰 |
 | **장양환** | 코어 / 충돌1 | PR (GitHub Flow) | PR (reset & 충돌해결) | 조은익 노트 리뷰, 김건우 실습 리뷰 |
-| **조은익** | 호스트 / 세팅 | PR (충돌 원리) | PR (revert 실습) | 김건우 노트 리뷰, 김상교 실습 리뷰 |
+| **조은익** | 코어 / 충돌이론 | PR (충돌 원리) | PR (revert 실습) | 김건우 노트 리뷰, 김상교 실습 리뷰 |
 | **김건우** | 심화 / 충돌2 | PR (PR 문화) | PR (stash & 충돌해결) | 김상교 노트 리뷰, 장양환 실습 리뷰 |
 
 ## 2. 필수 산출물 점검
