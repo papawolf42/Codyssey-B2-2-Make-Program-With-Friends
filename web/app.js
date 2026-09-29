@@ -35,6 +35,7 @@ let promptId = explainPrompts.find(p => !p.bonus)?.id;
 let revealed = false;
 let includeBonus = false;
 let sessionLabel = '기본 이해 확인';
+let sessionRetry = false;
 
 function persist() {
   const saved = saveState(storage, state);
@@ -74,7 +75,7 @@ function render() {
       <div class="sidebar-bottom"><button class="guide-link" data-view="guide">${icon('book')} 용어가 낯설다면?</button><div class="sidebar-note"><span class="tiny-dot"></span> 서두르지 않아도 괜찮아요.<br>이해한 만큼, 한 걸음씩.</div><span class="course-tag">CODYSSEY · B2-2</span></div>
     </aside>
     <div class="workspace"><header class="topbar"><span>우리의 첫 번째 Git 협업 <span class="topbar-separator">/</span> <b>${views[view]}</b></span><span class="save-indicator"><span class="tiny-dot"></span><span id="save-state">${storageWarning ? '저장 상태 확인 필요' : '이 브라우저에 저장됨'}</span></span></header>
-      <main id="main-content"><p id="storage-warning" class="storage-warning" role="status" ${storageWarning ? '' : 'hidden'}>${esc(storageWarning)}</p>${view === 'home' ? homePage(summary) : view === 'quiz' ? quizPage() : view === 'explain' ? explainPage() : view === 'evidence' ? evidencePage(summary) : view === 'results' ? resultsPage(summary) : guidePage()}</main>
+      <main id="main-content" tabindex="-1"><p id="storage-warning" class="storage-warning" role="status" ${storageWarning ? '' : 'hidden'}>${esc(storageWarning)}</p>${view === 'home' ? homePage(summary) : view === 'quiz' ? quizPage() : view === 'explain' ? explainPage() : view === 'evidence' ? evidencePage(summary) : view === 'results' ? resultsPage(summary) : guidePage()}</main>
       <footer class="app-footer"><span>외우는 Git에서, 설명할 수 있는 Git으로.</span><a href="../evalutation.md" target="_blank" rel="noopener">평가 기준 원문 ${icon('link')}</a></footer>
     </div>
     <dialog id="reset-dialog" aria-labelledby="reset-title"><h2 id="reset-title">이 브라우저의 학습 기록을 지울까요?</h2><p>선택한 답, 직접 쓴 설명, 제출 자료 메모가 지워집니다. 필요한 기록은 먼저 내려받아 주세요.</p><div class="dialog-actions"><button class="button secondary" data-action="cancel-reset">취소</button><button class="button danger" data-action="confirm-reset">학습 기록 지우기</button></div></dialog>`;
@@ -174,20 +175,21 @@ function updateEvidenceStatus(id) {
   $('#evidence-count').innerHTML = `${s.evidenceDone} <small>/ ${s.evidenceTotal}</small>`;
 }
 
-function startSession(ids, label, first = 0) {
+function startSession(ids, label, first = 0, retry = false) {
   session = ids; sessionLabel = label; quizIndex = first;
-  selected = null; retrying = false; navigate('quiz');
+  selected = null; sessionRetry = retry; retrying = retry; navigate('quiz');
 }
 
 document.addEventListener('click', event => {
+  if (event.target.closest('.skip-link')) { event.preventDefault(); $('#main-content')?.focus(); return; }
   const el = event.target.closest('[data-view],[data-action],[data-question],[data-prompt],[data-reflection],[data-category],[data-review-question]');
   if (!el || el.disabled) return;
   if (el.dataset.view) { event.preventDefault(); navigate(el.dataset.view); return; }
-  if (el.dataset.question) { quizIndex = session.indexOf(el.dataset.question); selected = null; retrying = false; render(); $('#question-title')?.focus(); return; }
+  if (el.dataset.question) { quizIndex = session.indexOf(el.dataset.question); selected = null; retrying = sessionRetry; render(); $('#question-title')?.focus(); return; }
   if (el.dataset.prompt) { promptId = el.dataset.prompt; revealed = false; render(); $('#my-explanation')?.focus({ preventScroll: true }); return; }
   if (el.dataset.reflection) { if (state.drafts[promptId]?.trim()) { state.reflections[promptId] = el.dataset.reflection; persist(); render(); $('#announcer').textContent = '나의 판단을 저장했어요.'; } return; }
-  if (el.dataset.category) { startSession(questions.filter(q => q.category === el.dataset.category && !q.bonus).map(q => q.id), categories.find(c => c.id === el.dataset.category).label); return; }
-  if (el.dataset.reviewQuestion) { startSession([el.dataset.reviewQuestion], '다시 이해하기'); return; }
+  if (el.dataset.category) { startSession(questions.filter(q => q.category === el.dataset.category && !q.bonus).map(q => q.id), categories.find(c => c.id === el.dataset.category).label, 0, true); return; }
+  if (el.dataset.reviewQuestion) { startSession([el.dataset.reviewQuestion], '다시 이해하기', 0, true); return; }
   const action = el.dataset.action;
   if (action === 'continue') {
     const ids = questions.filter(q => !q.bonus).map(q => q.id);
@@ -198,10 +200,10 @@ document.addEventListener('click', event => {
     $('.answer-feedback')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     $('#announcer').textContent = state.answers[q.id].correct ? '정답이에요. 설명을 읽고 다음 문제로 이동해 주세요.' : '다시 생각해 볼 문제예요. 아래 설명을 읽어 주세요.';
   } else if (action === 'retry-question') { retrying = true; selected = null; render(); $('input[name="answer"]')?.focus(); }
-  else if (action === 'next-question') { if (quizIndex === session.length - 1) navigate('results'); else { quizIndex++; selected = null; retrying = false; render(); $('#question-title')?.focus(); } }
-  else if (action === 'previous-question' && quizIndex > 0) { quizIndex--; selected = null; retrying = false; render(); $('#question-title')?.focus(); }
+  else if (action === 'next-question') { if (quizIndex === session.length - 1) navigate('results'); else { quizIndex++; selected = null; retrying = sessionRetry; render(); $('#question-title')?.focus(); } }
+  else if (action === 'previous-question' && quizIndex > 0) { quizIndex--; selected = null; retrying = sessionRetry; render(); $('#question-title')?.focus(); }
   else if (action === 'reveal-explanation' && state.drafts[promptId]?.trim()) { revealed = true; render(); $('.reflection-box')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
-  else if (action === 'retry-wrong') { startSession(summarize(state, questions).wrong, '오답 다시 보기'); }
+  else if (action === 'retry-wrong') { startSession(summarize(state, questions).wrong, '오답 다시 보기', 0, true); }
   else if (action === 'bonus-quiz') { startSession(questions.filter(q => q.bonus).map(q => q.id), '보너스 · rebase'); }
   else if (action === 'download') {
     const blob = new Blob([buildReport(state, questions, explainPrompts, evidenceChecks)], { type: 'text/markdown;charset=utf-8' });
@@ -213,6 +215,7 @@ document.addEventListener('click', event => {
   else if (action === 'cancel-reset') $('#reset-dialog').close();
   else if (action === 'confirm-reset') {
     state = emptyState(); selected = null; retrying = false; revealed = false; includeBonus = false; quizIndex = 0;
+    session = questions.filter(q => !q.bonus).map(q => q.id); sessionLabel = '기본 이해 확인'; sessionRetry = false; promptId = explainPrompts.find(p => !p.bonus)?.id;
     try { storage.removeItem(STORAGE_KEY); } catch { /* Report persistence failure below. */ }
     persist(); navigate('home'); $('#announcer').textContent = '이 브라우저의 학습 기록을 초기화했어요.';
   }

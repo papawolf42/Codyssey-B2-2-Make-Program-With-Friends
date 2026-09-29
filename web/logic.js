@@ -27,7 +27,7 @@ export function sanitizeState(raw, questions, prompts, checks) {
     const item = raw.evidence?.[c.id];
     if (!item || typeof item.note !== 'string') continue;
     const note = item.note.slice(0, 4000);
-    clean.evidence[c.id] = { note, checked: Boolean(item.checked && note.trim()) };
+    clean.evidence[c.id] = { note, checked: item.checked === true && Boolean(note.trim()) };
   }
   if (questions.some(q => q.id === raw.lastQuestion)) clean.lastQuestion = raw.lastQuestion;
   return clean;
