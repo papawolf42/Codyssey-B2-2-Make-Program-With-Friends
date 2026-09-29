@@ -7,13 +7,648 @@
   <meta name="description" content="개발을 막 시작한 팀원을 위한 Git 협업 이해도 점검. 상황별 문제, 내 말로 설명하기, 제출 자료 확인을 한 곳에서 연습합니다.">
   <title>같이, Git · 한 걸음씩 이해하는 협업</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23245647'/%3E%3Cpath d='M22 16v30m0-14c20 0 20-4 20-16' fill='none' stroke='%23eef5cf' stroke-width='5'/%3E%3Ccircle cx='22' cy='17' r='5' fill='%23eef5cf'/%3E%3Ccircle cx='42' cy='17' r='5' fill='%23eef5cf'/%3E%3Ccircle cx='22' cy='46' r='5' fill='%23eef5cf'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="style.css">
-  <script type="module" src="app.js"></script>
+  <style>
+@charset "UTF-8";
+:root{--paper:#f7f8f3;--white:#fff;--ink:#223a30;--body:#43564c;--muted:#768078;--green:#245647;--green-dark:#183f32;--light-green:#e9f0e3;--line:#e1e6dd;--amber:#99722f;--radius:20px;--font:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.7;letter-spacing:-.025em}button,input,textarea{font:inherit}button,a,label,input,summary{-webkit-tap-highlight-color:transparent}button{cursor:pointer}button:disabled{cursor:default;opacity:.42}a{color:inherit;text-decoration:none}button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid #5e8c62;outline-offset:4px}h1,h2,h3,p{margin:0}h1,h2,h3{font-weight:750;letter-spacing:-.055em;line-height:1.4}h1{font-size:34px}h2{font-size:24px}h3{font-size:20px}h1:focus,h2:focus{outline:none}.icon{width:21px;height:21px;flex-shrink:0;vertical-align:middle}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.skip-link{position:fixed;top:-100px;left:20px;z-index:100;background:var(--green);color:white;padding:12px 18px;border-radius:8px}.skip-link:focus{top:14px}.sidebar{width:240px;position:fixed;inset:0 auto 0 0;background:#fffefa;border-right:1px solid var(--line);padding:39px 22px 24px;display:flex;flex-direction:column;z-index:10}.brand{display:flex;gap:12px;align-items:center;padding-left:6px;font-size:27px;font-weight:650;line-height:1.2;letter-spacing:-.08em}.brand b{font-weight:800;letter-spacing:-.07em}.brand small{display:block;font-size:10px;color:var(--muted);font-weight:450;letter-spacing:0;margin-top:8px}.brand-mark{display:flex;align-items:center;justify-content:center;width:43px;height:47px;border-radius:14px;background:var(--green);color:#e5edbd}.brand-mark .icon{width:28px;height:28px;stroke-width:1.8}.nav-caption{font-size:10px;letter-spacing:.14em;color:#89938a;margin:50px 15px 14px}.sidebar nav{display:flex;flex-direction:column;gap:7px}.nav-item{display:flex;align-items:center;gap:13px;width:100%;border:0;background:none;padding:13px 15px;border-radius:11px;text-align:left;color:#647469;font-size:14px;white-space:nowrap}.nav-item .icon{width:19px;height:19px}.nav-item:hover{background:#f3f5ed}.nav-item.active{background:#eaf0e3;color:var(--green-dark);font-weight:700}.nav-item small{font-size:10px;letter-spacing:.01em;margin-left:auto;background:white;border:1px solid #dce5d1;border-radius:5px;padding:0 5px;color:var(--green)}.sidebar-bottom{margin-top:auto}.guide-link{display:flex;align-items:center;gap:10px;background:none;border:0;padding:14px;color:var(--body);font-size:13px}.sidebar-note{padding:20px 14px 25px;margin-top:10px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);line-height:1.9}.tiny-dot{display:inline-block;width:6px;height:6px;background:#809b6c;border-radius:50%;flex-shrink:0;margin-right:6px}.course-tag{font-size:9px;color:#97a093;letter-spacing:.13em;padding-left:14px}.workspace{margin-left:240px;min-height:100vh}.topbar{height:79px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;padding:0 46px;gap:20px;color:var(--muted);font-size:12px}.topbar b{font-weight:500;color:var(--body)}.topbar-separator{padding:0 14px;color:#bdc5bb}.save-indicator{display:flex;align-items:center;white-space:nowrap;font-size:11px}.save-indicator .tiny-dot{width:5px;height:5px}main{max-width:1270px;margin:0 auto;padding:44px 48px 36px;min-height:calc(100vh - 153px)}.app-footer{max-width:1270px;margin:auto;display:flex;justify-content:space-between;padding:16px 48px 28px;font-size:11px;color:var(--muted);gap:12px}.app-footer a{display:flex;gap:6px;align-items:center}.app-footer .icon{width:12px;height:12px}.eyebrow{font-size:10px;letter-spacing:.12em;font-weight:700;color:#617958;text-transform:uppercase;margin-bottom:13px;display:flex;gap:8px;align-items:center}.tiny-line{height:1px;width:22px;background:#799965}.welcome{display:grid;grid-template-columns:1.25fr 1fr;gap:42px;align-items:center;padding:11px 0 35px}.welcome h1{font-size:clamp(32px,3.1vw,47px);font-weight:750;line-height:1.34;letter-spacing:-.065em;margin:16px 0 20px}.welcome h1 em{font-style:normal;color:#567a46}.welcome-copy>p:not(.eyebrow){color:#748075;font-size:14px;line-height:1.9}.hero-actions{display:flex;align-items:center;gap:19px;flex-wrap:wrap;margin:28px 0 12px}.button{display:inline-flex;gap:10px;align-items:center;justify-content:center;border-radius:10px;padding:13px 19px;border:1px solid transparent;line-height:1.6;font-size:13px;font-weight:600;white-space:nowrap;transition:background .15s,transform .15s}.button:not(:disabled):active{transform:translateY(1px)}.button .icon{width:17px;height:17px}.primary{background:var(--green);color:#fff}.primary:not(:disabled):hover{background:var(--green-dark)}.secondary{background:white;border-color:#d7dfd1;color:var(--green)}.secondary:not(:disabled):hover{background:#f0f4e9}.danger{background:#943f37;color:#fff}.small{font-size:12px;padding:9px 14px}.text-button{border:0;background:none;padding:6px 0;display:inline-flex;align-items:center;justify-content:center;gap:8px;color:#58705c;font-size:12px;font-weight:550}.text-button:not(:disabled):hover{text-decoration:underline;text-underline-offset:4px}.text-button .icon{width:16px;height:16px}.microcopy{display:block;font-size:10px;color:var(--muted);line-height:1.8}.journey-art{background:#edf0e5;border:1px solid #e4e8d9;border-radius:24px;padding:22px 23px 25px;max-width:405px;width:100%;justify-self:end;position:relative;overflow:hidden}.journey-art:before{content:"";position:absolute;width:240px;height:240px;border:1px solid #dce3d2;border-radius:50%;right:-105px;top:-130px}.art-caption{font-size:10px;color:#6e8067;display:flex;align-items:center}.branch-art{width:100%;height:auto;display:block;margin:2px auto -2px;max-height:224px}.art-footer{display:flex;align-items:center;gap:14px;border-top:1px solid #dce2d4;padding-top:16px;color:#75826d;font-size:10px;line-height:1.7}.art-footer strong{color:#57724d;font-weight:550}.avatar-stack{display:flex;padding-left:8px}.avatar-stack i{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border:3px solid #edf0e5;border-radius:50%;background:#c6d4b7;margin-left:-8px;font-size:10px;font-style:normal;color:#4c6643}.avatar-stack i:nth-child(2){background:#e3d7c0;color:#83704d}.avatar-stack i:nth-child(3){background:#c8d8d3;color:#4b6b64}.avatar-stack i:nth-child(4){background:#d7cfe1;color:#756288}.home-progress{display:flex;align-items:center;gap:24px;padding:21px 25px;border:1px solid var(--line);background:#fffefa;border-radius:15px;margin-bottom:43px}.progress-copy{display:flex;align-items:center;gap:14px;flex:1;min-width:0}.progress-icon{display:flex;align-items:center;justify-content:center;background:#edf1e5;width:39px;height:39px;border-radius:12px;color:#7f955c}.progress-copy strong{font-size:13px;font-weight:600;display:block}.progress-copy span:not(.progress-icon){font-size:11px;color:var(--muted);display:block;margin-top:3px}.progress-track{height:6px;border-radius:10px;overflow:hidden;background:#e9eee4}.progress-track i{display:block;height:100%;background:#72926a;border-radius:10px;transition:width .3s}.home-progress>.progress-track{width:140px}.home-progress>b{font-size:14px;font-weight:600;color:#5f7954}.section-heading{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:22px}.section-heading h2{font-size:21px}.section-heading .eyebrow{font-size:9px;margin-bottom:6px}.subtle{font-size:11px;color:var(--muted)}.path-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.path-card{background:#fffefa;border:1px solid var(--line);border-radius:17px;padding:24px;display:flex;flex-direction:column}.card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:23px}.card-icon{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:13px;background:#edf1e4;color:#6c8356}.path-card:nth-child(2) .card-icon{background:#f3ede3;color:#a28b66}.path-card:nth-child(3) .card-icon{background:#e9eeef;color:#66817e}.step-number{font-family:Georgia,serif;font-size:30px;color:#c3ceba;font-weight:400;letter-spacing:-.02em}.path-card h3{font-size:18px;margin-bottom:10px}.path-card>p{font-size:12px;color:#7c8579;line-height:1.9;flex:1}.card-count{font-size:10px;color:#819177;margin:18px 0 17px}.card-link{display:flex;justify-content:space-between;align-items:center;border:0;border-top:1px solid var(--line);padding:14px 0 0;background:none;color:var(--green);font-size:12px;font-weight:600;text-align:left}.card-link .icon{width:16px;height:16px}.gentle-note{display:flex;align-items:center;gap:16px;background:#eef1e8;border:1px solid #e4e8dd;border-radius:13px;padding:21px 24px;margin:26px 0;color:#789067}.gentle-note>div{flex:1}.gentle-note strong{display:block;font-size:12px;font-weight:600;color:#52674a}.gentle-note p{font-size:11px;color:#7b8674;margin-top:3px;line-height:1.8}.gentle-note>.icon{width:23px;height:23px}.page-heading{display:flex;justify-content:space-between;align-items:center;gap:24px;margin:4px 0 31px}.page-description{font-size:13px;color:var(--muted);max-width:660px;margin-top:13px;line-height:1.9}.page-heading .eyebrow{font-size:10px}.quiz-layout{display:grid;grid-template-columns:minmax(0,1fr) 232px;gap:24px;align-items:start}.quiz-panel,.explain-panel{background:#fffefa;border:1px solid var(--line);border-radius:var(--radius);padding:30px 33px}.quiz-meta{display:flex;align-items:center;justify-content:space-between;color:var(--green);font-size:13px;font-weight:600}.pill{display:inline-flex;align-items:center;font-size:10px;font-weight:600;background:#edf2e6;border:1px solid #e0e7d6;border-radius:6px;padding:4px 9px;color:#658150;line-height:1.7}.muted{color:#98a191;font-weight:400}.question-progress{height:3px;background:#edf0e9;margin:23px 0 26px;border-radius:6px;overflow:hidden}.question-progress i{display:block;height:100%;background:#8fa575}.question-context{font-size:13px;line-height:1.9;color:#7e877a;margin:0 0 13px;white-space:pre-line}.quiz-panel h2{font-size:23px;line-height:1.55;word-break:keep-all}.answers{margin:25px 0 0;padding:0;display:flex;flex-direction:column;gap:12px;border:0;min-width:0}.answer-option{display:flex;align-items:center;gap:13px;border:1px solid #e1e5da;background:white;padding:17px 16px;border-radius:12px;color:#62705f;font-size:13px;line-height:1.75;cursor:pointer;transition:border-color .12s,background .12s;position:relative}.answer-option>span:not(.option-letter){flex:1}.answer-option input{position:absolute;width:1px;height:1px;opacity:0}.answer-option:has(input:focus-visible){outline:3px solid #6e9369;outline-offset:3px}.answer-option:hover{background:#f6f8f0;border-color:#bacba8}.answer-option.selected{border-color:#8da77b;background:#f0f5e9;color:#365c3b}.option-letter{font-size:10px;display:flex;align-items:center;justify-content:center;width:24px;height:24px;flex-shrink:0;background:#f2f3ee;border-radius:7px;color:#8a9482}.answer-option.selected .option-letter{background:#dfe9d5;color:#547444}.answers:disabled .answer-option{cursor:default}.answer-option.correct-option{border-color:#84a376;background:#eef5e7;color:#3e6940}.answer-option.wrong-option{border-color:#cdaf80;background:#faf5e9;color:#896936}.answer-feedback{margin-top:24px;background:#eff5e9;border:1px solid #dbe7cf;border-radius:12px;padding:20px;color:#4e6a40}.answer-feedback.rethink{background:#faf5e9;border-color:#e9ddc2;color:#836733}.answer-feedback>strong{display:flex;align-items:center;gap:9px;font-size:14px}.answer-feedback p{font-size:12px;line-height:1.9;margin-top:10px}.takeaway{font-size:12px;border-top:1px solid #d8e1cd;padding-top:11px;margin-top:13px;font-weight:600}.rethink .takeaway{border-color:#e5d8ba}.quiz-actions{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:26px 0 23px}.action-pair{display:flex;gap:9px;align-items:center}.source-link{display:inline-flex;align-items:center;gap:6px;color:#849179;font-size:10px;line-height:1.7}.source-link:hover{text-decoration:underline}.source-link .icon{width:12px;height:12px}.quiz-aside{border:1px solid var(--line);border-radius:16px;padding:24px 22px;background:#f0f3e9}.aside-label{font-size:10px;color:#91a081}.quiz-aside h3{font-size:16px;margin:7px 0 10px}.quiz-aside>p{font-size:11px;color:#829075;line-height:1.9}.question-dots{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin:23px 0 15px}.question-dot{aspect-ratio:1;border:1px solid #d8e0cd;background:#fffefa;color:#9ba58f;border-radius:8px;font-size:11px;min-width:0;padding:0}.question-dot.done{background:#d7e6c9;color:#4f7040;border-color:#c5d9b2}.question-dot.incorrect{background:#f0e5ce;color:#987132;border-color:#e3d4b2}.question-dot.current{box-shadow:0 0 0 2px #537c4b;border-color:transparent;font-weight:700}.mini-legend{display:flex;align-items:center;gap:5px;font-size:9px!important}.legend-green,.legend-amber{width:6px;height:6px;border-radius:50%;background:#b6d09f;margin-left:4px}.legend-amber{background:#d9be87}.quiz-aside>.text-button{margin-top:18px;font-size:11px}.explain-layout{display:grid;grid-template-columns:242px minmax(0,1fr);gap:24px;align-items:start}.prompt-list{border:1px solid var(--line);border-radius:15px;background:#fffefa;padding:14px}.bonus-toggle{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);padding:8px 6px 16px;border-bottom:1px solid var(--line);margin-bottom:10px}.bonus-toggle input,.check-row input{accent-color:var(--green);width:16px;height:16px;flex-shrink:0}.prompt-item{display:flex;width:100%;gap:10px;text-align:left;background:none;border:0;color:#839078;padding:12px 9px;border-radius:9px;align-items:center;line-height:1.7}.prompt-item>span{font-size:9px;color:#9fa991}.prompt-item>b{font-size:11px;font-weight:500;flex:1}.prompt-item>.icon{width:14px;height:14px}.prompt-item:hover{background:#f4f6ef}.prompt-item.active{background:#eaf1df;color:#42623b}.prompt-item.active b{font-weight:650}.explain-panel h2{margin:20px 0 13px;font-size:24px}.prompt-description{font-size:13px;color:#7d8874;line-height:1.9;margin-bottom:23px;white-space:pre-line}.field-label{display:block;font-size:12px;font-weight:650;margin-bottom:10px;color:#65775b}textarea{width:100%;resize:vertical;border:1px solid #d9e1ce;border-radius:10px;background:#fff;color:#41533a;padding:16px;line-height:1.9;font-size:13px;min-height:80px}textarea::placeholder{color:#a0a993}textarea:focus{border-color:#84a16b}.input-caption{display:flex;justify-content:space-between;gap:12px;margin:6px 0 19px;font-size:10px;color:#98a28c}.writing-tip{font-size:11px;color:#93a185;margin:20px 0}.explain-panel>.source-link{margin-top:25px}.reflection-box{margin-top:24px;border-top:1px solid var(--line);padding-top:25px}.reflection-box .eyebrow{margin-bottom:6px}.reflection-box h3{font-size:18px}.point-list{list-style:none;margin:18px 0;padding:0;display:grid;gap:10px}.point-list li{display:flex;gap:9px;font-size:12px;color:#718064}.point-list .icon{width:16px;height:16px;margin-top:3px;color:#83a16c}.sample-answer{background:#f2f5eb;border:1px solid #e1e8d8;border-radius:10px;padding:13px 16px}.sample-answer summary{font-size:12px;color:#6e835a;cursor:pointer}.sample-answer p{font-size:12px;line-height:1.95;color:#718260;margin-top:13px;white-space:pre-line}.reflection-prompt{margin:22px 0 12px;font-size:12px;font-weight:600}.reflection-actions{display:flex;gap:10px;flex-wrap:wrap}.reflection-actions .button{font-size:11px;padding:10px 13px}.reflection-box .microcopy{margin-top:14px}.evidence-banner{display:flex;gap:25px;align-items:center;padding:20px 25px;background:#edf3e5;border:1px solid #dce6cf;border-radius:13px;margin-bottom:25px}.evidence-banner>span:first-child{display:flex;align-items:center;gap:12px;font-size:13px;color:#5c774b}.evidence-banner strong{font-size:26px;letter-spacing:-.02em}.evidence-banner small{font-size:16px;color:#8a9b7a;font-weight:400}.evidence-banner .subtle{margin-left:auto}.evidence-list{display:grid;gap:12px}.evidence-card{border:1px solid var(--line);border-radius:14px;background:#fffefa;overflow:hidden}.evidence-card summary{display:flex;gap:14px;align-items:center;padding:19px 23px;font-size:13px;cursor:pointer;list-style:none}.evidence-card summary::-webkit-details-marker{display:none}.evidence-card summary:after{content:"+";margin-left:7px;color:#8ea17c;font-size:20px;font-weight:300}.evidence-card[open] summary:after{content:"−"}.evidence-number{font-size:10px;color:#9aa890}.evidence-card summary>span:nth-child(2){flex:1;font-weight:600}.evidence-status{font-size:9px;border-radius:5px;background:#f0f2e9;color:#95a086;padding:3px 7px;white-space:nowrap}.evidence-status.complete{background:#e0ecd3;color:#64824c}.evidence-content{border-top:1px solid #edf0e5;padding:20px 25px 24px}.evidence-content>p{font-size:13px;color:#7e8e71;line-height:1.9;margin-bottom:19px}.check-row{display:flex;align-items:center;gap:8px;font-size:12px;color:#6f855e;margin:14px 0}.result-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:18px}.result-primary{background:var(--green);color:#f2f7e8;border-radius:17px;padding:26px}.result-primary>span{font-size:12px;color:#c1d2b5}.result-primary>strong{display:block;font-size:49px;line-height:1.5;letter-spacing:-.04em}.result-primary small{font-size:22px;color:#91af87;font-weight:400}.result-primary p{font-size:11px;color:#bdcdb1;margin-bottom:19px}.result-primary .progress-track{background:#376950}.result-primary .progress-track i{background:#b1ca8d}.result-small{background:#fffefa;border:1px solid var(--line);border-radius:17px;padding:26px}.result-small>span{display:flex;align-items:center;gap:8px;font-size:12px;color:#829375}.result-small>strong{display:block;font-size:39px;line-height:1.8;color:#63804d;letter-spacing:-.04em}.result-small small{font-size:20px;color:#a3af96;font-weight:400}.result-small p{font-size:10px;color:#8f9c81}.result-boundary{font-size:11px;color:#8a987e;padding:18px 0 8px;line-height:1.9}.results-section{margin-top:27px}.category-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}.category-results article{background:#fffefa;border:1px solid var(--line);border-radius:13px;padding:21px 23px}.category-results article>div:first-child{display:flex;justify-content:space-between;margin-bottom:15px;font-size:13px}.category-results article>div:first-child span{font-size:11px;color:#89a173}.category-results article p{font-size:11px;color:#8b9a7e;margin:11px 0 9px;line-height:1.8}.category-results .text-button{font-size:11px}.wrong-list{border:1px solid var(--line);border-radius:14px;overflow:hidden}.wrong-list>button{width:100%;background:#fffefa;border:0;border-bottom:1px solid var(--line);text-align:left;padding:18px 23px;display:flex;align-items:center;gap:15px;color:#617754;font-size:13px}.wrong-list>button:last-child{border-bottom:0}.wrong-list>button:hover{background:#f1f5e9}.wrong-list small{display:block;font-size:11px;font-weight:400;color:#929f85;margin-top:4px}.wrong-list span{flex:1}.wrong-list .icon{width:18px;height:18px}.empty-card{display:flex;align-items:center;gap:18px;background:#eef3e6;border-radius:14px;padding:24px;color:#789064}.empty-card p{font-size:12px;flex:1}.bonus-card{display:flex;align-items:center;gap:24px;justify-content:space-between;background:#f1eee6;border:1px solid #e7e0d2;border-radius:14px;padding:25px;margin-top:27px}.bonus-card .eyebrow{color:#a3916b;margin-bottom:7px;font-size:9px}.bonus-card h3{font-size:18px;color:#817150}.bonus-card p{font-size:11px;color:#a09378;margin-top:6px}.reset-area{text-align:right;margin-top:25px}.reset-area .text-button{font-size:10px;color:#9a9e92}.reset-area .icon{width:13px;height:13px}.concept-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.concept-card{background:#fffefa;border:1px solid var(--line);border-radius:16px;padding:25px 28px}.concept-card .step-number{font-size:25px}.concept-card h2{font-size:21px;margin:10px 0 15px}.concept-card strong{display:block;font-size:12px;color:#70845e;font-weight:550;margin-bottom:8px}.concept-card p{font-size:12px;color:#87967a;line-height:2}.guide-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:27px}.storage-warning{background:#faf0da;border:1px solid #e8d3a7;border-radius:9px;padding:12px 17px;margin-bottom:20px;color:#87652c;font-size:12px}dialog{border:1px solid var(--line);border-radius:20px;padding:30px;width:min(480px,calc(100% - 32px));background:#fffefa;color:var(--ink)}dialog::backdrop{background:rgba(20,42,26,.35);backdrop-filter:blur(3px)}dialog h2{font-size:22px}dialog p{font-size:13px;color:var(--muted);margin-top:15px;line-height:1.9}.dialog-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:25px}.no-script{padding:50px}
+@media(min-width:1550px){main{padding-top:60px}.welcome{padding-bottom:44px}.path-card{min-height:280px}.journey-art{max-width:430px}}
+@media(max-width:1200px){.sidebar{width:213px;padding-left:15px;padding-right:15px}.workspace{margin-left:213px}main{padding:35px 30px}.topbar{padding:0 30px}.app-footer{padding-left:30px;padding-right:30px}.welcome{gap:25px}.hero-actions{gap:13px}.hero-actions .button{font-size:12px;padding:12px 15px}.journey-art{padding:20px}.path-card{padding:21px}.quiz-layout{grid-template-columns:minmax(0,1fr) 190px;gap:18px}.quiz-panel{padding:25px}.quiz-aside{padding:20px 15px}.explain-layout{grid-template-columns:210px minmax(0,1fr);gap:18px}.explain-panel{padding:25px}.question-dots{gap:6px}.page-heading h1{font-size:31px}}
+@media(max-width:980px){.sidebar{width:190px;padding-left:10px;padding-right:10px}.brand{font-size:23px;gap:9px}.brand-mark{width:37px;height:42px}.brand small{font-size:9px}.nav-item{padding:12px 11px;gap:9px;font-size:12px}.workspace{margin-left:190px}.welcome{grid-template-columns:1.25fr .85fr;gap:18px}.journey-art{padding:18px 15px}.art-caption{font-size:8px}.art-footer{gap:9px}.welcome h1{font-size:33px}.welcome-copy>p:not(.eyebrow){font-size:12px}.hero-actions{flex-direction:column;align-items:flex-start;gap:5px}.path-grid{gap:12px}.path-card{padding:17px}.path-card h3{font-size:16px}.path-card>p{font-size:11px}.section-heading>.subtle{display:none}.home-progress{gap:14px;padding:18px}.home-progress>.progress-track{width:85px}.progress-copy strong{font-size:11px}.progress-copy span:not(.progress-icon){font-size:10px}.quiz-layout{grid-template-columns:1fr}.quiz-aside{display:none}.explain-layout{grid-template-columns:1fr}.prompt-list{display:flex;overflow-x:auto;align-items:center;gap:7px;padding:10px}.prompt-item{width:170px;min-width:170px;flex-shrink:0}.bonus-toggle{min-width:125px;max-width:125px;border-bottom:0;margin:0;padding:5px;font-size:10px}.evidence-banner{gap:14px}.evidence-banner .subtle{max-width:160px;font-size:10px}.result-grid{gap:12px}.result-primary,.result-small{padding:20px}.result-small>span{font-size:10px}.result-small p{font-size:9px}.page-heading{align-items:flex-start}.page-heading>.button{font-size:10px;padding:10px 12px}.empty-card{flex-wrap:wrap}.empty-card p{flex-basis:70%}.gentle-note>.text-button{white-space:nowrap}.concept-card{padding:22px}}
+@media(max-width:760px){.sidebar{position:sticky;top:0;width:100%;height:auto;padding:12px 17px 0;border-right:0;border-bottom:1px solid var(--line);background:rgba(255,254,250,.98)}.brand{font-size:23px;padding-left:0;gap:9px}.brand-mark{width:31px;height:34px;border-radius:10px}.brand-mark .icon{width:22px;height:22px}.brand small{display:none}.brand>span:last-child{display:flex;gap:5px;align-items:center}.nav-caption,.sidebar-bottom{display:none}.sidebar nav{flex-direction:row;justify-content:space-between;gap:4px;margin-top:11px;overflow-x:auto;padding-bottom:0}.nav-item{width:auto;flex:1;justify-content:center;border-radius:8px 8px 0 0;gap:5px;padding:11px 4px;font-size:11px}.nav-item .icon{width:16px;height:16px}.nav-item small{display:none}.workspace{margin-left:0}.topbar{height:45px;padding:0 22px;font-size:10px}.topbar-separator{padding:0 7px}.save-indicator{font-size:9px}.topbar>span:first-child{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}main{padding:25px 22px 20px;min-height:calc(100vh - 225px)}.app-footer{padding:18px 22px 24px;font-size:9px}.welcome{grid-template-columns:1.2fr .9fr;gap:20px;padding:0 0 28px}.welcome h1{font-size:31px}.welcome-copy .eyebrow{font-size:8px}.welcome-copy>p:not(.eyebrow){font-size:12px}.hero-actions{margin-top:19px}.hero-actions .button{padding:11px 14px}.microcopy{font-size:9px}.journey-art{border-radius:18px;align-self:center}.art-caption{font-size:8px;line-height:1.5}.branch-art{margin:14px auto 8px}.art-footer{font-size:9px;display:block;padding-top:12px}.art-footer>span:last-child{display:none}.home-progress{margin-bottom:28px}.path-card h3{font-size:16px}.path-card .card-top{margin-bottom:17px}.section-heading{margin-bottom:18px}.section-heading h2{font-size:20px}.gentle-note{padding:18px;gap:12px}.gentle-note>div{min-width:0}.gentle-note>.text-button{display:none}.gentle-note strong{font-size:11px}.gentle-note p{font-size:10px}.page-heading{margin:0 0 24px}.page-heading h1{font-size:29px}.page-description{font-size:12px}.quiz-panel{padding:23px}.quiz-panel h2{font-size:22px}.question-context{font-size:12px}.answer-option{font-size:12px}.quiz-actions{gap:10px}.quiz-actions>.text-button{font-size:11px}.action-pair .button{font-size:11px;padding:10px 12px}.explain-panel h2{font-size:22px}.prompt-description{font-size:12px}.result-small>strong{font-size:31px}.result-primary>strong{font-size:40px}.result-small>span .icon{width:16px;height:16px}.category-results{gap:13px}.bonus-card{padding:21px}.bonus-card h3{font-size:16px}.bonus-card .button{font-size:11px;padding:10px 12px}.concept-card h2{font-size:19px}.concept-card{padding:20px}.page-heading>.button{align-self:flex-end}.input-caption{font-size:9px}}
+@media(max-width:520px){.sidebar{padding-left:12px;padding-right:12px}.nav-item{font-size:10px;padding:10px 2px}.nav-item .icon{display:none}main{padding:24px 18px 20px}.topbar{padding:0 18px}.app-footer{padding:17px 18px 23px}.welcome{display:block;position:relative;padding-bottom:25px}.welcome h1{font-size:36px;line-height:1.35;margin-top:14px}.welcome-copy>p:not(.eyebrow){font-size:13px}.welcome-copy .eyebrow{font-size:9px}.hero-actions{flex-direction:row;align-items:center;gap:18px;margin-top:25px}.hero-actions .button{font-size:12px;padding:12px 17px}.journey-art{display:none}.home-progress{padding:17px 16px;gap:12px}.progress-icon{width:33px;height:35px}.progress-copy{gap:10px}.home-progress>.progress-track{display:none}.home-progress>b{font-size:12px}.progress-copy strong{font-size:12px}.progress-copy span:not(.progress-icon){font-size:10px}.path-grid{grid-template-columns:1fr;gap:13px}.path-card{padding:19px 21px;position:relative;display:grid;grid-template-columns:47px 1fr;column-gap:14px}.card-top{grid-row:1/4;display:block;margin:0!important}.card-icon{width:40px;height:40px}.card-top .step-number{display:none}.path-card h3{font-size:17px;margin:0 0 7px}.path-card>p{font-size:12px;line-height:1.8;grid-column:2}.card-count{grid-column:2;margin:11px 0;font-size:10px}.card-link{grid-column:1/3;font-size:12px;padding-top:13px}.gentle-note{align-items:flex-start;margin:21px 0;padding:17px}.gentle-note>.icon{width:18px;height:18px}.gentle-note p{font-size:11px}.section-heading h2{font-size:21px}.page-heading{display:block}.page-heading>.button{margin-top:15px}.page-heading h1{font-size:28px}.page-description{font-size:12px;line-height:1.85}.quiz-panel{padding:21px 18px;border-radius:15px}.quiz-meta{font-size:12px}.quiz-panel h2{font-size:21px}.question-progress{margin:20px 0}.answer-option{padding:14px 12px;gap:10px;font-size:12px}.option-letter{width:22px;height:22px;font-size:9px}.quiz-actions{flex-wrap:wrap;margin:22px 0}.action-pair{gap:7px}.action-pair .button{padding:9px 10px;font-size:10px}.answer-feedback{padding:17px}.answer-feedback p{font-size:12px}.answer-feedback>strong{font-size:13px}.takeaway{font-size:11px}.explain-panel{padding:23px 19px}.explain-panel h2{font-size:21px}.explain-panel>.pill{font-size:9px}.input-caption{flex-wrap:wrap;gap:0}.input-caption>span:last-child{margin-left:auto}.reflection-actions .button{font-size:11px;padding:10px}.evidence-banner{padding:17px;flex-wrap:wrap;gap:8px 18px}.evidence-banner .subtle{margin-left:0;max-width:none;flex-basis:100%;font-size:10px}.evidence-banner>span:first-child{font-size:12px;flex:1}.evidence-banner strong{font-size:25px}.evidence-card summary{padding:16px 14px;gap:10px;font-size:12px}.evidence-status{font-size:8px;padding:3px 5px}.evidence-number{font-size:9px}.evidence-content{padding:18px}.evidence-content>p{font-size:12px}.result-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.result-primary{grid-column:1/3;padding:24px}.result-primary>strong{font-size:46px}.result-small{padding:19px}.result-small>span{font-size:11px}.result-small p{font-size:10px}.result-small>strong{font-size:35px}.result-boundary{font-size:10px}.category-results{grid-template-columns:1fr;gap:12px}.results-section .section-heading{gap:10px}.results-section .section-heading h2{font-size:19px}.results-section .section-heading .button{font-size:10px;padding:8px 10px}.wrong-list>button{padding:16px 18px;font-size:12px}.empty-card{padding:20px}.bonus-card{padding:20px;display:block}.bonus-card .button{margin-top:16px}.concept-grid{grid-template-columns:1fr;gap:14px}.concept-card{padding:22px}.concept-card p{font-size:13px}.concept-card strong{font-size:12px}.guide-actions .button{font-size:11px}.dialog-actions .button{font-size:12px;padding:11px 14px}.app-footer>span{font-size:9px}.app-footer>a{font-size:9px;white-space:nowrap}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+</style>
 </head>
 <body>
   <a class="skip-link" href="#main-content">본문으로 바로가기</a>
   <div id="app"></div>
   <p id="announcer" class="sr-only" aria-live="polite"></p>
   <noscript><main class="no-script"><h1>같이, Git</h1><p>문제를 풀고 답을 저장하려면 브라우저의 JavaScript를 켜 주세요.</p><a href="../docs/0018_b2-2-first-week-guide.md">쉬운 설명서 읽기</a></main></noscript>
+  <script>
+(() => {
+'use strict';
+const categories = [
+  { id: 'flow', label: '작업의 흐름', description: '따로 작업하고, 기록하고, 팀 결과에 합치는 순서' },
+  { id: 'review', label: '함께 확인하기', description: 'PR을 쓰고 동료 의견을 주고받는 방법' },
+  { id: 'recovery', label: '실수와 충돌 풀기', description: '상황에 맞는 도구를 고르고 과정을 남기는 방법' },
+  { id: 'judgment', label: '새로운 상황 판단하기', description: '급한 수정이나 반복되는 문제에 대처하는 방법' }
+];
+
+const questions = [
+  {
+    id: 'commit-push', category: 'flow', title: '커밋했는데 동료에게 안 보여요',
+    context: '내 컴퓨터에서 글을 수정하고 커밋까지 했습니다. GitHub에 있는 팀 저장소에는 아직 보이지 않습니다. 무엇이 빠졌을까요?',
+    options: [{ id: 'a', text: '파일 이름을 다시 저장해야 한다.' }, { id: 'b', text: '커밋을 원격 저장소로 보내는 push가 필요하다.' }, { id: 'c', text: '커밋을 하나 더 만들면 자동으로 전달된다.' }],
+    correct: 'b', explanation: '커밋은 내 저장소에 변경 기록을 만드는 일입니다. 동료가 접근하는 원격 저장소에 그 기록을 보내는 일은 push입니다.',
+    optionFeedback: { a: '파일 저장과 Git 기록의 공유는 다른 일입니다. 이미 커밋했다면 공유할 저장소로 보내야 합니다.', b: '맞습니다. 내 커밋을 공유할 곳으로 보내는 단계가 push입니다.', c: '커밋이 여러 개여도 내 저장소에만 있으면 동료에게 자동 전달되지 않습니다.' },
+    takeaway: 'commit은 기록하기, push는 공유할 곳에 보내기입니다.', source: { criterion: 'foundation', label: '쉬운 설명서 · 커밋과 푸시', path: '../docs/0018_b2-2-first-week-guide.md' }, bonus: false
+  },
+  {
+    id: 'pr-merge', category: 'flow', title: 'PR을 열면 이미 합쳐진 건가요?',
+    context: '작업 브랜치의 글을 main에 넣으려고 PR을 열었습니다. 아직 동료는 검토하지 않았습니다.',
+    options: [{ id: 'a', text: 'PR을 열었으므로 main에 바로 합쳐졌다.' }, { id: 'b', text: 'PR은 git pull의 다른 이름이므로 최신 내용을 받아 왔다.' }, { id: 'c', text: '합쳐 달라고 요청한 상태이며, 확인 후 merge해야 한다.' }],
+    correct: 'c', explanation: 'PR은 변경을 검토하고 합쳐 달라는 요청입니다. merge는 실제로 작업을 합치는 행동입니다. git pull은 원격 변경을 가져와 현재 브랜치에 반영하는 별도의 명령입니다.',
+    optionFeedback: { a: '요청을 열었다는 사실만으로 main이 바뀌지는 않습니다.', b: '이름에 pull이 들어가지만 PR과 git pull은 다릅니다.', c: '맞습니다. 요청과 실제 병합을 구분해야 합니다.' },
+    takeaway: 'PR은 검토 요청, merge는 실제 합치기입니다.', source: { criterion: 'foundation', label: '쉬운 설명서 · PR과 머지', path: '../docs/0018_b2-2-first-week-guide.md' }, bonus: false
+  },
+  {
+    id: 'branch-unit', category: 'flow', title: '브랜치를 무엇을 기준으로 나눌까요?',
+    context: '리뷰 방법 노트를 쓰는 일과 충돌 실습을 기록하는 일이 있습니다. 동료가 각각 이해하고 검토하기 쉽게 작업을 나누려 합니다.',
+    options: [{ id: 'a', text: '목적이 분명한 작업 하나를 기준으로 나눈다.' }, { id: 'b', text: '사람마다 브랜치 하나를 만들어 모든 일을 계속 넣는다.' }, { id: 'c', text: '파일을 한 번 저장할 때마다 새 브랜치를 만든다.' }],
+    correct: 'a', explanation: '작업 단위는 동료가 변경 목적과 완료 기준을 설명할 수 있을 만큼 묶습니다. 한 작업이 여러 파일을 고칠 수도 있고, 같은 사람도 여러 작업 브랜치를 쓸 수 있습니다.',
+    optionFeedback: { a: '맞습니다. 목적이 드러나는 작업 단위는 검토하고 합칠 시점을 정하기 쉽습니다.', b: '서로 다른 목적의 일이 섞이면 PR을 읽고 완료 여부를 판단하기 어렵습니다.', c: '저장 횟수는 작업 목적과 다릅니다. 의미 있는 작업 단위를 정해야 합니다.' },
+    takeaway: '누가 하느냐보다 무엇을 완성하느냐를 기준으로 작업을 나눕니다.', source: { criterion: '2-01', label: '평가 항목 2 · 작업 단위 브랜치', path: '../evalutation.md', anchor: '항목-2' }, bonus: false
+  },
+  {
+    id: 'pr-template', category: 'review', title: 'PR 설명을 자꾸 빠뜨려요',
+    context: '팀원들이 PR에 바꾼 내용만 적고, 이유나 확인 방법은 자꾸 빼먹습니다. 어떤 약속이 도움이 될까요?',
+    options: [{ id: 'a', text: '커밋 개수만 적으면 PR 설명을 대신할 수 있다.' }, { id: 'b', text: 'What·Why·How·연결 Issue 칸이 있는 양식을 함께 사용한다.' }, { id: 'c', text: '제목을 자세히 쓰면 본문과 이슈 연결은 생략한다.' }],
+    correct: 'b', explanation: '공통 PR 양식에 무엇을 바꿨는지, 왜 바꿨는지, 어떻게 확인했는지와 연결할 할 일을 넣습니다. 양식이 있다는 것에 그치지 않고 각 작업의 실제 내용으로 채웁니다.',
+    optionFeedback: { a: '커밋 수로는 변경 이유나 검증 결과를 알 수 없습니다.', b: '맞습니다. 공통 양식과 제출 전 확인으로 빠뜨리는 항목을 줄일 수 있습니다.', c: '제목 하나만으로 확인 방법과 연결 Issue까지 충분히 전달하기 어렵습니다.' },
+    takeaway: 'PR에는 무엇을·왜·어떻게 확인했는지와 연결한 할 일을 적습니다.', source: { criterion: '2-02', label: '평가 항목 2 · PR 작성 규칙과 도구', path: '../evalutation.md', anchor: '항목-2' }, bonus: false
+  },
+  {
+    id: 'review-quality', category: 'review', title: '어떤 리뷰가 도움이 될까요?',
+    context: '동료의 Git 기초 노트에는 commit 설명이 있지만 push와의 차이를 설명한 예시는 없습니다.',
+    options: [{ id: 'a', text: '“수고했어요. LGTM!”만 남기고 승인한다.' }, { id: 'b', text: '내용과 관계없이 “다시 작성해 주세요”라고 남긴다.' }, { id: 'c', text: '“commit 설명 아래에 push와 다른 점을 보여 주는 예시를 넣으면 어떨까요?”라고 묻는다.' }],
+    correct: 'c', explanation: '좋은 리뷰는 실제 파일의 특정 부분을 근거로 질문이나 개선 의견을 줍니다. 작성자는 답하거나 수정하고, 리뷰어는 그 결과를 확인합니다.',
+    optionFeedback: { a: '격려는 좋지만, 이번 과제에서는 구체적인 내용에 대한 의견도 필요합니다.', b: '어느 부분이 왜 부족한지 알려 주어야 작성자가 개선할 수 있습니다.', c: '맞습니다. 위치와 이유가 있는 제안이라 작성자가 구체적으로 답할 수 있습니다.' },
+    takeaway: '어느 부분을 왜 보완하면 좋을지 말하고, 답변까지 확인합니다.', source: { criterion: '2-03', label: '평가 항목 2 · 리뷰 최소 품질과 운영', path: '../evalutation.md', anchor: '항목-2' }, bonus: false
+  },
+  {
+    id: 'conflict-process', category: 'recovery', title: '충돌이 났을 때 누구와 무엇을 하나요?',
+    context: '동료는 같은 문장에 변경 이유를, 나는 검증 결과를 넣었습니다. 합치려 하자 충돌이 났습니다.',
+    options: [{ id: 'a', text: '동료와 상황을 공유하고 의도를 확인해 해결한 뒤 과정과 결과를 기록한다.' }, { id: 'b', text: '내 브랜치에서 생긴 일이므로 내 문장만 남기고 알리지 않는다.' }, { id: 'c', text: '충돌 파일을 지우면 해결되므로 파일을 삭제하고 끝낸다.' }],
+    correct: 'a', explanation: '충돌을 만난 사람이 관련 팀원에게 알리고 양쪽 작업 의도를 확인합니다. 최종 내용을 함께 확인한 뒤 실제 해결 과정과 이유를 충돌 기록에 남깁니다.',
+    optionFeedback: { a: '맞습니다. 공유 → 해결과 확인 → 기록의 흐름입니다.', b: '한쪽 내용만 남기면 동료가 넣으려던 정보가 사라질 수 있습니다.', c: '충돌 표시만 없애는 것이 목적이 아닙니다. 필요한 결과물을 보존해야 합니다.' },
+    takeaway: '충돌은 함께 뜻을 확인하고, 해결 이유까지 남깁니다.', source: { criterion: '2-04', label: '평가 항목 2 · 충돌 대응 흐름', path: '../evalutation.md', anchor: '항목-2' }, bonus: false
+  },
+  {
+    id: 'reproducible-log', category: 'recovery', title: '다른 사람도 따라 볼 수 있는 기록은?',
+    context: 'stash 실습을 마쳤습니다. 며칠 뒤 팀원이 같은 상황을 이해하고 다시 확인할 수 있게 기록하려 합니다.',
+    options: [{ id: 'a', text: '“stash 성공”과 담당자 이름만 적는다.' }, { id: 'b', text: '실행 전 상황, 실제 순서와 명령, 전후 결과, 주의점을 적는다.' }, { id: 'c', text: '마지막 파일 화면만 남기면 과정을 알 수 있다.' }],
+    correct: 'b', explanation: '재현 가능한 기록은 무엇에서 시작해 무엇을 했더니 어떤 결과가 나왔는지 연결합니다. 브랜치와 파일, 실제 출력, 선택 이유와 주의점도 남기면 이해하기 쉽습니다.',
+    optionFeedback: { a: '완료 선언만으로는 실제로 무엇을 했는지 확인할 수 없습니다.', b: '맞습니다. 시작 상태와 절차, 관찰한 결과가 있어야 다시 따라 볼 수 있습니다.', c: '마지막 화면만으로는 중간 명령이나 처음 상태를 알기 어렵습니다.' },
+    takeaway: '상황 → 실제 절차 → 결과 → 주의점을 한 묶음으로 남깁니다.', source: { criterion: '2-05', label: '평가 항목 2 · 재현 가능한 실습 로그', path: '../evalutation.md', anchor: '항목-2' }, bonus: false
+  },
+  {
+    id: 'stable-main', category: 'flow', title: 'main은 왜 정상 상태여야 하나요?',
+    context: 'main은 팀원이 새 작업을 시작할 때 가져가는 공통 버전입니다. 여기에는 어떤 내용을 합치는 것이 좋을까요?',
+    options: [{ id: 'a', text: '일단 합치고, 문제가 있는지는 다른 팀원이 발견하게 한다.' }, { id: 'b', text: 'main에는 처음 만든 파일만 두고 이후 작업은 합치지 않는다.' }, { id: 'c', text: '확인된 변경을 합쳐 팀이 믿고 사용할 수 있는 상태로 유지한다.' }],
+    correct: 'c', explanation: '팀원들은 main을 기준으로 다음 작업을 합니다. 깨진 변경이 들어가면 다른 사람도 그 문제를 이어받습니다. 노트 과제에서는 글과 링크가 정상이고 필요한 확인을 마친 상태가 기준이 됩니다.',
+    optionFeedback: { a: '공통 기준이 깨지면 다른 팀원의 작업까지 막힐 수 있습니다.', b: 'main은 확인된 작업을 계속 합쳐 가는 곳입니다. 처음 상태로 고정하는 곳이 아닙니다.', c: '맞습니다. 팀원이 안전하게 작업을 이어 갈 수 있는 공통 기준이 필요합니다.' },
+    takeaway: 'main은 팀이 믿고 다음 작업을 시작할 수 있는 공통 버전입니다.', source: { criterion: '3-01', label: '평가 항목 3 · main을 정상 상태로 유지하는 이유', path: '../evalutation.md', anchor: '항목-3' }, bonus: false
+  },
+  {
+    id: 'approval-purpose', category: 'review', title: '왜 직접 push 대신 PR과 승인을 거치나요?',
+    context: '내가 보기에는 맞는 수정입니다. 그래도 이번 팀 규칙은 main에 직접 push하지 않고 동료 승인을 받도록 합니다.',
+    options: [{ id: 'a', text: '다른 시선으로 확인하고, 변경 이유와 확인한 사람을 기록하기 위해서다.' }, { id: 'b', text: 'Git은 main에 직접 push하는 기능이 없기 때문이다.' }, { id: 'c', text: '승인 버튼을 누르면 GitHub가 모든 오류를 자동으로 고치기 때문이다.' }],
+    correct: 'a', explanation: 'PR과 승인은 놓친 문제를 찾고 변경 이유를 공유하는 기회입니다. 누가 무엇을 확인했는지도 남깁니다. 보호 설정으로 이 약속을 지키도록 도울 수 있지만, 사람의 검토를 대신하지는 않습니다.',
+    optionFeedback: { a: '맞습니다. 품질을 확인하고 책임과 변경 과정을 추적하기 위한 약속입니다.', b: '직접 push가 원래 불가능한 것은 아닙니다. 팀이 보호 규칙으로 제한하는 것입니다.', c: '승인은 확인 의사 표시입니다. 오류가 자동으로 없어지는 것은 아닙니다.' },
+    takeaway: 'PR과 승인은 서로 확인하고 변경 이유를 남기는 과정입니다.', source: { criterion: '3-02', label: '평가 항목 3 · PR과 승인의 이유', path: '../evalutation.md', anchor: '항목-3' }, bonus: false
+  },
+  {
+    id: 'issue-link', category: 'flow', title: 'PR에 Closes #12를 왜 적나요?',
+    context: '실제 GitHub의 Issue #12에는 “리뷰 예시 추가하기”가 적혀 있습니다. 그 일을 해결한 PR 본문에 Closes #12를 넣었습니다.',
+    options: [{ id: 'a', text: 'PR 번호도 반드시 12번으로 바꾸기 위해서다.' }, { id: 'b', text: '할 일과 해결 작업을 연결하고, 조건에 맞는 병합 때 Issue 완료도 처리하기 위해서다.' }, { id: 'c', text: 'PR을 열자마자 검토 없이 main에 합치기 위해서다.' }],
+    correct: 'b', explanation: 'Issue는 할 일, PR은 그 일을 해결한 변경입니다. 둘을 연결하면 무엇을 해결했는지 찾기 쉽습니다. 실제 GitHub에서는 기본 브랜치로 병합하는 등 조건이 맞으면 연결한 Issue가 자동으로 닫힙니다.',
+    optionFeedback: { a: 'Issue 번호를 가리킬 뿐, PR 번호를 바꾸는 기능은 아닙니다.', b: '맞습니다. 작업 추적과 팀 소통을 돕고 완료 처리도 연결할 수 있습니다.', c: 'Closes는 리뷰와 병합 절차를 건너뛰게 하지 않습니다.' },
+    takeaway: 'Issue와 PR을 연결하면 할 일부터 해결까지 따라갈 수 있습니다.', source: { criterion: '3-03', label: '평가 항목 3 · Issue와 PR을 연결하는 이유', path: '../evalutation.md', anchor: '항목-3' }, bonus: false
+  },
+  {
+    id: 'shared-revert', category: 'recovery', title: '이미 공유한 잘못된 변경을 취소하려면?',
+    context: '잘못된 파일 변경이 담긴 커밋을 push했고, 동료도 그 기록을 가져갔습니다. 기존 기록을 유지하면서 그 변경을 취소하려 합니다.',
+    options: [{ id: 'a', text: 'reset 후 강제로 push해서 기존 커밋이 없었던 것처럼 만든다.' }, { id: 'b', text: '커밋 메시지만 amend하면 파일 변경도 취소된다.' }, { id: 'c', text: 'revert로 해당 변경을 취소하는 새 커밋을 만든다.' }],
+    correct: 'c', explanation: 'revert는 원래 커밋을 남기고 그 파일 변경을 되돌리는 새 커밋을 만듭니다. 이미 동료가 사용한 기록을 바꿔 버리면 서로 가진 기록이 달라질 수 있으므로, 이번 상황에는 revert가 맞습니다.',
+    optionFeedback: { a: '공유한 기록을 바꾸면 동료가 가진 기록과 어긋날 수 있습니다.', b: '메시지만 고쳐도 파일 내용은 취소되지 않습니다.', c: '맞습니다. 기존 기록을 보존하며 취소했다는 기록을 추가합니다.' },
+    takeaway: '공유한 파일 변경을 취소할 때는 기존 기록을 남기는 revert를 선택합니다.', source: { criterion: '3-04', label: '평가 항목 3 · 공유 커밋에 revert를 쓰는 이유', path: '../evalutation.md', anchor: '항목-3' }, bonus: false
+  },
+  {
+    id: 'conflict-markers', category: 'recovery', title: '충돌 표시의 위아래는 무엇인가요?',
+    context: '내 작업 브랜치에서 main을 merge했습니다. <<<<<<< HEAD 아래에는 “검증 결과 공유”, ======= 아래부터 >>>>>>> main 앞까지는 “변경 이유 공유”가 있습니다. 두 정보 모두 필요합니다.',
+    options: [{ id: 'a', text: '위는 현재 브랜치, 아래는 합치려는 main의 내용이다. 두 의도를 살린 문장으로 고친다.' }, { id: 'b', text: '위가 더 최신이라는 뜻이므로 항상 위쪽만 남긴다.' }, { id: 'c', text: '======= 아래는 Git이 만든 정답이므로 그대로 사용한다.' }],
+    correct: 'a', explanation: '이 merge 상황에서 HEAD 쪽은 현재 브랜치, 반대쪽은 가져오는 main의 내용입니다. 기호는 경계를 표시할 뿐 정답을 알려 주지 않습니다. 두 변경의 목적을 확인해 최종 문장을 정하고 결과도 검토합니다.',
+    optionFeedback: { a: '맞습니다. 이 상황의 양쪽 내용을 구분하고 필요한 의미를 보존하는 판단입니다.', b: '위아래 위치는 최신 순위나 정답 순위가 아닙니다.', c: '구분선 아래도 사람이 작성한 다른 쪽 변경입니다. Git이 고른 정답이 아닙니다.' },
+    takeaway: '충돌 마커는 양쪽의 경계이고, 최종 내용은 사람이 판단합니다.', source: { criterion: '3-05', label: '평가 항목 3 · 충돌 마커와 해결 기준', path: '../evalutation.md', anchor: '항목-3' }, bonus: false
+  },
+  {
+    id: 'urgent-fix', category: 'judgment', title: 'main에 급한 오류가 발견됐어요',
+    context: '함께 쓰는 버전에 급히 고쳐야 하는 오류가 있습니다. GitHub Flow와 팀의 PR 승인 규칙을 지키면서 빠르게 해결하려 합니다.',
+    options: [{ id: 'a', text: '급하므로 main 보호를 끄고 곧바로 수정한 뒤 확인은 생략한다.' }, { id: 'b', text: '최신 main에서 작은 수정 브랜치를 만들고, 검증 → PR·빠른 리뷰와 승인 → 병합 → 배포·확인을 진행한다.' }, { id: 'c', text: '진행 중인 모든 기능을 함께 합친 뒤에 오류가 사라지는지 본다.' }],
+    correct: 'b', explanation: '급한 수정도 목적이 작은 브랜치로 나누면 영향 범위를 확인하기 쉽습니다. 필요한 검증과 동료 확인을 신속하게 진행하고, 합친 뒤 배포한 결과도 확인합니다. 문서 결과물이라면 게시한 글과 링크를 확인합니다.',
+    optionFeedback: { a: '급할수록 작은 확인 절차로 추가 오류를 막아야 합니다. 과제의 보호·승인 규칙도 유지합니다.', b: '맞습니다. 수정 범위를 좁혀 확인 과정을 빠르게 진행합니다.', c: '관련 없는 기능까지 묶으면 급한 수정의 영향을 판단하기 어려워집니다.' },
+    takeaway: '급한 수정도 작은 브랜치에서 고치고, 확인받아 합친 뒤 실제 결과를 봅니다.', source: { criterion: '4-01', label: '평가 항목 4 · 긴급 수정의 순서', path: '../evalutation.md', anchor: '항목-4' }, bonus: false
+  },
+  {
+    id: 'shared-message', category: 'judgment', title: 'push한 메시지가 update뿐이에요',
+    context: '팀원이 여러 커밋을 “update”, “fix”라고 적어 push했습니다. 파일 내용은 올바르고 동료도 이미 그 기록으로 작업 중입니다. 협업을 멈추지 않으려면?',
+    options: [{ id: 'a', text: '설명이 나쁜 커밋을 모두 revert해서 파일 변경을 없앤다.' }, { id: 'b', text: '동료에게 알리지 않고 모든 커밋을 고친 뒤 강제로 push한다.' }, { id: 'c', text: '공유한 기록은 두고 PR 등에 각 변경의 뜻을 보완하며, 다음 메시지부터 구체적으로 적도록 약속한다.' }],
+    correct: 'c', explanation: '메시지가 부족한 것과 파일 변경이 잘못된 것은 다릅니다. PR 등에 커밋 식별자와 변경 대상을 연결해 설명하고, 팀 규칙과 리뷰에서 다음 메시지를 확인합니다. 공유 기록 정리가 꼭 필요하다면 영향 범위와 팀 합의를 먼저 확인해야 합니다.',
+    optionFeedback: { a: 'revert는 메시지가 아니라 파일 변경을 취소하므로 올바른 작업까지 없앨 수 있습니다.', b: '동료가 이미 사용하는 기록을 갑자기 바꾸면 작업이 어긋날 수 있습니다.', c: '맞습니다. 필요한 설명을 보완하고 같은 문제가 반복되지 않도록 규칙을 개선합니다.' },
+    takeaway: '공유한 메시지의 문제와 파일 내용의 문제를 구분합니다.', source: { criterion: '4-02', label: '평가 항목 4 · 의미 없는 공유 커밋 메시지 개선', path: '../evalutation.md', anchor: '항목-4' }, bonus: false
+  },
+  {
+    id: 'repeated-conflicts', category: 'judgment', title: '같은 부분에서 계속 충돌해요',
+    context: '두 팀원이 매번 같은 README 구역을 고치고, 브랜치를 오래 합치지 않아 충돌이 반복됩니다.',
+    options: [{ id: 'a', text: '겹치는 작업과 오래 분리된 원인을 살펴 담당 범위를 나누고, 작은 변경을 자주 검토·통합한다.' }, { id: 'b', text: '앞으로 모든 충돌에서 먼저 합친 사람의 내용만 남긴다.' }, { id: 'c', text: '충돌을 피하려고 동료의 최신 변경은 마지막 날까지 가져오지 않는다.' }],
+    correct: 'a', explanation: '반복되는 충돌은 겹치는 편집 범위, 큰 작업 덩어리, 늦은 통합 같은 원인을 살펴야 합니다. 파일이나 구역의 담당을 조율하고 작업을 작게 나누며 최신 변경을 확인합니다. 이후 충돌이 줄었는지도 봅니다.',
+    optionFeedback: { a: '맞습니다. 한 번 해결하는 데서 끝내지 않고 원인에 맞춰 작업 방식을 고칩니다.', b: '먼저 합쳤다는 이유만으로 나중 작업의 필요한 내용까지 버릴 수 없습니다.', c: '변경이 오래 쌓이면 차이가 더 커져 마지막 통합이 어려워질 수 있습니다.' },
+    takeaway: '반복 충돌은 편집 범위와 작업 크기, 통합 시점을 함께 점검합니다.', source: { criterion: '4-03', label: '평가 항목 4 · 반복 충돌의 원인과 예방', path: '../evalutation.md', anchor: '항목-4' }, bonus: false
+  },
+  {
+    id: 'personal-contribution', category: 'review', title: '내 PR 2개가 합쳐졌으면 끝인가요?',
+    context: '내 PR 두 개는 main에 합쳐졌습니다. 이번 과제에서 내 협업 참여를 확인하려면 무엇도 봐야 할까요?',
+    options: [{ id: 'a', text: '팀 전체 커밋 수만 많으면 내 기록은 더 필요 없다.' }, { id: 'b', text: '다른 사람 PR 리뷰 2개 이상과 내 PR 의견 반영 1회, 결과물 기여와 실습 기록 참여도 확인한다.' }, { id: 'c', text: 'PR 하나에 커밋이 두 개 있으면 리뷰 두 번으로 센다.' }],
+    correct: 'b', explanation: '개인별로 병합된 PR 2개 이상, 타인 PR 리뷰 2개 이상, 본인 PR의 리뷰 반영 1회 이상이 필요합니다. 결과물 기여와 최소 한 가지 실습 기록 작성 참여도 확인합니다. 숫자뿐 아니라 실제 내용과 링크가 있어야 합니다.',
+    optionFeedback: { a: '팀 전체 수치가 각자의 최소 참여 기준을 대신하지 않습니다.', b: '맞습니다. 내 작업뿐 아니라 다른 사람과 확인하고 답한 기록도 필요합니다.', c: '커밋 수와 리뷰 횟수는 다른 기준입니다.' },
+    takeaway: '내가 만든 작업, 남에게 준 의견, 내가 반영한 의견을 각각 확인합니다.', source: { criterion: '1-04', label: '과제 원문 · 팀원별 최소 기여와 기록 참여', path: '../instruction.md' }, bonus: false
+  },
+  {
+    id: 'local-mock', category: 'judgment', title: '모의 PR 번호가 있으면 실제 PR인가요?',
+    context: '로컬 test/에서 작성자 이름을 바꾸고, 병합 커밋 설명에 “Merge pull request #3”과 “Closes #3”를 적었습니다. GitHub에는 연결하지 않았습니다.',
+    options: [{ id: 'a', text: '커밋 작성자 이름을 바꿨으므로 네 사람이 각자 GitHub에 로그인한 것이다.' }, { id: 'b', text: 'Closes #3를 적었으므로 GitHub Issue가 자동으로 생성되고 닫힌다.' }, { id: 'c', text: 'Git 병합은 실제 연습이지만 PR·Issue는 모의 기록이다. 실제 GitHub 증빙은 따로 필요하다.' }],
+    correct: 'c', explanation: '로컬 Git만으로도 브랜치와 병합을 연습할 수 있습니다. 하지만 메시지에 PR 번호를 쓰거나 작성자 이름을 바꾼 것이 GitHub의 실제 PR, 계정 참여, 보호 설정을 만드는 것은 아닙니다.',
+    optionFeedback: { a: '커밋 작성자 표시는 이름표입니다. 실제 로그인이나 계정 참여를 증명하지 않습니다.', b: '로컬 문구만으로 GitHub Issue가 생성되거나 닫히지 않습니다.', c: '맞습니다. 연습한 Git 동작과 실제 서비스에서 확인할 증빙을 구분합니다.' },
+    takeaway: '로컬 모의 기록은 학습용이고, 실제 팀의 GitHub 기록은 별도로 확인합니다.', source: { criterion: 'foundation', label: '쉬운 설명서 · test의 모의 연습 범위', path: '../docs/0018_b2-2-first-week-guide.md' }, bonus: false
+  },
+  {
+    id: 'local-amend', category: 'recovery', title: '아직 push하지 않은 마지막 설명의 오타',
+    context: '마지막 커밋의 메시지에 오타가 있습니다. 아직 push하지 않았고, 파일 내용은 맞으며 새로 add한 변경도 없습니다.',
+    options: [{ id: 'a', text: 'commit --amend로 마지막 커밋 메시지를 고친다.' }, { id: 'b', text: 'revert로 메시지의 오타만 취소한다.' }, { id: 'c', text: 'stash에 커밋을 넣었다가 꺼내 메시지를 바꾼다.' }],
+    correct: 'a', explanation: '이 상황에서는 amend로 마지막 커밋을 새 커밋으로 교체하며 메시지를 고칠 수 있습니다. 커밋 식별자도 바뀝니다. 새로 add한 변경이 있다면 그 내용까지 포함될 수 있으므로 상태를 먼저 확인합니다.',
+    optionFeedback: { a: '맞습니다. 아직 공유하지 않은 마지막 커밋의 메시지를 고치는 실습입니다.', b: 'revert는 커밋의 파일 변경을 되돌리며 메시지 오타만 고치지 않습니다.', c: 'stash는 아직 커밋하지 않은 작업을 임시 보관하는 도구입니다.' },
+    takeaway: 'amend는 최근 커밋을 교체합니다. 공유 여부와 add 상태를 먼저 봅니다.', source: { criterion: '1-07', label: '과제 원문 · amend 실습', path: '../instruction.md' }, bonus: false
+  },
+  {
+    id: 'soft-reset', category: 'recovery', title: '작성한 내용은 남기고 다시 커밋하고 싶어요',
+    context: '개인 연습 브랜치에서 마지막 커밋을 아직 push하지 않았습니다. 직전 커밋이 존재하며, 새로 수정한 내용은 없습니다. git reset --soft HEAD~1을 실행하면?',
+    options: [{ id: 'a', text: '마지막 커밋의 파일 내용까지 모두 삭제된다.' }, { id: 'b', text: '브랜치가 직전 커밋을 가리키고, 취소한 커밋의 변경은 add된 상태로 남는다.' }, { id: 'c', text: '원래 커밋 다음에 취소 커밋이 자동으로 추가된다.' }],
+    correct: 'b', explanation: '이 조건의 soft reset은 마지막 커밋 한 단계를 되돌리지만 파일과 스테이징 영역을 유지합니다. 취소한 변경을 다시 묶어 커밋할 수 있습니다. 다른 reset 옵션까지 같은 결과라고 생각하면 안 됩니다.',
+    optionFeedback: { a: '--soft는 작업 파일의 내용을 지우는 옵션이 아닙니다.', b: '맞습니다. 파일 내용과 다음 커밋에 넣을 상태를 유지하며 커밋 위치를 되돌립니다.', c: '새 취소 커밋을 만드는 설명은 revert에 해당합니다.' },
+    takeaway: 'soft reset은 커밋 위치를 되돌리면서 작업 내용을 유지합니다.', source: { criterion: '1-07', label: '과제 원문 · reset --soft 실습', path: '../instruction.md' }, bonus: false
+  },
+  {
+    id: 'stash-switch', category: 'recovery', title: '미완성 글을 두고 잠깐 다른 브랜치로 가려면?',
+    context: 'Git이 이미 관리하던 파일을 수정 중입니다. 아직 커밋할 단계는 아니지만, 잠깐 다른 브랜치에서 확인할 일이 있습니다.',
+    options: [{ id: 'a', text: 'revert로 쓰던 내용을 취소한 뒤 나중에 다시 쓴다.' }, { id: 'b', text: 'stash를 하면 GitHub에도 자동으로 백업되므로 push는 필요 없다.' }, { id: 'c', text: 'stash로 잠시 보관하고 전환한 뒤, 돌아와 pop하고 내용이 복원됐는지 확인한다.' }],
+    correct: 'c', explanation: 'stash는 아직 커밋하지 않은 변경을 잠시 보관하는 데 씁니다. 다른 브랜치를 확인하고 돌아와 복원한 다음 diff 등으로 내용을 확인합니다. 기본 stash는 새로 만든 미추적 파일까지 모두 포함하지 않고, 원격 백업도 아닙니다.',
+    optionFeedback: { a: '미완성 작업을 잠깐 치우는 목적에는 stash가 맞습니다.', b: 'stash는 로컬 임시 보관입니다. 자동으로 원격에 전달되지 않습니다.', c: '맞습니다. 보관 → 다른 브랜치 확인 → 복귀 → 복원과 내용 확인을 연습합니다.' },
+    takeaway: 'stash는 미완성 작업의 임시 보관이며, 복원한 내용까지 확인합니다.', source: { criterion: '1-07', label: '과제 원문 · stash 후 브랜치 전환', path: '../instruction.md' }, bonus: false
+  },
+  {
+    id: 'conflict-setup', category: 'recovery', title: '같은 줄 충돌을 확실히 연습하려면?',
+    context: '두 사람이 같은 문장에 서로 다른 정보를 넣어 충돌을 경험하려 합니다. 시작 순서를 어떻게 맞추면 좋을까요?',
+    options: [{ id: 'a', text: '같은 시작 커밋에서 각각 분기해 같은 줄을 다르게 고치고, 양쪽 커밋이 준비된 뒤 한쪽부터 합친다.' }, { id: 'b', text: '한 사람이 수정해 합친 뒤 다른 사람은 그 최신 문장을 그대로 사용한다.' }, { id: 'c', text: '각자 전혀 다른 파일을 고치면 반드시 충돌한다.' }],
+    correct: 'a', explanation: '두 갈래가 같은 시작점의 같은 부분을 다르게 고쳐야 의도한 충돌 상황을 만들 수 있습니다. 한쪽이 최신 변경을 이미 포함한 상태에서 시작하면 같은 충돌이 나지 않을 수 있습니다.',
+    optionFeedback: { a: '맞습니다. 출발점과 수정 구역, 양쪽 준비 여부를 맞춥니다.', b: '두 번째 사람이 첫 변경을 이미 포함하면 의도한 두 갈래 차이가 생기지 않을 수 있습니다.', c: '다른 파일의 변경은 보통 함께 합칠 수 있으며, 반드시 충돌하는 조건이 아닙니다.' },
+    takeaway: '충돌 실습은 같은 시작점과 겹치는 수정, 양쪽 준비 상태를 확인합니다.', source: { criterion: '1-06', label: '쉬운 설명서 · 충돌을 만드는 시작 조건', path: '../docs/0018_b2-2-first-week-guide.md' }, bonus: false
+  },
+  {
+    id: 'branch-meaning', category: 'flow', title: '브랜치를 만들면 폴더가 복사되나요?',
+    context: 'main에서 새 작업 브랜치를 만들었습니다. Git에서 브랜치를 가장 정확하게 설명한 것은 무엇일까요?',
+    options: [{ id: 'a', text: '프로젝트 폴더를 다른 위치에 통째로 복사한 것이다.' }, { id: 'b', text: '작업의 마지막 커밋을 가리키는 이름이며, main도 같은 종류의 브랜치다.' }, { id: 'c', text: 'GitHub에 새 계정을 만든 것이다.' }],
+    correct: 'b', explanation: '브랜치는 커밋을 가리키는 이름입니다. 그 브랜치에서 새 커밋을 만들면 가리키는 위치도 이어 이동합니다. main은 팀의 공통 버전으로 정해 둔 브랜치 이름입니다.',
+    optionFeedback: { a: '일반적인 브랜치 생성은 별도 폴더 복사를 뜻하지 않습니다.', b: '맞습니다. 기록이 이어지는 갈래에 붙인 이름으로 이해할 수 있습니다.', c: '브랜치는 Git 기록에 관한 것이며 사용자 계정 생성과는 다릅니다.' },
+    takeaway: '브랜치는 커밋을 가리키는 이름이며 main도 브랜치입니다.', source: { criterion: 'foundation', label: '과제 원문 · 브랜치의 동작 원리', path: '../instruction.md' }, bonus: false
+  },
+  {
+    id: 'rebase-bonus', category: 'judgment', title: '보너스: 기록 정리는 왜 조심해야 하나요?',
+    context: '개인 작업 브랜치의 작은 커밋을 묶거나 설명을 고치려고 rebase를 배우고 있습니다. 어떤 설명이 맞을까요?',
+    options: [{ id: 'a', text: '파일 결과가 같으면 공유한 커밋 번호가 바뀌어도 동료에게 영향이 없다.' }, { id: 'b', text: 'rebase는 커밋을 수정하지 않고 화면에서만 숨긴다.' }, { id: 'c', text: '커밋을 다시 만들 수 있으므로 우선 공유 전 개인 브랜치에서 연습하고, 공유 기록은 팀 합의 없이 바꾸지 않는다.' }],
+    correct: 'c', explanation: 'rebase로 커밋을 재배치하거나 묶으면 기록을 읽기 쉬워질 수 있지만 커밋 식별자가 바뀝니다. 이미 그 기록으로 작업하는 동료가 있다면 서로 기록이 어긋날 수 있습니다. 대상과 공유 여부를 확인하고 복구할 기준도 남겨 둡니다.',
+    optionFeedback: { a: '파일 결과뿐 아니라 함께 사용하는 커밋 기록도 중요합니다.', b: '단순한 화면 정리가 아닙니다. 커밋 기록을 다시 만들 수 있습니다.', c: '맞습니다. 공유 여부와 대상, 팀 합의를 먼저 확인하는 것이 안전 수칙입니다.' },
+    takeaway: '보너스 기록 정리는 개인 범위에서 배우고, 공유 기록은 합의 없이 바꾸지 않습니다.', source: { criterion: '4-04', label: '평가 항목 4 · 보너스 rebase의 효과와 주의점', path: '../evalutation.md', anchor: '항목-4' }, bonus: true
+  }
+];
+
+const explainPrompts = [
+  {
+    id: 'explain-branch-unit', title: '작업을 어떻게 나눴나요?', prompt: '우리 팀에서 브랜치 하나에 담을 일을 어떤 기준으로 정했는지, 실제 작업 하나를 예로 설명해 보세요.',
+    points: ['한 브랜치의 목적과 끝나는 기준이 분명하다.', '서로 다른 목적은 분리하고 관련된 파일은 함께 고칠 수 있다.', '본인 팀의 실제 작업과 나눈 이유를 연결한다.'],
+    sample: '예를 들면 리뷰 방법 노트를 쓰는 일과 충돌 실습 기록을 따로 나눴습니다. 동료가 한 가지 목적을 읽고 확인하기 쉽고, 각각 끝났을 때 합칠 수 있기 때문입니다. 실제 답에는 우리 팀 작업 이름을 넣겠습니다.',
+    source: { criterion: '2-01', label: '평가 항목 2 · 작업 단위 브랜치', path: '../evalutation.md', anchor: '항목-2' }, bonus: false
+  },
+  {
+    id: 'explain-pr-template', title: 'PR에 빠짐없이 적는 방법', prompt: '무엇을 바꿨는지, 왜 바꿨는지, 어떻게 확인했는지와 Issue 연결을 빠뜨리지 않도록 어떤 규칙을 쓰나요?',
+    points: ['What·Why·How·연결 Issue를 공통 양식에 둔다.', '양식의 빈칸을 해당 작업의 실제 내용과 확인 결과로 채운다.', '리뷰할 때 누락 여부와 링크를 확인한다.'],
+    sample: 'PR 양식에 변경 내용, 이유, 확인 방법, Closes #실제번호를 넣습니다. “확인 완료”만 쓰지 않고 어떤 예시와 링크를 봤는지 적습니다. 동료도 검토할 때 빈 항목이 없는지 확인합니다.',
+    source: { criterion: '2-02', label: '평가 항목 2 · PR 작성 규칙과 도구', path: '../evalutation.md', anchor: '항목-2' }, bonus: false
+  },
+  {
+    id: 'explain-review-quality', title: '“좋아요”보다 도움이 되는 리뷰', prompt: '어떤 리뷰를 좋은 리뷰로 정했는지, 작성자와 리뷰어가 그다음 무엇을 하는지 설명해 보세요.',
+    points: ['파일이나 문장의 특정 부분을 근거로 질문 또는 개선 의견을 준다.', '작성자는 답변이나 실제 수정으로 응답한다.', '리뷰어가 응답과 결과를 확인하고 기록을 남긴다.'],
+    sample: '“좋아요”만 남기지 않고 “commit 설명 다음에 push와의 차이 예시를 넣으면 어떨까요?”처럼 위치와 이유를 적습니다. 작성자는 예시를 추가하거나 현재 설명으로 충분한 이유를 답하고, 리뷰어가 다시 확인합니다.',
+    source: { criterion: '2-03', label: '평가 항목 2 · 리뷰 최소 품질과 운영', path: '../evalutation.md', anchor: '항목-2' }, bonus: false
+  },
+  {
+    id: 'explain-conflict-process', title: '충돌이 나면 어떤 순서로 대응하나요?', prompt: '누가 누구와 이야기하고, 어떻게 해결하며, 어디에 무엇을 기록하는지 말해 보세요.',
+    points: ['충돌을 만난 사람이 관련 팀원에게 브랜치와 파일 상황을 알린다.', '양쪽 의도를 확인해 최종 내용을 정하고 함께 검증한다.', 'conflict-resolution.md에 상황·마커·절차·선택 이유·결과와 관련 기록을 남긴다.'],
+    sample: '충돌을 만난 사람이 같은 부분을 바꾼 팀원에게 알립니다. 두 변경이 필요한 이유를 함께 보고 최종 문장을 정한 뒤 리뷰어와 결과를 확인합니다. 충돌 기록에는 실제 표시와 고친 이유, 관련 PR·커밋을 남깁니다.',
+    source: { criterion: '2-04', label: '평가 항목 2 · 충돌 대응 흐름', path: '../evalutation.md', anchor: '항목-2' }, bonus: false
+  },
+  {
+    id: 'explain-reproducible-log', title: '다시 따라 볼 수 있는 기록', prompt: '실습 기록을 본 다른 사람이 같은 상황을 이해하고 재현하려면 어떤 내용을 남겨야 하나요?',
+    points: ['담당자, 브랜치, 파일, 시작 상태 등 당시 상황을 적는다.', '실제로 실행한 순서와 명령, 전후 결과를 남긴다.', '결과의 확인 방법, 선택 이유와 주의점을 적는다.'],
+    sample: '어떤 브랜치의 어느 파일에서 시작했는지 적고 실제 명령을 순서대로 남깁니다. 실행 전후의 상태와 출력으로 무엇이 바뀌었는지 보여 줍니다. 왜 그 명령을 골랐는지와 공유한 커밋에서는 주의할 점도 적습니다.',
+    source: { criterion: '2-05', label: '평가 항목 2 · 재현 가능한 실습 로그', path: '../evalutation.md', anchor: '항목-2' }, bonus: false
+  },
+  {
+    id: 'explain-stable-main', title: 'main이 정상이어야 하는 이유', prompt: 'main을 항상 사용할 수 있는 상태로 유지하지 않으면 다른 팀원의 작업에는 어떤 영향이 생길까요?',
+    points: ['main은 팀의 공통 기준이며 새 작업의 출발점이다.', '깨진 내용을 합치면 다른 작업에도 문제가 이어질 수 있다.', '우리 결과물에서 정상이라는 기준과 확인 방법을 말한다.'],
+    sample: '동료가 main을 가져와 다음 작업을 시작하므로 잘못된 링크나 오류가 있으면 같이 영향을 받습니다. 우리 노트라면 글이 빠지지 않았는지, 링크가 열리는지 등을 확인하고 합쳐야 합니다.',
+    source: { criterion: '3-01', label: '평가 항목 3 · main을 정상 상태로 유지하는 이유', path: '../evalutation.md', anchor: '항목-3' }, bonus: false
+  },
+  {
+    id: 'explain-approval', title: 'PR과 승인을 거치는 이유', prompt: '내가 보기엔 맞는 수정도 main에 바로 넣지 않고 동료 확인을 받는 이유를 설명해 보세요.',
+    points: ['다른 시선으로 오류와 빠진 설명을 찾는다.', '변경 이유와 확인한 사람을 기록으로 남긴다.', '보호 설정은 규칙을 돕지만 내용 검토를 대신하지 않는다.'],
+    sample: '내가 놓친 부분을 동료가 찾을 수 있고, 왜 고쳤는지와 누가 확인했는지도 남습니다. main 보호로 이 순서를 지키게 할 수 있지만 승인 버튼만 누르면 끝나는 것이 아니라 실제 변경을 읽어야 합니다.',
+    source: { criterion: '3-02', label: '평가 항목 3 · PR과 승인의 이유', path: '../evalutation.md', anchor: '항목-3' }, bonus: false
+  },
+  {
+    id: 'explain-issue-link', title: '할 일과 해결 작업을 연결하는 이유', prompt: 'Issue와 PR을 연결하면 나중에 작업을 찾는 사람과 현재 팀원에게 어떤 도움이 되나요?',
+    points: ['할 일의 목적과 해결한 변경을 함께 찾을 수 있다.', '담당자와 진행 상황을 공유하기 쉽다.', '실제 GitHub에서 조건에 맞는 병합 때 Issue 종료를 자동 연결할 수 있다.'],
+    sample: 'Issue에서 왜 필요한 일인지 읽고 연결된 PR에서 실제 변경을 볼 수 있습니다. 팀원은 누가 진행하는지도 확인할 수 있습니다. Closes에 실제 Issue 번호를 쓰면 기본 브랜치 병합 등 조건이 맞을 때 완료 처리도 연결됩니다.',
+    source: { criterion: '3-03', label: '평가 항목 3 · Issue와 PR을 연결하는 이유', path: '../evalutation.md', anchor: '항목-3' }, bonus: false
+  },
+  {
+    id: 'explain-revert', title: '공유한 파일 변경을 되돌리는 방법', prompt: '동료가 이미 가져간 커밋의 파일 변경을 취소할 때, reset 뒤 강제 push보다 revert를 선택하는 이유는 무엇인가요?',
+    points: ['revert는 원래 기록을 남기고 취소하는 새 커밋을 만든다.', '공유 기록을 갑자기 바꾸면 동료가 가진 기록과 어긋날 수 있다.', '취소 대상과 최종 파일 상태를 확인하며 메시지 오타와 구분한다.'],
+    sample: 'revert는 기존 커밋을 없애지 않고 그 파일 변경을 취소한 커밋을 추가합니다. 동료가 쓰는 기록을 바꾸지 않으면서 취소 이유를 남길 수 있습니다. 메시지만 잘못됐다면 파일까지 취소하는 revert는 쓰지 않습니다.',
+    source: { criterion: '3-04', label: '평가 항목 3 · 공유 커밋에 revert를 쓰는 이유', path: '../evalutation.md', anchor: '항목-3' }, bonus: false
+  },
+  {
+    id: 'explain-markers', title: '충돌 표시를 보고 판단하기', prompt: '내 브랜치에서 main을 merge할 때 나타난 <<<<<<< HEAD, =======, >>>>>>> main의 의미와 최종 내용을 고르는 기준을 설명해 보세요.',
+    points: ['이 merge 상황에서 HEAD 쪽은 현재 브랜치, 반대쪽은 main 내용이다.', '표시는 두 내용의 경계이며 최신 순위나 정답 표시가 아니다.', '양쪽 의도와 필요한 동작을 확인해 선택·통합하고 최종 결과를 검증한다.'],
+    sample: '이 경우 위쪽은 내 브랜치, 아래쪽은 합치려는 main의 내용이고 가운데는 구분선입니다. 두 사람이 각각 변경 이유와 검증 결과를 추가했다면 둘 다 필요한지 확인해 함께 담습니다. 기호만 지우지 않고 결과가 맞는지도 봅니다.',
+    source: { criterion: '3-05', label: '평가 항목 3 · 충돌 마커와 해결 기준', path: '../evalutation.md', anchor: '항목-3' }, bonus: false
+  },
+  {
+    id: 'explain-hotfix', title: '급한 수정도 순서가 있어요', prompt: 'main에서 급한 오류가 발견됐습니다. 브랜치 만들기부터 실제 반영 결과를 확인하기까지 어떤 순서로 처리할까요?',
+    points: ['최신 main에서 목적이 작은 수정 브랜치를 만든다.', '수정·검증 후 PR로 신속한 동료 리뷰와 승인을 받는다.', 'main에 병합하고 배포·게시한 결과도 확인한다.'],
+    sample: '최신 main에서 오류 하나를 고치는 브랜치를 만듭니다. 수정하고 필요한 확인을 한 뒤 PR을 열어 동료에게 빠른 검토를 요청합니다. 승인 후 main에 합치고 배포하거나 게시한 결과에서 오류가 해결됐는지 다시 확인합니다.',
+    source: { criterion: '4-01', label: '평가 항목 4 · 긴급 수정의 순서', path: '../evalutation.md', anchor: '항목-4' }, bonus: false
+  },
+  {
+    id: 'explain-shared-message', title: '공유한 기록의 설명이 부족하다면?', prompt: '여러 커밋 메시지가 update뿐인데 파일은 맞습니다. 동료가 계속 작업할 수 있도록 현재 기록과 앞으로의 습관을 어떻게 개선할까요?',
+    points: ['공유한 커밋을 무단으로 고쳐 강제 push하거나 파일을 revert하지 않는다.', 'PR·Issue 등에 커밋과 실제 변경 대상을 연결해 뜻을 보완한다.', '구체적인 메시지 예시와 검토 규칙을 정해 재발을 줄인다.'],
+    sample: '이미 공유한 기록은 그대로 두고 PR에 각 커밋이 무엇을 바꿨는지 설명합니다. 파일이 맞으므로 revert하지 않습니다. 앞으로는 “docs: 리뷰 예시 추가”처럼 대상을 적고 리뷰 때 확인하기로 약속합니다.',
+    source: { criterion: '4-02', label: '평가 항목 4 · 의미 없는 공유 커밋 메시지 개선', path: '../evalutation.md', anchor: '항목-4' }, bonus: false
+  },
+  {
+    id: 'explain-repeated-conflicts', title: '반복되는 충돌을 줄이려면?', prompt: '같은 파일의 같은 구역에서 계속 충돌합니다. 어떤 원인을 확인하고 어떤 작업 약속을 바꿀지 제안해 보세요.',
+    points: ['겹치는 편집 구역, 작업 크기, 오래 분리된 브랜치 등 원인을 찾는다.', '담당 범위를 조율하고 작은 작업을 자주 검토·통합하며 최신 변경을 확인한다.', '규칙을 바꾼 뒤 충돌이 줄었는지 확인한다.'],
+    sample: '누가 같은 구역을 고치는지와 브랜치를 얼마나 오래 합치지 않았는지 살펴봅니다. 공통 목차를 정리할 담당을 조율하고 각자 글은 다른 파일에 쓰며 작은 단위로 검토받습니다. 이후 같은 원인의 충돌이 줄었는지 확인합니다.',
+    source: { criterion: '4-03', label: '평가 항목 4 · 반복 충돌의 원인과 예방', path: '../evalutation.md', anchor: '항목-4' }, bonus: false
+  },
+  {
+    id: 'explain-rebase-bonus', title: '보너스: 기록 정리의 장점과 주의점', prompt: 'rebase로 작은 커밋을 묶거나 설명을 고치면 왜 읽기 쉬워지며, 이미 공유한 기록에서는 무엇을 조심해야 하나요?',
+    points: ['관련 커밋을 묶거나 순서·설명을 정리해 변경의 목적을 읽기 쉽게 할 수 있다.', '커밋을 다시 만들면 식별자가 바뀌어 동료의 기록과 어긋날 수 있다.', '공유 전 개인 브랜치에서 연습하고, 대상·복구 기준·공유 여부와 팀 합의를 확인한다.'],
+    sample: '관련된 작은 기록을 묶으면 작업 목적을 따라가기 쉬워집니다. 하지만 새 커밋으로 바뀌면 동료가 쓰던 기록과 달라질 수 있습니다. 우선 공유 전 개인 브랜치에서 배우고, 공유 기록은 팀 합의 없이 정리하거나 강제로 push하지 않습니다.',
+    source: { criterion: '4-04', label: '평가 항목 4 · 보너스 rebase의 효과와 주의점', path: '../evalutation.md', anchor: '항목-4' }, bonus: true
+  }
+];
+
+const evidenceChecks = [
+  { id: 'team-access', label: '팀 저장소 하나와 팀원 접근 권한', help: '실제 제출할 GitHub 저장소 URL과 참여한 팀원들의 협업 권한을 확인하세요. 로컬 작성자 이름만으로는 실제 참여 권한을 확인할 수 없습니다.', source: { criterion: '1-01', label: '평가 항목 1 · 팀 저장소와 권한', path: '../evalutation.md', anchor: '항목-1' } },
+  { id: 'main-protection', label: 'main 보호와 PR을 통한 병합', help: 'main 직접 push 제한, PR 경유, 최소 1명 승인 설정과 실제 병합 기록을 확인하세요. 규칙을 문서에 쓴 것만으로 설정이 완료되지는 않습니다.', source: { criterion: '1-02', label: '평가 항목 1 · main 보호와 병합 방식', path: '../evalutation.md', anchor: '항목-1' } },
+  { id: 'issue-pr-links', label: '각 PR과 실제 Issue의 연결', help: '각 PR 본문의 Closes 또는 Fixes가 실제 해당 Issue를 가리키는지 확인하세요. 로컬 모의 번호와 실제 GitHub 링크를 구분하세요.', source: { criterion: '1-03', label: '평가 항목 1 · Issue와 PR 추적', path: '../evalutation.md', anchor: '항목-1' } },
+  { id: 'personal-prs', label: '전원 병합 PR 2개 이상과 제출표 링크', help: '팀원별로 본인이 만든 PR이 최소 2개 병합됐는지 실제 링크와 상태를 확인하고 SUBMISSION.md에 모으세요. 커밋 2개가 PR 2개를 뜻하지는 않습니다.', source: { criterion: '1-04', label: '평가 항목 1 · 개인별 병합 PR', path: '../evalutation.md', anchor: '항목-1' } },
+  { id: 'personal-reviews', label: '전원 타인 PR 리뷰 2개와 본인 의견 반영 1회', help: '전원이 다른 사람 PR에 구체적인 리뷰를 2개 이상 남겼고, 본인 PR에서 받은 의견을 최소 한 번 반영했는지 확인하세요. 실제 코멘트·답글·수정 기록으로 연결하세요.', source: { criterion: '1-05', label: '평가 항목 1 · 리뷰와 피드백 반영', path: '../evalutation.md', anchor: '항목-1' } },
+  { id: 'two-conflicts', label: '충돌 해결 2회와 요구한 충돌 조건', help: '팀 전체에서 실제 충돌 해결 기록 2건을 확인하세요. 최소 1건은 같은 부분의 서로 다른 수정 또는 파일 이동·삭제와 내용 수정 등 과제의 비자명 충돌 조건에 맞아야 합니다. 상황·마커·해결 이유·결과도 확인하세요.', source: { criterion: '1-06', label: '평가 항목 1 · 충돌 횟수와 비자명 기준', path: '../evalutation.md', anchor: '항목-1' } },
+  { id: 'four-recoveries', label: 'amend·reset·revert·stash와 전원 기록 참여', help: '팀 전체 네 가지 실습의 실제 전후 기록과 각 팀원의 최소 한 가지 기록 작성 참여를 확인하세요. 원격에 push한 커밋의 revert, stash 후 다른 브랜치 전환과 복원도 확인해야 합니다. 로컬 가정은 실제 원격 증빙과 구분하세요.', source: { criterion: '1-07', label: '평가 항목 1 · 네 가지 실습과 참여', path: '../evalutation.md', anchor: '항목-1' } },
+  { id: 'three-documents', label: '협업 가이드·충돌 기록·실습 기록 3종', help: 'docs/CONTRIBUTING.md, docs/conflict-resolution.md, docs/troubleshooting-log.md가 실제로 있는지 확인하세요. 빈 파일이나 링크 목록에 그치지 않고 규칙·상황·절차·결과·주의점 등 필요한 본문이 있어야 합니다.', source: { criterion: '1-08', label: '평가 항목 1 · 필수 문서 3종', path: '../evalutation.md', anchor: '항목-1' } }
+];
+
+
+const STORAGE_KEY = 'together-git-study-v1';
+const VERSION = 1;
+
+function emptyState() {
+  return { version: VERSION, answers: {}, drafts: {}, reflections: {}, evidence: {}, lastQuestion: null };
+}
+
+function sanitizeState(raw, questions, prompts, checks) {
+  const clean = emptyState();
+  if (!raw || typeof raw !== 'object' || raw.version !== VERSION) return clean;
+  for (const q of questions) {
+    const answer = raw.answers?.[q.id];
+    if (!answer || !q.options.some(o => o.id === answer.choice)) continue;
+    clean.answers[q.id] = {
+      choice: answer.choice,
+      correct: answer.choice === q.correct,
+      firstCorrect: typeof answer.firstCorrect === 'boolean' ? answer.firstCorrect : answer.choice === q.correct,
+      attempts: Number.isSafeInteger(answer.attempts) ? Math.max(1, Math.min(answer.attempts, 10000)) : 1,
+    };
+  }
+  for (const p of prompts) {
+    if (typeof raw.drafts?.[p.id] === 'string') clean.drafts[p.id] = raw.drafts[p.id].slice(0, 10000);
+    const reflection = raw.reflections?.[p.id];
+    if (clean.drafts[p.id]?.trim() && ['ready', 'practice'].includes(reflection)) clean.reflections[p.id] = reflection;
+  }
+  for (const c of checks) {
+    const item = raw.evidence?.[c.id];
+    if (!item || typeof item.note !== 'string') continue;
+    const note = item.note.slice(0, 4000);
+    clean.evidence[c.id] = { note, checked: item.checked === true && Boolean(note.trim()) };
+  }
+  if (questions.some(q => q.id === raw.lastQuestion)) clean.lastQuestion = raw.lastQuestion;
+  return clean;
+}
+
+function loadState(storage, questions, prompts, checks) {
+  try {
+    const raw = storage.getItem(STORAGE_KEY);
+    if (!raw) return { state: emptyState(), warning: '' };
+    const parsed = JSON.parse(raw);
+    return { state: sanitizeState(parsed, questions, prompts, checks), warning: parsed?.version === VERSION ? '' : '이전 형식의 기록을 읽지 못해 새 학습을 시작합니다.' };
+  } catch {
+    return { state: emptyState(), warning: '저장된 기록을 읽지 못했습니다. 지금 학습은 계속할 수 있어요.' };
+  }
+}
+
+function saveState(storage, state) {
+  try { storage.setItem(STORAGE_KEY, JSON.stringify(state)); return true; } catch { return false; }
+}
+
+function recordAnswer(state, question, choice) {
+  if (!question.options.some(o => o.id === choice)) throw new Error('Unknown answer');
+  const old = state.answers[question.id];
+  const correct = choice === question.correct;
+  return {
+    ...state,
+    lastQuestion: question.id,
+    answers: { ...state.answers, [question.id]: { choice, correct, firstCorrect: old?.firstCorrect ?? correct, attempts: (old?.attempts ?? 0) + 1 } },
+  };
+}
+
+function summarize(state, questions, prompts = [], checks = []) {
+  const required = questions.filter(q => !q.bonus);
+  const answered = required.filter(q => state.answers[q.id]);
+  const correct = answered.filter(q => state.answers[q.id].correct).length;
+  return {
+    total: required.length, answered: answered.length, correct,
+    firstCorrect: answered.filter(q => state.answers[q.id].firstCorrect).length,
+    wrong: answered.filter(q => !state.answers[q.id].correct).map(q => q.id),
+    remaining: required.filter(q => !state.answers[q.id]).map(q => q.id),
+    percent: required.length ? Math.round(correct / required.length * 100) : 0,
+    promptTotal: prompts.filter(p => !p.bonus).length,
+    reflected: prompts.filter(p => !p.bonus && state.drafts[p.id]?.trim() && state.reflections[p.id] === 'ready').length,
+    evidenceTotal: checks.length,
+    evidenceDone: checks.filter(c => state.evidence[c.id]?.checked && state.evidence[c.id]?.note?.trim()).length,
+  };
+}
+
+function buildReport(state, questions, prompts, checks, date = new Date()) {
+  const s = summarize(state, questions, prompts, checks);
+  const lines = [
+    '# 같이, Git 학습 기록', '', `저장 시각: ${date.toISOString()}`, '',
+    '이 기록은 학습용 자기 점검입니다. 공식 PASS/FAIL 판정이나 실제 GitHub 증빙 검증 결과가 아닙니다.', '',
+    `- 필수 선택형: ${s.answered}/${s.total} 풀이, 현재 ${s.correct}개 정답, 첫 시도 ${s.firstCorrect}개 정답`,
+    `- 내 말로 설명: ${s.reflected}/${s.promptTotal}개를 스스로 설명 가능하다고 표시`,
+    `- 제출 자료: ${s.evidenceDone}/${s.evidenceTotal}개 직접 확인 표시`, '', '## 선택형 답안', '',
+  ];
+  for (const q of questions) {
+    const a = state.answers[q.id];
+    lines.push(`- ${q.bonus ? '[선택] ' : ''}${q.title}: ${a ? `${a.correct ? '정답' : '다시 학습'} / ${q.options.find(o => o.id === a.choice)?.text} / ${a.attempts}회 시도` : '아직 풀지 않음'}`);
+  }
+  lines.push('', '## 내 말로 설명', '');
+  for (const p of prompts) {
+    lines.push(`### ${p.title}`, '', state.drafts[p.id]?.trim() || '(아직 작성하지 않음)', '', `자가 판단: ${state.reflections[p.id] === 'ready' ? '설명할 수 있음' : state.reflections[p.id] === 'practice' ? '더 연습하기' : '미확인'}`, '');
+  }
+  lines.push('## 제출 자료 직접 확인', '');
+  for (const c of checks) {
+    const e = state.evidence[c.id];
+    lines.push(`- [${e?.checked && e.note?.trim() ? 'x' : ' '}] ${c.label}`, `  근거: ${e?.note?.trim() || '미기록'}`, '');
+  }
+  return lines.join('\n');
+}
+
+
+
+const $ = selector => document.querySelector(selector);
+const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+const paths = {
+  home: '<path d="m3 10 9-7 9 7v10H3z"/><path d="M9 20v-7h6v7"/>',
+  quiz: '<rect x="5" y="3" width="14" height="18" rx="3"/><path d="m8 9 2 2 5-5M8 15h8M8 18h5"/>',
+  talk: '<path d="M21 11a8 8 0 0 1-8 8H7l-5 3 2-6a8 8 0 1 1 17-5Z"/><path d="M8 10h8M8 14h5"/>',
+  folder: '<path d="M3 6a2 2 0 0 1 2-2h5l3 3h6a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><path d="m8 14 3 3 5-5"/>',
+  chart: '<path d="M4 3v17h17M8 16v-5M13 16V7M18 16V4"/>',
+  arrow: '<path d="M4 12h16m-6-6 6 6-6 6"/>',
+  check: '<path d="m5 12 4 4L19 6"/>',
+  book: '<path d="M12 5v16M3 4h5a4 4 0 0 1 4 3 4 4 0 0 1 4-3h5v15h-5a4 4 0 0 0-4 2 4 4 0 0 0-4-2H3Z"/>',
+  leaf: '<path d="M19 3C6 3 2 8 5 15s15 4 14-12ZM5 19l10-10"/>',
+  download: '<path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/>',
+  reset: '<path d="M3 11a9 9 0 1 1 2 7M3 4v7h7"/>',
+  link: '<path d="M14 3h7v7M21 3l-11 11M11 3H4v17h17v-7"/>',
+  close: '<path d="m6 6 12 12M6 18 18 6"/>',
+  branch: '<circle cx="7" cy="5" r="3"/><circle cx="17" cy="5" r="3"/><circle cx="7" cy="19" r="3"/><path d="M7 8v8M17 8a7 7 0 0 1-7 7H7"/>',
+};
+const icon = (name, cls = '') => `<svg class="icon ${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name] || paths.book}</svg>`;
+const views = { home: '학습 홈', guide: '쉬운 개념 노트', quiz: '이해도 확인', explain: '내 말로 설명', evidence: '제출 자료 확인', results: '나의 학습 기록' };
+let storage;
+try { storage = window.localStorage; } catch { storage = { getItem() { throw new Error(); }, setItem() { throw new Error(); }, removeItem() {} }; }
+const loaded = loadState(storage, questions, explainPrompts, evidenceChecks);
+let state = loaded.state;
+let storageWarning = loaded.warning;
+let view = views[location.hash.slice(1)] ? location.hash.slice(1) : 'home';
+let session = questions.filter(q => !q.bonus).map(q => q.id);
+let quizIndex = Math.max(0, session.indexOf(state.lastQuestion));
+let selected = null;
+let retrying = false;
+let promptId = explainPrompts.find(p => !p.bonus)?.id;
+let revealed = false;
+let includeBonus = false;
+let sessionLabel = '기본 이해 확인';
+let sessionRetry = false;
+
+function persist() {
+  const saved = saveState(storage, state);
+  storageWarning = saved ? '' : '브라우저에 저장하지 못하고 있어요. 화면을 닫기 전에 학습 기록을 내려받아 주세요.';
+  const badge = $('#save-state');
+  if (badge) badge.textContent = saved ? '이 브라우저에 저장됨' : '저장할 수 없음';
+  const warning = $('#storage-warning');
+  if (warning) { warning.textContent = storageWarning; warning.hidden = !storageWarning; }
+}
+
+function navigate(next) {
+  view = views[next] ? next : 'home';
+  history.replaceState(null, '', `#${view}`);
+  render();
+  $('#page-title')?.focus({ preventScroll: true });
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+function sourceLink(source) {
+  if (!source) return '';
+  return `<a class="source-link" href="${esc(source.path)}" target="_blank" rel="noopener">${icon('book')}${esc(source.label)} ${icon('link')}</a>`;
+}
+
+function pageHeader(kicker, title, description, action = '') {
+  return `<div class="page-heading"><div><p class="eyebrow">${esc(kicker)}</p><h1 id="page-title" tabindex="-1">${esc(title)}</h1><p class="page-description">${esc(description)}</p></div>${action}</div>`;
+}
+
+function render() {
+  const summary = summarize(state, questions, explainPrompts, evidenceChecks);
+  const nav = [ ['home', 'home', '학습 홈'], ['quiz', 'quiz', '이해도 확인'], ['explain', 'talk', '내 말로 설명'], ['evidence', 'folder', '제출 자료 확인'], ['results', 'chart', '나의 학습 기록'] ];
+  document.title = `${views[view]} · 같이, Git`;
+  $('#app').innerHTML = `
+    <aside class="sidebar">
+      <a class="brand" href="#home" data-view="home"><span class="brand-mark">${icon('branch')}</span><span>같이, <b>Git</b><small>한 걸음씩 이해하는 협업</small></span></a>
+      <div class="nav-caption">MY LEARNING</div>
+      <nav aria-label="학습 메뉴">${nav.map(([id, glyph, label], i) => `<button class="nav-item ${view === id ? 'active' : ''}" data-view="${id}" ${view === id ? 'aria-current="page"' : ''}>${icon(glyph)}<span>${label}</span>${i === 1 ? `<small>${summary.answered}/${summary.total}</small>` : ''}</button>`).join('')}</nav>
+      <div class="sidebar-bottom"><button class="guide-link" data-view="guide">${icon('book')} 용어가 낯설다면?</button><div class="sidebar-note"><span class="tiny-dot"></span> 서두르지 않아도 괜찮아요.<br>이해한 만큼, 한 걸음씩.</div><span class="course-tag">CODYSSEY · B2-2</span></div>
+    </aside>
+    <div class="workspace"><header class="topbar"><span>우리의 첫 번째 Git 협업 <span class="topbar-separator">/</span> <b>${views[view]}</b></span><span class="save-indicator"><span class="tiny-dot"></span><span id="save-state">${storageWarning ? '저장 상태 확인 필요' : '이 브라우저에 저장됨'}</span></span></header>
+      <main id="main-content" tabindex="-1"><p id="storage-warning" class="storage-warning" role="status" ${storageWarning ? '' : 'hidden'}>${esc(storageWarning)}</p>${view === 'home' ? homePage(summary) : view === 'quiz' ? quizPage() : view === 'explain' ? explainPage() : view === 'evidence' ? evidencePage(summary) : view === 'results' ? resultsPage(summary) : guidePage()}</main>
+      <footer class="app-footer"><span>외우는 Git에서, 설명할 수 있는 Git으로.</span><a href="../evalutation.md" target="_blank" rel="noopener">평가 기준 원문 ${icon('link')}</a></footer>
+    </div>
+    <dialog id="reset-dialog" aria-labelledby="reset-title"><h2 id="reset-title">이 브라우저의 학습 기록을 지울까요?</h2><p>선택한 답, 직접 쓴 설명, 제출 자료 메모가 지워집니다. 필요한 기록은 먼저 내려받아 주세요.</p><div class="dialog-actions"><button class="button secondary" data-action="cancel-reset">취소</button><button class="button danger" data-action="confirm-reset">학습 기록 지우기</button></div></dialog>`;
+  bindInputs();
+}
+
+function homePage(s) {
+  return `<section class="welcome"><div class="welcome-copy"><p class="eyebrow"><span class="tiny-line"></span> 첫 협업을 위한 작은 연습</p><h1 id="page-title" tabindex="-1">같이 만드는 Git,<br>얼마나 <em>이해했나요?</em></h1><p>명령어를 외우지 않아도 괜찮아요.<br>실제 상황을 풀어 보고, 내 말로 설명하며<br>네 사람이 함께 일하는 흐름을 익혀 봐요.</p><div class="hero-actions"><button class="button primary" data-action="continue">${s.answered ? '이어서 이해도 확인' : '이해도 확인 시작'} ${icon('arrow')}</button><button class="text-button" data-view="guide">개념부터 살펴보기</button></div><span class="microcopy">필수 ${s.total}문항 · 시간 제한 없음 · 중간에 쉬어도 저장돼요</span></div>
+      <div class="journey-art" aria-label="서로 다른 작업이 모여 하나의 결과가 되는 Git 협업"><div class="art-caption"><span class="tiny-dot"></span> 작은 작업이 모여, 하나의 팀으로</div><svg class="branch-art" viewBox="0 0 350 220" fill="none" aria-hidden="true"><path d="M65 34v151" stroke="#466b54" stroke-width="4"/><path d="M65 77c0 25 97 0 97 38v12c0 38-97 21-97 55" stroke="#9eae79" stroke-width="4"/><path d="M65 56c0 32 192 12 192 70 0 65-192 22-192 65" stroke="#ceb78d" stroke-width="4"/><circle cx="65" cy="37" r="11" fill="#2c5d49"/><circle cx="65" cy="185" r="15" fill="#2c5d49"/><path d="m58 185 5 5 10-11" stroke="#fff" stroke-width="3"/><circle cx="162" cy="120" r="10" fill="#9eae79"/><circle cx="257" cy="119" r="10" fill="#ceb78d"/><rect x="92" y="17" width="98" height="33" rx="10" fill="white"/><text x="141" y="39" text-anchor="middle" fill="#466b54" font-size="13" font-family="sans-serif">함께 시작해요</text><rect x="188" y="153" width="115" height="33" rx="10" fill="white"/><text x="245" y="175" text-anchor="middle" fill="#766549" font-size="13" font-family="sans-serif">서로 확인해요</text></svg><div class="art-footer"><span class="avatar-stack"><i>상</i><i>양</i><i>은</i><i>건</i></span><span>각자의 작업을<br><strong>함께 완성하는 연습</strong></span></div></div></section>
+    <section class="home-progress"><div class="progress-copy"><span class="progress-icon">${icon('leaf')}</span><div><strong>${s.answered ? '조금씩, 이해가 쌓이고 있어요' : '오늘, 첫 번째 기록을 남겨 보세요'}</strong><span>필수 문제 ${s.answered}/${s.total}개 풀이 · 현재 ${s.correct}개 정답</span></div></div><div class="progress-track" role="progressbar" aria-label="필수 문제 풀이 진행률" aria-valuenow="${s.answered}" aria-valuemin="0" aria-valuemax="${s.total}"><i style="width:${s.total ? s.answered / s.total * 100 : 0}%"></i></div><b>${s.total ? Math.round(s.answered / s.total * 100) : 0}%</b></section>
+    <section class="section"><div class="section-heading"><div><p class="eyebrow">LEARNING PATH</p><h2>세 단계로, 내 것으로 만들어요</h2></div><span class="subtle">정답보다 중요한 건, 그 이유예요.</span></div><div class="path-grid">${[
+      ['01', 'quiz', 'quiz', '상황을 보고 골라요', '커밋과 PR은 뭐가 다를까요? 실제 협업 상황에서 다음 행동을 선택해요.', `${s.total}개 상황 문제`, '문제 풀기'],
+      ['02', 'talk', 'explain', '내 말로 설명해요', '왜 그렇게 해야 할까요? 짧게 써 보고 핵심 내용과 비교해 봐요.', `${s.promptTotal}개 설명 연습`, '설명해 보기'],
+      ['03', 'folder', 'evidence', '내 자료를 확인해요', '이해한 것과 실제 한 일은 달라요. 우리 팀의 작업 근거를 직접 찾아봐요.', '8개 제출 자료 점검', '자료 확인하기'],
+    ].map(([n, glyph, route, title, description, count, label]) => `<article class="path-card"><div class="card-top"><span class="card-icon">${icon(glyph)}</span><span class="step-number">${n}</span></div><h3>${title}</h3><p>${description}</p><span class="card-count">${count}</span><button class="card-link" data-view="${route}">${label}${icon('arrow')}</button></article>`).join('')}</div></section>
+    <section class="gentle-note">${icon('book')}<div><strong>개발을 시작한 지 얼마 안 됐다면</strong><p>‘저장하기 → 올리기 → 검토 요청 → 합치기’부터 구분해 보세요. 쉬운 말로 한 번 더 설명해 드려요.</p></div><button class="text-button" data-view="guide">개념 노트 ${icon('arrow')}</button></section>`;
+}
+
+function quizPage() {
+  const q = questions.find(q => q.id === session[quizIndex]);
+  if (!q) return `${pageHeader('한 번 더 이해하기', '다시 풀 문제가 없어요', '기본 문제를 시작하거나 내 말로 설명하는 연습을 해 보세요.')}<button class="button primary" data-action="continue">기본 문제 시작 ${icon('arrow')}</button>`;
+  const answer = retrying ? null : state.answers[q.id];
+  const category = categories.find(c => c.id === q.category);
+  return `${pageHeader('STEP 01 · 상황을 보고 골라요', '이해도 확인', '한 번에 한 문제씩. 고른 이유를 생각한 뒤 답을 확인해 보세요.')}<div class="quiz-layout"><section class="quiz-panel"><div class="quiz-meta"><span class="pill">${esc(category?.label || 'Git 협업')}${q.bonus ? ' · 선택' : ''}</span><span>${quizIndex + 1}<span class="muted"> / ${session.length}</span></span></div><div class="question-progress"><i style="width:${(quizIndex + 1) / session.length * 100}%"></i></div><p class="question-context">${esc(q.context)}</p><h2 id="question-title" tabindex="-1">${esc(q.title)}</h2><fieldset class="answers" ${answer ? 'disabled' : ''}><legend class="sr-only">정답을 하나 선택해 주세요</legend>${q.options.map((o, i) => `<label class="answer-option ${answer?.choice === o.id || selected === o.id ? 'selected' : ''} ${answer && o.id === q.correct ? 'correct-option' : ''} ${answer && answer.choice === o.id && !answer.correct ? 'wrong-option' : ''}"><input type="radio" name="answer" value="${esc(o.id)}" ${answer?.choice === o.id || selected === o.id ? 'checked' : ''}><span class="option-letter">${String.fromCharCode(65 + i)}</span><span>${esc(o.text)}</span>${answer && o.id === q.correct ? icon('check') : ''}</label>`).join('')}</fieldset>
+      ${answer ? `<div class="answer-feedback ${answer.correct ? 'right' : 'rethink'}" role="status"><strong>${icon(answer.correct ? 'check' : 'leaf')}${answer.correct ? '잘 이해했어요.' : '괜찮아요. 이 차이를 기억해 봐요.'}</strong><p>${esc(q.optionFeedback?.[answer.choice] || q.explanation)}</p>${q.optionFeedback?.[answer.choice] !== q.explanation ? `<p>${esc(q.explanation)}</p>` : ''}<div class="takeaway">${esc(q.takeaway)}</div></div>` : ''}
+      <div class="quiz-actions"><button class="text-button" data-action="previous-question" ${quizIndex === 0 ? 'disabled' : ''}>이전 문제</button>${answer ? `<div class="action-pair"><button class="button secondary small" data-action="retry-question">한 번 더 풀기</button><button class="button primary" data-action="next-question">${quizIndex === session.length - 1 ? '학습 결과 보기' : '다음 문제'} ${icon('arrow')}</button></div>` : `<button class="button primary" data-action="submit-answer" ${selected ? '' : 'disabled'}>답 확인하기 ${icon('arrow')}</button>`}</div>${sourceLink(q.source)}</section>
+      <aside class="quiz-aside"><span class="aside-label">이번 연습</span><h3>${esc(sessionLabel)}</h3><p>틀린 문제는 다시 풀 수 있어요. 처음 고른 답과 다시 이해한 결과를 따로 기록해요.</p><div class="question-dots" aria-label="문제 이동">${session.map((id, i) => `<button class="question-dot ${i === quizIndex ? 'current' : ''} ${state.answers[id] ? state.answers[id].correct ? 'done' : 'incorrect' : ''}" data-question="${id}" aria-label="${i + 1}번 문제${state.answers[id] ? state.answers[id].correct ? ', 정답' : ', 다시 학습' : ', 아직 풀지 않음'}" ${i === quizIndex ? 'aria-current="step"' : ''}>${i + 1}</button>`).join('')}</div><p class="mini-legend"><span class="legend-green"></span> 이해했어요 <span class="legend-amber"></span> 다시 볼게요</p><button class="text-button" data-view="guide">용어가 헷갈리나요? ${icon('arrow')}</button></aside></div>`;
+}
+
+function explainPage() {
+  const prompts = explainPrompts.filter(p => includeBonus || !p.bonus);
+  if (!prompts.some(p => p.id === promptId)) promptId = prompts[0].id;
+  const p = prompts.find(p => p.id === promptId);
+  const draft = state.drafts[p.id] || '';
+  return `${pageHeader('STEP 02 · 내 말로 설명해요', '이유까지 말할 수 있나요?', '두세 문장이어도 좋아요. 직접 쓴 뒤 예시와 비교해 보세요. 자동으로 점수를 매기지 않아요.')}<div class="explain-layout"><aside class="prompt-list"><label class="bonus-toggle"><input id="bonus-toggle" type="checkbox" ${includeBonus ? 'checked' : ''}>보너스 rebase도 보기</label>${prompts.map((item, i) => `<button class="prompt-item ${item.id === promptId ? 'active' : ''}" data-prompt="${item.id}" ${item.id === promptId ? 'aria-current="true"' : ''}><span>${String(i + 1).padStart(2, '0')}</span><b>${esc(item.title)}</b>${state.reflections[item.id] === 'ready' ? icon('check') : ''}</button>`).join('')}</aside><section class="explain-panel"><span class="pill">${esc(p.source?.label || '말로 설명하기')}${p.bonus ? ' · 선택' : ''}</span><h2>${esc(p.title)}</h2><p class="prompt-description">${esc(p.prompt)}</p><label class="field-label" for="my-explanation">내가 이해한 내용</label><textarea id="my-explanation" data-prompt-input="${p.id}" rows="7" maxlength="10000" placeholder="예를 들어, 우리 팀에서는…">${esc(draft)}</textarea><div class="input-caption"><span>입력한 내용은 이 브라우저에만 저장돼요.</span><span id="draft-count">${draft.length.toLocaleString()} / 10,000</span></div><button class="button primary" id="reveal-answer" data-action="reveal-explanation" ${draft.trim() ? '' : 'disabled'}>${revealed ? '예시를 보고 계속 다듬기' : '예시와 비교하기'} ${icon('arrow')}</button>
+      ${revealed ? `<div class="reflection-box"><p class="eyebrow">비교하며 확인해요</p><h3>이 내용이 내 설명에 들어 있나요?</h3><ul class="point-list">${p.points.map(point => `<li>${icon('check')}<span>${esc(point)}</span></li>`).join('')}</ul><details class="sample-answer"><summary>설명 예시 펼쳐 보기</summary><p>${esc(p.sample)}</p></details><p class="reflection-prompt">예시를 덮어도 다시 설명할 수 있나요?</p><div class="reflection-actions"><button class="button ${state.reflections[p.id] === 'ready' ? 'primary' : 'secondary'}" data-reflection="ready">${icon('check')} 설명할 수 있어요</button><button class="button ${state.reflections[p.id] === 'practice' ? 'primary' : 'secondary'}" data-reflection="practice">조금 더 연습할래요</button></div><p class="microcopy">직접 판단한 기록입니다. 문장에 특정 단어가 있다고 정답 처리하지 않아요.</p></div>` : '<p class="writing-tip">처음부터 완벽하게 쓰지 않아도 돼요. 동료에게 말하듯 적어 보세요.</p>'}${sourceLink(p.source)}</section></div>`;
+}
+
+function evidencePage(s) {
+  return `${pageHeader('STEP 03 · 내 자료를 확인해요', '실제로 한 일도 남아 있나요?', '평가 항목 1의 여덟 가지 자료를 직접 열어 보고 확인해 주세요. 이 화면은 GitHub 설정이나 링크 내용을 대신 검사하지 않아요.')}<div class="evidence-banner"><span>${icon('folder')} 직접 확인한 자료</span><strong id="evidence-count">${s.evidenceDone} <small>/ ${s.evidenceTotal}</small></strong><span class="subtle">근거를 적으면 완료 표시를 할 수 있어요.</span></div><div class="evidence-list">${evidenceChecks.map((c, i) => { const e = state.evidence[c.id] || { checked: false, note: '' }; return `<details class="evidence-card" ${i === 0 ? 'open' : ''}><summary><span class="evidence-number">${String(i + 1).padStart(2, '0')}</span><span>${esc(c.label)}</span><span id="evidence-status-${c.id}" class="evidence-status ${e.checked ? 'complete' : ''}">${e.checked ? '직접 확인함' : '확인 전'}</span></summary><div class="evidence-content"><p>${esc(c.help)}</p><label class="field-label" for="proof-${c.id}">확인한 링크 또는 기록</label><textarea id="proof-${c.id}" data-evidence-input="${c.id}" maxlength="4000" rows="3" placeholder="예: 실제 팀 PR 주소와 확인한 내용을 적어 주세요.">${esc(e.note)}</textarea><label class="check-row"><input type="checkbox" data-evidence-check="${c.id}" ${e.checked ? 'checked' : ''} ${e.note.trim() ? '' : 'disabled'}>위 자료를 직접 확인했습니다.</label>${sourceLink(c.source)}</div></details>`; }).join('')}</div><div class="gentle-note">${icon('book')}<div><strong>test/의 연습 기록과 실제 제출은 구분해요.</strong><p>이름을 바꾼 로컬 커밋은 실제 팀원의 로그인·리뷰·권한 설정을 증명하지 않아요. 현재 자료의 검토 결과도 함께 볼 수 있어요.</p><a class="source-link" href="../docs/0020_b2-2-evaluation-audit.md" target="_blank" rel="noopener">현재 저장소 평가 검토 읽기 ${icon('link')}</a></div></div><button class="button secondary" data-action="download">${icon('download')} 내 확인 기록 내려받기</button>`;
+}
+
+function resultsPage(s) {
+  const categoryStats = categories.map(c => ({ ...c, ...summarize(state, questions.filter(q => q.category === c.id)) }));
+  return `${pageHeader('MY LEARNING · 차곡차곡 쌓인 기록', '어디까지 이해했을까요?', '선택형 결과, 스스로 설명한 내용, 실제 자료 확인을 따로 볼 수 있어요.', '<button class="button secondary" data-action="download">' + icon('download') + ' 기록 내려받기</button>')}<div class="result-grid"><article class="result-primary"><span>필수 선택형 · 현재 정답</span><strong>${s.correct}<small> / ${s.total}</small></strong><p>${s.answered}문항 풀이 · 첫 시도 정답 ${s.firstCorrect}개</p><div class="progress-track"><i style="width:${s.percent}%"></i></div></article><article class="result-small"><span>${icon('talk')} 내 말로 설명</span><strong>${s.reflected}<small> / ${s.promptTotal}</small></strong><p>스스로 설명 가능하다고 표시</p></article><article class="result-small"><span>${icon('folder')} 제출 자료</span><strong>${s.evidenceDone}<small> / ${s.evidenceTotal}</small></strong><p>근거를 적고 직접 확인한 항목</p></article></div><p class="result-boundary">이 결과는 학습 방향을 알려 줍니다. 실제 팀의 과제 PASS/FAIL 판정은 평가자와 제출 자료 확인이 필요해요.</p>
+    <section class="results-section"><div class="section-heading"><h2>주제별로 살펴보기</h2><span class="subtle">현재 정답 / 필수 문제</span></div><div class="category-results">${categoryStats.map(c => `<article><div><strong>${esc(c.label)}</strong><span>${c.correct} / ${c.total}</span></div><div class="progress-track"><i style="width:${c.percent}%"></i></div><p>${esc(c.description)}</p><button class="text-button" data-category="${c.id}">이 주제 다시 풀기 ${icon('arrow')}</button></article>`).join('')}</div></section>
+    <section class="results-section"><div class="section-heading"><h2>${s.wrong.length ? '한 번 더 보면 좋을 내용' : s.remaining.length ? '아직 만나지 않은 문제가 있어요' : '이제 이유를 설명해 볼 차례예요'}</h2>${s.wrong.length ? '<button class="button secondary small" data-action="retry-wrong">오답만 다시 풀기</button>' : ''}</div>${s.wrong.length ? `<div class="wrong-list">${s.wrong.map(id => { const q = questions.find(q => q.id === id); return `<button data-review-question="${id}"><span>${esc(q.title)}<small>${esc(q.takeaway)}</small></span>${icon('arrow')}</button>`; }).join('')}</div>` : `<div class="empty-card">${icon('leaf')}<p>${s.remaining.length ? `아직 ${s.remaining.length}문항이 남았어요. 한 문제씩 이어가 보세요.` : '정답을 고른 이유도 내 말로 설명할 수 있다면, 더 단단한 이해가 됩니다.'}</p><button class="button primary" ${s.remaining.length ? 'data-action="continue"' : 'data-view="explain"'}>${s.remaining.length ? '이어서 풀기' : '내 말로 설명하기'} ${icon('arrow')}</button></div>`}</section>
+    <section class="bonus-card"><div><span class="eyebrow">OPTIONAL</span><h3>rebase도 연습했다면</h3><p>보너스 문제는 필수 점수에 포함하지 않아요.</p></div><button class="button secondary" data-action="bonus-quiz">보너스 문제 풀기 ${icon('arrow')}</button></section><div class="reset-area"><button class="text-button" data-action="ask-reset">${icon('reset')} 이 브라우저의 학습 기록 초기화</button></div>`;
+}
+
+function guidePage() {
+  const concepts = [
+    ['01', '파일 저장 · commit · push', '노트에 글을 썼다고 팀원에게 바로 보이는 건 아니에요.', '파일 저장은 지금 편집한 내용을 남기는 것, commit은 의미 있는 변경을 Git에 기록하는 것, push는 그 기록을 팀이 공유하는 저장소에 보내는 것이에요.'],
+    ['02', 'branch · main', '팀의 기본 버전에서 내 작업을 따로 이어 가요.', 'branch는 작업 기록의 갈래예요. main도 브랜치이고, 팀이 확인한 결과를 모아 두는 기본 브랜치로 정한 이름이에요. 작업별로 브랜치를 나누면 동료 작업과 섞지 않고 검토할 수 있어요.'],
+    ['03', 'Issue · PR · merge', '할 일, 확인 요청, 합치기를 구분해요.', 'Issue에는 할 일을 적어요. PR은 “이 변경을 확인하고 합쳐 주세요”라는 요청이에요. 리뷰와 승인 뒤 실제로 합치는 행동이 merge예요. PR 하나에 커밋 여러 개가 들어갈 수 있어요.'],
+    ['04', '리뷰 · 피드백 반영', '동료가 읽고, 내가 이유를 답해요.', '“좋아요”만 적기보다 특정 문장이나 예시를 보고 질문해요. 작성자는 수정하거나 근거 있는 답변을 남기고, 동료가 최종 결과를 확인해요.'],
+    ['05', '충돌 해결', 'Git이 최종 내용을 고르지 못하면 사람이 판단해요.', '같은 문장을 두 사람이 다르게 고칠 수 있어요. 둘의 의도를 확인하고 최종 문장을 정한 뒤 검토해요. 충돌 표시 기호만 지우는 것으로 끝나지 않아요.'],
+    ['06', 'amend · reset · revert · stash', '무엇을 되돌리고 싶은지 먼저 생각해요.', '공유 전 메시지 오타는 amend, 공유 전 마지막 커밋을 풀고 내용은 유지하려면 reset --soft HEAD~1, 공유된 파일 변경 취소는 revert, 미완성 변경 임시 보관은 stash예요. revert는 메시지 오타를 고치는 명령이 아니에요.'],
+  ];
+  return `${pageHeader('작은 개념 노트', '어려운 말부터 풀어 볼까요?', '네 사람이 공부 노트를 함께 만든다고 생각해 보세요.')}<div class="concept-grid">${concepts.map(([n, title, lead, text]) => `<article class="concept-card"><span class="step-number">${n}</span><h2>${esc(title)}</h2><strong>${esc(lead)}</strong><p>${esc(text)}</p></article>`).join('')}</div><div class="guide-actions"><button class="button primary" data-action="continue">이제 한 문제 풀어 보기 ${icon('arrow')}</button><a class="button secondary" href="../docs/0018_b2-2-first-week-guide.md" target="_blank" rel="noopener">전체 쉬운 설명서 ${icon('link')}</a></div>`;
+}
+
+function bindInputs() {
+  document.querySelectorAll('input[name="answer"]').forEach(input => input.addEventListener('change', () => {
+    selected = input.value;
+    document.querySelectorAll('.answer-option').forEach(label => label.classList.toggle('selected', label.contains(input)));
+    $('[data-action="submit-answer"]').disabled = false;
+  }));
+  $('#bonus-toggle')?.addEventListener('change', event => { includeBonus = event.target.checked; render(); });
+  $('#my-explanation')?.addEventListener('input', event => {
+    state.drafts[promptId] = event.target.value;
+    delete state.reflections[promptId];
+    document.querySelectorAll('[data-reflection]').forEach(b => { b.classList.remove('primary'); b.classList.add('secondary'); });
+    $('#draft-count').textContent = `${event.target.value.length.toLocaleString()} / 10,000`;
+    $('#reveal-answer').disabled = !event.target.value.trim();
+    persist();
+  });
+  document.querySelectorAll('[data-evidence-input]').forEach(input => input.addEventListener('input', () => {
+    const id = input.dataset.evidenceInput;
+    state.evidence[id] = { note: input.value, checked: false };
+    const check = document.querySelector(`[data-evidence-check="${id}"]`);
+    check.disabled = !input.value.trim(); check.checked = false;
+    updateEvidenceStatus(id); persist();
+  }));
+  document.querySelectorAll('[data-evidence-check]').forEach(input => input.addEventListener('change', () => {
+    const id = input.dataset.evidenceCheck;
+    state.evidence[id].checked = input.checked && Boolean(state.evidence[id].note.trim());
+    updateEvidenceStatus(id); persist();
+  }));
+}
+
+function updateEvidenceStatus(id) {
+  const el = $(`#evidence-status-${id}`);
+  el.textContent = state.evidence[id].checked ? '직접 확인함' : '확인 전';
+  el.classList.toggle('complete', state.evidence[id].checked);
+  const s = summarize(state, questions, explainPrompts, evidenceChecks);
+  $('#evidence-count').innerHTML = `${s.evidenceDone} <small>/ ${s.evidenceTotal}</small>`;
+}
+
+function startSession(ids, label, first = 0, retry = false) {
+  session = ids; sessionLabel = label; quizIndex = first;
+  selected = null; sessionRetry = retry; retrying = retry; navigate('quiz');
+}
+
+document.addEventListener('click', event => {
+  if (event.target.closest('.skip-link')) { event.preventDefault(); $('#main-content')?.focus(); return; }
+  const el = event.target.closest('[data-view],[data-action],[data-question],[data-prompt],[data-reflection],[data-category],[data-review-question]');
+  if (!el || el.disabled) return;
+  if (el.dataset.view) { event.preventDefault(); navigate(el.dataset.view); return; }
+  if (el.dataset.question) { quizIndex = session.indexOf(el.dataset.question); selected = null; retrying = sessionRetry; render(); $('#question-title')?.focus(); return; }
+  if (el.dataset.prompt) { promptId = el.dataset.prompt; revealed = false; render(); $('#my-explanation')?.focus({ preventScroll: true }); return; }
+  if (el.dataset.reflection) { if (state.drafts[promptId]?.trim()) { state.reflections[promptId] = el.dataset.reflection; persist(); render(); $('#announcer').textContent = '나의 판단을 저장했어요.'; } return; }
+  if (el.dataset.category) { startSession(questions.filter(q => q.category === el.dataset.category && !q.bonus).map(q => q.id), categories.find(c => c.id === el.dataset.category).label, 0, true); return; }
+  if (el.dataset.reviewQuestion) { startSession([el.dataset.reviewQuestion], '다시 이해하기', 0, true); return; }
+  const action = el.dataset.action;
+  if (action === 'continue') {
+    const ids = questions.filter(q => !q.bonus).map(q => q.id);
+    startSession(ids, '기본 이해 확인', Math.max(0, ids.findIndex(id => !state.answers[id])));
+  } else if (action === 'submit-answer' && selected) {
+    const q = questions.find(q => q.id === session[quizIndex]);
+    state = recordAnswer(state, q, selected); retrying = false; persist(); render();
+    $('.answer-feedback')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    $('#announcer').textContent = state.answers[q.id].correct ? '정답이에요. 설명을 읽고 다음 문제로 이동해 주세요.' : '다시 생각해 볼 문제예요. 아래 설명을 읽어 주세요.';
+  } else if (action === 'retry-question') { retrying = true; selected = null; render(); $('input[name="answer"]')?.focus(); }
+  else if (action === 'next-question') { if (quizIndex === session.length - 1) navigate('results'); else { quizIndex++; selected = null; retrying = sessionRetry; render(); $('#question-title')?.focus(); } }
+  else if (action === 'previous-question' && quizIndex > 0) { quizIndex--; selected = null; retrying = sessionRetry; render(); $('#question-title')?.focus(); }
+  else if (action === 'reveal-explanation' && state.drafts[promptId]?.trim()) { revealed = true; render(); $('.reflection-box')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+  else if (action === 'retry-wrong') { startSession(summarize(state, questions).wrong, '오답 다시 보기', 0, true); }
+  else if (action === 'bonus-quiz') { startSession(questions.filter(q => q.bonus).map(q => q.id), '보너스 · rebase'); }
+  else if (action === 'download') {
+    const blob = new Blob([buildReport(state, questions, explainPrompts, evidenceChecks)], { type: 'text/markdown;charset=utf-8' });
+    const url = URL.createObjectURL(blob); const link = document.createElement('a');
+    link.href = url; link.download = `같이-Git-학습기록-${new Date().toLocaleDateString('sv-SE')}.md`; link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    $('#announcer').textContent = '학습 기록 다운로드를 시작했어요.';
+  } else if (action === 'ask-reset') $('#reset-dialog').showModal();
+  else if (action === 'cancel-reset') $('#reset-dialog').close();
+  else if (action === 'confirm-reset') {
+    state = emptyState(); selected = null; retrying = false; revealed = false; includeBonus = false; quizIndex = 0;
+    session = questions.filter(q => !q.bonus).map(q => q.id); sessionLabel = '기본 이해 확인'; sessionRetry = false; promptId = explainPrompts.find(p => !p.bonus)?.id;
+    try { storage.removeItem(STORAGE_KEY); } catch { /* Report persistence failure below. */ }
+    persist(); navigate('home'); $('#announcer').textContent = '이 브라우저의 학습 기록을 초기화했어요.';
+  }
+});
+window.addEventListener('hashchange', () => { view = views[location.hash.slice(1)] ? location.hash.slice(1) : 'home'; render(); });
+render();
+
+})();
+</script>
 </body>
 </html>
