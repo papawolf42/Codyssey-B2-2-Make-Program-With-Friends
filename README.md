@@ -16,6 +16,8 @@ Git의 기본 기능(Commit, Push)을 넘어 **GitHub Flow, Issue/PR 연동, 코
 
 ## 재시도 실행안
 
+개발을 막 시작했다면 **[0018. 개발 1주일차를 위한 쉬운 설명서](docs/0018_b2-2-first-week-guide.md)**부터 읽으세요. 네 사람이 공부 노트를 함께 만드는 예로 commit·push·PR·merge의 차이와 `test/`의 연습 내용을 설명합니다.
+
 현재 운영 기준은 **[0015. 4인 병렬 협업 실행안](docs/0015_b2-2-retry-workflow.md)**입니다. 기존 기록의 부족분 확인, 역할별 작업·리뷰 배정, 두 쌍의 충돌 실습, 최종 제출 기준을 담았습니다.
 
 화면 조작, 복사할 PowerShell 명령, 기대 결과와 오류 대응은 **[0016. 담당자별 Step-by-step 실행서](docs/0016_b2-2-retry-step-by-step.md)**에서 확인합니다.

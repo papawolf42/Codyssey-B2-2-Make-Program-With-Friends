@@ -1,0 +1,60 @@
+*   a473b1e Merge pull request #10 from feature/d-practice
+|\  
+| *   ac641ec Merge branch 'main' into feature/d-practice
+| |\  
+| |/  
+|/|   
+* |   6659ed8 Merge pull request #9 from feature/c-practice
+|\ \  
+| * | 36316ba docs: sync-timing.md 동기화 시점 문장 수정 (C 버전: 작업 시작 전)
+| * | fb3ef2d docs: revert 실습 상세 증빙 및 실행 로그 기록
+| * | c77b7e9 Revert "feat: Add temporary file for revert demonstration"
+| * | 20b886d feat: Add temporary file for revert demonstration
+|/ /  
+| * a207433 docs: sync-timing.md 동기화 시점 문장 수정 (D 버전: PR 병합 전)
+| * 3e03db8 docs: stash/pop 실습 상세 증빙 및 실행 로그 기록
+| * 8854c75 docs: stash/pop 작업 임시 보관 및 복원 실습 완료
+| * 7f723c8 docs: stash 실습을 위한 기준 파일 추적
+|/  
+*   cad75de Merge pull request #8 from feature/b-practice
+|\  
+| *   74ac7c8 Merge branch 'main' into feature/b-practice
+| |\  
+| |/  
+|/|   
+* |   6add677 Merge pull request #7 from feature/a-practice
+|\ \  
+| * | ad8de5e docs: review-request.md 리뷰 요청 문장 수정 (A 버전: 변경 이유 추가)
+| * | a0ac6be docs: amend 실습 상세 증빙 및 실행 로그 기록
+| * | 8ca401f docs: amend 커밋 메시지 오타 수정 실습 기록
+|/ /  
+| * f481fec docs: review-request.md 리뷰 요청 문장 수정 (B 버전: 검증 결과 추가)
+| * 3366c89 docs: reset --soft 실습 상세 증빙 및 실행 로그 기록
+| * 741506d docs: reset --soft 커밋 취소 실습 기록
+|/  
+*   26a8ef5 Merge pull request #6 from feature/d-notes
+|\  
+| * e1d492c docs: 리뷰 피드백 반영 (오픈소스 체크리스트 보완)
+| * 637b481 feat: Add notes/04-open-source.md on open source PR practices
+* |   27ad76b Merge pull request #5 from feature/c-notes
+|\ \  
+| * | 525301e docs: 리뷰 피드백 반영 (충돌 마커 의미 및 3-Way Merge 원리 보완)
+| * | 4843b2e feat: Add notes/03-conflict-guide.md explaining conflict causes
+| |/  
+* |   bfaff93 Merge pull request #4 from feature/b-notes
+|\ \  
+| * | 09984c4 docs: 리뷰 피드백 반영 (main 브랜치 안정성 이유 추가)
+| * | d18c578 feat: Add notes/02-github-flow.md detailing branch lifecycle
+| |/  
+* |   ad97796 Merge pull request #3 from feature/a-notes
+|\ \  
+| |/  
+|/|   
+| * ac77e80 docs: 리뷰 피드백 반영 (Git 3대 영역 diff 명령어 예시 보완)
+| * dfe9f4c feat: Add notes/01-git-basics.md explaining git three areas
+|/  
+*   4c247ea Merge pull request #2 from feature/retry-setup
+|\  
+| * 9af897e docs: 협업 가이드 CONTRIBUTING.md 및 연습용 파일 2개 준비
+|/  
+* d34273a docs: Initial commit (기본 README.md)
