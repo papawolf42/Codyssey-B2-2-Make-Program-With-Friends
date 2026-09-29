@@ -48,6 +48,8 @@
 [제7부] 최종 산출물 취합 & 제출 PR (김상교 작성 ➔ 김건우 리뷰 & 최종 머지)
    ↓
 [제8부] 최종 평가 항목별 구두 면접 문답 대비 (항목 2~4 전수 점검)
+   ↓ (선택)
+[제9부] 보너스: CODEOWNERS 설정 → 개인 rebase → 자동 리뷰 요청 확인
 ```
 
 **충돌 실습은 총 3번입니다**:
@@ -1942,6 +1944,366 @@ git log --graph --oneline --all | Out-File -FilePath docs/git-history.txt -Encod
 
 #### Q13. "충돌이 같은 파일/같은 영역에서 반복적으로 발생한다면 원인과 예방 방안은 무엇인가요?"
 - **답변**: "원인은 한 파일에 너무 많은 역할이 집중되어 있거나(결합도 높음), 팀원 간 작업 분담 범위가 겹치기 때문입니다. 예방 방안으로는 1) 하나의 큰 파일을 모듈별로 잘게 분리하고, 2) 브랜치 수명을 짧게 유지하여 수시로 `main`의 변경을 동기화(`fetch & merge`)하며, 3) 공통 접점(인터페이스나 시드 파일)의 구조를 작업 전에 미리 합의하여 정의하는 것입니다."
+
+---
+
+# [제9부] 선택 보너스 — CODEOWNERS와 개인 브랜치 히스토리 정리
+
+> **어려운가요?** CODEOWNERS는 파일에 담당자 이름을 적는 정도여서 쉬운 편입니다. `rebase -i`는 Git이 띄우는 편집 화면을 두세 번 다루므로 조금 더 주의가 필요합니다. 아래 순서대로 새 개인 브랜치에서 연습하면 됩니다.
+> **담당 예시**: 김상교가 작업하고 장양환·김건우·조은익이 리뷰합니다. 전원에게 보너스 수행을 요구하는 것은 아닙니다.
+> **대상**: `beatles12/codyssey-b2-2-gitflow`를 복제한 폴더. 앞에서 병합한 실습 이력은 그대로 두고 새 브랜치 두 개를 차례로 사용합니다.
+
+**큰 흐름**:
+
+1. 담당자 파일 `.github/CODEOWNERS`를 추가하고 첫 PR로 main에 병합합니다.
+2. 새 개인 브랜치에서 작은 커밋 3개를 만듭니다. 이때는 아직 푸시하지 않습니다.
+3. `rebase -i`로 메시지를 고치고 커밋 두 개를 합쳐 **3개 → 2개**로 정리합니다.
+4. 전후 이력과 파일 내용이 같다는 확인 결과를 기록합니다.
+5. 두 번째 PR에서 담당자에게 리뷰 요청이 자동으로 생기는지 확인합니다.
+
+제7부 최종 제출 전에 해도 되고, 제출 PR을 이미 병합했다면 후속 PR로 추가해도 됩니다. **보너스를 실제로 마친 뒤에만** README·SUBMISSION에 완료 증빙을 추가합니다. 기존 제7부에 적은 필수 실습 7개 증빙과 이번 보너스 증빙은 별도로 구분합니다.
+
+## 9-A. CODEOWNERS — “이 파일을 바꾸면 이 사람에게 리뷰를 요청해 주세요”
+
+`CODEOWNERS`는 파일별 담당 리뷰어 명단입니다. 예를 들어 학습 노트는 해당 내용을 아는 동료에게, 공통 설정은 팀장과 다른 동료에게 검토를 맡길 수 있습니다.
+
+### Step 9-1. [김상교] 담당자와 권한 확인, 이슈 만들기
+팀원들과 아래 담당표를 확인합니다. 파일의 작성자와 책임 리뷰어는 같을 필요가 없습니다.
+
+| GitHub 계정 | 팀원 |
+|---|---|
+| `beatles12` | 김상교 |
+| `surilog` | 장양환 |
+| `nick19850906-debug` | 조은익 |
+| `papawolf42` | 김건우 |
+
+담당자로 적은 계정에는 이 저장소의 **쓰기 권한**이 있어야 합니다. 김상교가 저장소 `Settings`의 협업자 관리 화면에서 초대 수락과 접근 권한을 확인합니다.
+
+GitHub에 다음 이슈를 만들고 **생성된 실제 번호**를 메모합니다. 보너스 이슈는 아직 생성하지 않았으므로 번호를 미리 정하지 않습니다.
+
+- **제목**: `[bonus] CODEOWNERS로 파일별 책임 리뷰어 지정`
+- **본문**: `.github/CODEOWNERS를 추가하고, main 병합 후 새 PR에서 자동 리뷰 요청을 확인한다.`
+
+### Step 9-2. [김상교] 파일 만들기
+터미널에서:
+```bash
+git checkout main
+git pull origin main
+git status
+git checkout -b feature/sangkyo-codeowners
+```
+`git status`에 작업 중인 변경이 없다면 진행합니다. 기존 `.github` 폴더 안에 **확장자가 없는 대문자 파일 `CODEOWNERS`**를 만들고 아래 내용을 저장합니다. `CODEOWNERS.txt`로 만들지 않습니다.
+
+```text
+# 기본 담당자: 아래에 더 구체적인 규칙이 없는 파일
+* @beatles12 @papawolf42
+
+# 학습 노트별 책임 리뷰어
+/notes/01-git-basics.md @surilog @nick19850906-debug
+/notes/02-github-flow.md @nick19850906-debug @papawolf42
+/notes/03-conflict-guide.md @papawolf42 @beatles12
+/notes/04-open-source.md @beatles12 @surilog
+
+# 문서, 실습 파일, GitHub 설정
+/docs/ @papawolf42 @nick19850906-debug
+/src/practice/ @surilog @nick19850906-debug
+/.github/ @beatles12 @surilog
+```
+
+**한 줄 읽는 법**: `/docs/ @papawolf42 @nick19850906-debug`는 “docs 폴더 아래 파일을 바꾸면 김건우와 조은익에게 리뷰를 요청한다”는 뜻입니다.
+
+**동작 규칙**:
+
+- 여러 규칙에 맞으면 **마지막으로 맞은 줄**을 사용합니다. `/docs/`는 기본 `*`의 담당자를 누적하는 것이 아니라 대신 적용됩니다.
+- 같은 경로의 담당자 여러 명은 **한 줄에** 적습니다. 경로의 대소문자도 맞춰야 합니다.
+- 자동 요청은 PR이 향하는 **base 브랜치의 CODEOWNERS**를 기준으로 합니다. 이번 추가 PR은 장양환을 수동으로 지정하고, main 병합 뒤 새 PR로 자동화를 확인합니다.
+- Draft PR은 `Ready for review`로 전환한 뒤 확인합니다. 본인 PR은 본인이 승인할 수 없으므로 동료의 리뷰가 필요합니다.
+- 자동 요청과 승인 강제는 다릅니다. 팀장이 main 보호 규칙의 `Require review from Code Owners`를 켜야 담당자 승인을 병합 조건으로 강제합니다. 한 경로의 담당자 2명을 적어도 둘 모두의 승인을 요구하는 뜻은 아닙니다.
+
+위 규칙은 [GitHub CODEOWNERS 공식 안내](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)를 기준으로 정리했습니다. 이번 보너스에서는 파일 추가와 자동 요청 확인부터 진행하며, 보호 설정을 바꿨다고 가정하지 않습니다.
+
+### Step 9-3. [김상교 & 장양환] 첫 PR로 담당자 파일 병합하기
+아래 명령은 한 줄씩 실행합니다. `git diff --cached --check`가 오류를 표시하면 해당 줄을 고치고 다시 확인한 뒤 커밋합니다.
+```bash
+git add .github/CODEOWNERS
+git diff --cached --check
+git commit -m "docs: Assign code owners for notes and practice files"
+git push -u origin feature/sangkyo-codeowners
+```
+
+1. GitHub에서 base `main`, compare `feature/sangkyo-codeowners`로 PR을 만듭니다.
+2. 제목: `docs: Add CODEOWNERS for team review routing`
+3. 본문에는 아래 내용을 넣고 이슈 번호를 실제 번호로 바꿉니다:
+   ```markdown
+   Closes #담당자설정이슈번호
+
+   ## What
+   - .github/CODEOWNERS에 노트·문서·실습 파일별 책임 리뷰어 지정
+   ## Why
+   - 변경된 파일의 담당자에게 리뷰를 자동 요청하기 위함
+   ## How
+   - 팀원 계정과 쓰기 권한 확인
+   - main 병합 후 별도 보너스 PR에서 자동 요청 확인 예정
+   ```
+4. Reviewers에서 **장양환(`surilog`)을 수동 선택**합니다. 장양환은 담당자·경로·규칙 순서를 확인하고 파일의 해당 줄에 질문합니다. 김상교는 답하거나 수정합니다.
+5. 장양환의 승인 후 김상교가 병합합니다. **이 PR의 실제 URL을 보관**합니다.
+6. GitHub의 main에서 `.github/CODEOWNERS`를 열어 파일이 존재하고 오류 표시가 없는지 확인합니다. 자동 리뷰 요청은 다음 실습 PR에서 확인합니다.
+
+## 9-B. rebase -i — “작업 내용을 보존하면서 커밋 기록을 정리하기”
+
+커밋은 작업 내용에 붙인 기록입니다. 연습하면서 잘게 나눈 기록을 제출 전에 읽기 좋게 묶을 수 있습니다.
+
+| 명령 | 쉬운 뜻 | 이번 실습에서 하는 일 |
+|---|---|---|
+| `pick` | 이 커밋을 그대로 사용 | 마지막 커밋 유지 |
+| `reword` | 변경 내용은 두고 설명 수정 | 첫 커밋의 제목 정리 |
+| `squash` | 바로 앞 커밋과 합치기 | 두 번째 커밋을 첫 번째와 합침 |
+
+`rebase -i`의 `-i`는 편집 목록을 열어 직접 고른다는 뜻입니다. 커밋 순서·설명·묶음을 바꾸면 커밋 번호도 바뀔 수 있습니다. [Git 공식 설명](https://git-scm.com/docs/git-rebase), [공식 학습서의 히스토리 정리 예시](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History)
+
+### Step 9-4. [김상교] 새 개인 브랜치와 출발점 보관하기
+새 이슈를 만듭니다:
+- **제목**: `[bonus] 개인 브랜치 rebase와 전후 히스토리 비교`
+- **본문**: `미푸시 개인 커밋 3개를 reword/squash로 2개로 정리하고, 내용 보존과 CODEOWNERS 자동 요청을 확인한다.`
+
+첫 보너스 PR이 main에 병합된 뒤 실행합니다:
+```bash
+git checkout main
+git pull origin main
+git status
+git checkout -b feature/sangkyo-rebase-bonus
+git branch backup/sangkyo-bonus-base
+```
+
+`backup/sangkyo-bonus-base`는 **시작 지점을 가리키는 로컬 이름표**입니다. 원격에 올릴 필요는 없습니다. 이미 같은 이름이 있으면 이전 실습 여부를 확인하고 새 이름을 정해 뒤 명령에도 일관되게 사용합니다. `git branch -f`로 기존 보관 지점을 덮어쓰지 않습니다.
+
+**실습 범위**: 지금 만든 브랜치의 아직 푸시하지 않은 커밋만 정리합니다. `main`, 다른 사람의 브랜치, 앞에서 병합한 PR 이력에는 rebase를 실행하지 않습니다.
+
+### Step 9-5. [김상교] 작은 커밋 3개 만들기
+VS Code에서 `docs/bonus` 폴더를 만들고 `rebase-practice.md`를 생성합니다. 파일 편집은 에디터에서 하므로 터미널별 한글 저장 방식 차이를 피할 수 있습니다.
+
+**첫 번째 커밋** — 아래 내용으로 저장:
+```markdown
+# rebase 연습
+
+목적: 작업 기록을 정리한다.
+```
+```bash
+git add docs/bonus/rebase-practice.md
+git commit -m "docs: Draft rebase practice"
+```
+
+**두 번째 커밋** — 아래 문장을 마지막 줄에 추가하고 저장:
+```text
+안전 수칙: 아직 푸시하지 않은 개인 브랜치에서만 연습한다.
+```
+```bash
+git add docs/bonus/rebase-practice.md
+git commit -m "docs: Add rebase safety rule"
+```
+
+**세 번째 커밋** — 아래 문장을 마지막 줄에 추가하고 저장:
+```text
+검증: 정리 전후 파일 내용은 같아야 한다.
+```
+```bash
+git add docs/bonus/rebase-practice.md
+git commit -m "docs: Add content comparison check"
+```
+
+**아직 `git push`하지 않습니다.** 정리와 비교가 끝나면 한 번에 올립니다.
+
+### Step 9-6. [김상교] 정리 전 이력과 원본 보관하기
+```bash
+git status
+git branch backup/sangkyo-bonus-before
+git log --reverse --oneline backup/sangkyo-bonus-base..HEAD
+git rev-list --count backup/sangkyo-bonus-base..HEAD
+```
+
+- 작업 트리가 깨끗한지 확인합니다. 변경이 남아 있다면 먼저 어떤 파일인지 확인합니다.
+- 마지막 명령의 결과는 **`3`**이어야 합니다. 다르면 다음 단계로 가지 말고 방금 만든 커밋을 확인합니다.
+- 커밋 번호가 포함된 **실제 세 줄의 로그를 복사해 둡니다.** 나중에 정리 전 증빙으로 붙여넣습니다.
+- `backup/sangkyo-bonus-before`는 정리 전 마지막 커밋을 보관합니다. rebase 후에도 이 이름으로 원본과 비교할 수 있습니다.
+
+### Step 9-7. [김상교] 편집 목록에서 reword와 squash 선택하기
+**VS Code 명령을 쓸 수 있는 경우**: `code --version`이 정상 실행되는지 확인하고 아래 명령을 실행합니다.
+```bash
+git -c core.editor="code --wait" -c sequence.editor="code --wait" rebase -i HEAD~3
+```
+`HEAD~3`은 현재 위치에서 세 커밋 전까지 올라간 지점입니다. Git은 **그 뒤의 커밋 3개**를 편집 목록에 표시합니다. `--wait`는 편집 파일을 닫을 때까지 Git이 기다리게 합니다. `-c` 설정은 이번 명령에만 적용됩니다.
+
+`code` 명령이 없다면 `git rebase -i HEAD~3`을 실행해 Git의 기본 편집기를 사용할 수 있습니다. 기본 편집기가 Vim이라면 `i`를 눌러 편집하고, 끝나면 `Esc` → `:wq` → Enter로 저장 후 닫습니다.
+
+처음 열리는 파일은 다음과 비슷합니다. **아래 번호는 예시이며, 화면에 있는 자신의 번호를 유지합니다.** 목록은 오래된 커밋부터 나옵니다.
+```text
+pick aaaaaaa docs: Draft rebase practice
+pick bbbbbbb docs: Add rebase safety rule
+pick ccccccc docs: Add content comparison check
+```
+
+맨 앞 단어만 아래처럼 바꿉니다:
+```text
+reword aaaaaaa docs: Draft rebase practice
+squash bbbbbbb docs: Add rebase safety rule
+pick ccccccc docs: Add content comparison check
+```
+
+1. 저장하고 **해당 편집 탭을 닫습니다**. 터미널은 작업이 끝날 때까지 기다립니다.
+2. 첫 커밋 메시지 편집 창이 열리면 제목을 `docs: Explain rebase practice`로 바꾸고 저장·닫기 합니다.
+3. 두 커밋을 합친 메시지 편집 창이 열리면 기존 설명들을 정리해 `docs: Explain rebase purpose and safety` 한 줄을 남기고 저장·닫기 합니다. `#`으로 시작하는 안내는 커밋 메시지에 들어가지 않습니다.
+4. 마지막 `pick` 커밋은 유지되고 rebase가 끝납니다. 터미널에서 완료 메시지를 확인합니다.
+
+`squash`는 자기 바로 앞 커밋과 합칩니다. 첫 줄을 `squash`로 바꾸면 합칠 앞 커밋이 없으므로 이 예시대로 **두 번째 줄에만** 사용하세요. 목록 파일에서 제목만 고치는 것으로 reword를 대신할 수는 없습니다.
+
+### Step 9-8. [김상교] 3개 → 2개, 파일 내용 동일 확인하기
+**증빙 문서를 만들기 전에** 아래 비교부터 실행합니다:
+```bash
+git log --reverse --oneline backup/sangkyo-bonus-base..HEAD
+git rev-list --count backup/sangkyo-bonus-base..HEAD
+git diff --exit-code backup/sangkyo-bonus-before HEAD
+git status
+```
+
+기대 결과:
+- 커밋 수는 **`2`**입니다.
+- 제목은 `docs: Explain rebase purpose and safety`와 `docs: Add content comparison check`입니다.
+- `git diff --exit-code`는 **출력 없이 종료 코드 0**으로 끝납니다. 같은 내용인데 커밋 기록만 달라졌다는 뜻입니다.
+- 작업 트리는 깨끗합니다. 실제 로그·개수·비교 결과를 복사합니다.
+
+종료 코드를 직접 확인하려면 `git diff --exit-code ...` **직후**에 Git Bash/macOS는 `echo $?`, PowerShell은 `$LASTEXITCODE`를 실행합니다. 다른 명령을 먼저 실행하면 그 명령의 종료 코드로 바뀔 수 있습니다.
+
+왜 위험하다고 할까요? 다른 사람이 예전 커밋 번호에서 작업을 이어 갔는데 내가 그 기록을 바꿔 원격을 덮어쓰면 서로 다른 이력을 맞춰야 합니다. 이번에는 최초 푸시 전에 정리하므로 일반 `git push`로 올릴 수 있고 강제 푸시가 필요 없습니다. `--force-with-lease`도 이미 공유한 이력을 바꾸는 문제 자체를 없애 주지는 않습니다.
+
+### Step 9-9. [김상교] 전후 비교 증빙을 별도 커밋으로 남기기
+`docs/evidence/sangkyo-rebase.md`를 만들고 실제 결과를 넣습니다. 과거 실습 결과를 추측해 채우지 않습니다.
+
+````markdown
+# 보너스: 개인 브랜치 rebase 기록
+
+## 상황과 범위
+- 수행자: 김상교
+- 브랜치: feature/sangkyo-rebase-bonus
+- 범위: 최초 push 전, 이 브랜치에서 만든 커밋 3개
+- 정리 명령: git rebase -i HEAD~3
+- 선택: 첫 커밋 reword, 두 번째 squash, 세 번째 pick
+
+## 정리 전
+```text
+(Step 9-6에서 복사한 실제 커밋 3개의 로그)
+```
+
+## 정리 후
+```text
+(Step 9-8에서 복사한 실제 커밋 2개의 로그)
+```
+
+## 내용 보존 확인
+- 비교 명령: git diff --exit-code backup/sangkyo-bonus-before HEAD
+- 실제 출력과 종료 코드: (직접 확인한 결과)
+- 정리 전/후 개수: (직접 확인한 값)
+- 비교 시점: 이 증빙 문서를 추가하기 전
+
+## 선택 이유와 주의점
+- 목적과 안전 수칙은 한 작업으로 묶고, 검증 설명은 별도 커밋으로 유지했다.
+- 개인 브랜치에서 최초 push 전에 수행했다.
+- main 및 동료의 공유 이력을 재작성하지 않았다.
+- 커밋 번호는 달라져도 최종 파일 내용은 같아야 한다.
+````
+
+저장 후:
+```bash
+git add docs/evidence/sangkyo-rebase.md
+git commit -m "docs: Record before and after interactive rebase"
+git push -u origin feature/sangkyo-rebase-bonus
+```
+
+이 시점에는 **정리한 커밋 2개 + 증빙 커밋 1개 = 총 3개**가 됩니다. 정리가 실패한 것이 아닙니다. 3개 → 2개 비교는 증빙 커밋을 추가하기 전에 한 결과입니다.
+
+### Step 9-10. [김상교 & 김건우·조은익] 두 번째 PR에서 자동 리뷰 요청 확인하기
+1. base `main`, compare `feature/sangkyo-rebase-bonus`로 **일반 PR**을 만듭니다. Draft로 만들었다면 `Ready for review`로 바꿉니다.
+2. 제목: `docs: Demonstrate interactive rebase and preserve evidence`
+3. 본문:
+   ```markdown
+   Closes #히스토리정리이슈번호
+
+   ## What
+   - docs/bonus/rebase-practice.md: reword/squash를 적용한 연습 문서
+   - docs/evidence/sangkyo-rebase.md: 실제 전후 이력과 내용 비교
+   ## Why
+   - 개인 작업 이력을 읽기 쉽게 정리하고 파일 내용 보존을 확인하기 위함
+   ## How
+   - 증빙 커밋 추가 전에 3개 → 2개 확인
+   - 원본과 정리 후 git diff 출력 없음, 종료 코드 0 확인
+   - 최초 push 후 CODEOWNERS 자동 리뷰 요청은 아래에서 확인
+   ```
+4. **수동으로 리뷰어를 추가하기 전에** Reviewers 영역을 확인합니다. 두 변경 파일은 `/docs/`에 속하므로 **김건우(`papawolf42`)와 조은익(`nick19850906-debug`)**에게 요청이 표시되는지 확인합니다. 본인 계정이 아닌 김상교가 이 PR을 작성하는 예시입니다.
+5. 요청이 보이면 PR 주소와 Reviewers 화면을 캡처합니다. 자동 요청이 안 보이면 다음 순서로 확인합니다:
+   - CODEOWNERS 추가 PR이 먼저 main에 병합됐는가?
+   - 이번 PR의 base가 main이며 Draft가 아닌가?
+   - `/docs/` 규칙과 계정 철자가 정확하고 계정에 쓰기 권한이 있는가?
+   - GitHub에서 CODEOWNERS 파일을 열었을 때 오류가 표시되는가?
+6. 실제 확인 후 `docs/evidence/codeowners-review.md`를 작성합니다:
+   ```markdown
+   # CODEOWNERS 자동 리뷰 요청 확인
+   - 설정 PR: (Step 9-3에서 만든 실제 PR URL)
+   - 확인 PR: (현재 rebase 실습 PR URL)
+   - base 브랜치: main
+   - 변경 파일: docs/bonus/rebase-practice.md, docs/evidence/sangkyo-rebase.md
+   - 매칭 규칙: /docs/ @papawolf42 @nick19850906-debug
+   - 실제 요청된 리뷰어: (화면에서 확인한 계정)
+   - 확인 방식: 수동 추가 전에 Reviewers 영역 확인
+   - 화면 증빙: (같은 PR에 첨부한 캡처의 링크)
+   - 확인 결과와 시각: (실제 관찰 내용)
+   ```
+7. 이 증빙을 같은 브랜치에 추가합니다:
+   ```bash
+   git add docs/evidence/codeowners-review.md
+   git commit -m "docs: Record automatic code owner review requests"
+   git push origin feature/sangkyo-rebase-bonus
+   ```
+8. 김건우 또는 조은익이 실제 파일의 해당 줄에 질문하고 김상교가 답하거나 수정합니다. 필요한 승인 후 병합합니다. 자동 요청은 자동 승인이나 자동 병합을 뜻하지 않습니다.
+
+이 증빙까지 추가하면 PR에 새 커밋이 더 생기는 것이 정상입니다. 정리 전후 개수는 Step 9-8의 기록으로 평가합니다. GitHub의 **Squash and merge 버튼만 누르는 것으로 로컬 `git rebase -i` 실습을 대신하지 않습니다.**
+
+### Step 9-11. [김상교] 제출 문서에 보너스 연결하기
+아직 최종 제출 전이면 제7부 문서를 만들 때 아래 링크도 넣습니다. 이미 최종 제출 PR이 병합됐다면 보너스 증빙 두 개가 main에 들어온 뒤 **별도 문서 수정 브랜치·이슈·PR**로 README와 SUBMISSION을 갱신합니다.
+
+`README.md`의 보고서 목록에:
+```markdown
+- [개인 브랜치 rebase 전후 비교](docs/evidence/sangkyo-rebase.md)
+- [CODEOWNERS 자동 리뷰 요청 확인](docs/evidence/codeowners-review.md)
+```
+
+`SUBMISSION.md`에 다음 절을 추가하고 실제 링크와 수행 결과를 넣습니다:
+```markdown
+## 선택 보너스
+- CODEOWNERS 설정 PR: (실제 PR URL)
+- 히스토리 정리 및 자동 리뷰 확인 PR: (실제 PR URL)
+- [rebase 증빙](docs/evidence/sangkyo-rebase.md)
+- [자동 리뷰 증빙](docs/evidence/codeowners-review.md)
+- 확인 결과: (reword/squash, 내용 동일, 자동 리뷰 요청을 실제 확인한 결과)
+```
+
+기본 증빙 7개에 이번 파일 2개를 더하면 **9개**입니다. 기존 체크리스트에 총 개수가 있다면 실제 파일을 확인해 갱신합니다. 새 PR의 번호는 생성 후 채우며, 아직 수행하지 않은 보너스를 완료라고 표시하지 않습니다.
+
+### Step 9-12. 막혔을 때와 평가 질문 대비
+
+| 상황 | 확인·대응 |
+|---|---|
+| VS Code 탭을 저장했는데 터미널이 멈춰 있음 | `--wait` 때문에 기다리는 중일 수 있습니다. 현재 Git 편집 탭을 닫고 다음 메시지 창이 열리는지 확인합니다. |
+| 처음 열린 편집 목록이 3개가 아니거나 모르는 커밋이 보임 | 목록의 작업 줄을 전부 지워 주석만 남긴 뒤 저장·닫기 하면 이번 rebase가 취소됩니다. 이어서 `git status`로 확인합니다. 이미 rebase가 진행 중인 다른 단계라면 `git rebase --abort`로 시작 전 상태로 돌아갑니다. |
+| rebase 도중 충돌 발생 | `git status`로 확인합니다. 처음 연습에서는 `git rebase --abort`로 취소해 출발 조건을 점검해도 됩니다. 해결하고 계속하려면 파일 수정·`git add` 후 `git rebase --continue`를 사용합니다. |
+| 정리 완료 후 파일 내용이 달라짐 | 푸시하지 말고 `git diff backup/sangkyo-bonus-before HEAD`를 확인합니다. 보관 브랜치에 원본이 있으므로 원인 확인 전 강제 푸시나 무리한 초기화를 하지 않습니다. |
+| CODEOWNERS가 있는데 자동 요청이 없음 | Step 9-10의 base·Draft·규칙·권한·오류 표시를 차례로 확인합니다. 수동 지정했다면 자동 요청 성공으로 기록하지 않습니다. |
+
+**보너스 평가 질문**: “rebase는 왜 이력을 보기 좋게 만들지만 협업에는 위험할 수 있나요?”
+
+**답변 예시**: “작은 커밋을 묶고 설명을 고칠 수 있지만 커밋 번호가 바뀝니다. 다른 사람이 예전 번호에서 작업 중이면 공유 이력을 다시 맞춰야 합니다. 그래서 이번에는 아직 푸시하지 않은 개인 브랜치에서만 했고, 원본을 보관한 뒤 파일 내용이 같다는 것을 확인했습니다.”
+
+**추가 질문**: “CODEOWNERS를 추가했으니 담당자 승인이 반드시 필요한가요?”
+
+**답변 예시**: “자동 리뷰 요청과 승인 강제는 별도입니다. 담당자 승인을 필수로 하려면 저장소의 보호 규칙도 확인해야 합니다.”
 
 ---
 
